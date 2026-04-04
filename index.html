@@ -198,12 +198,12 @@
 
 <script>
 const ring=document.getElementById('cursorRing');
-let mx=-200,my=-200,rx=-200,ry=-200,cursorVisible=false;
+let cursorVisible=false;
 document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
+  ring.style.left=e.clientX+'px';
+  ring.style.top=e.clientY+'px';
   if(!cursorVisible){cursorVisible=true;ring.style.opacity='1';}
 });
-(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 document.querySelectorAll('a,button,.feature-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ring.style.width='90px';ring.style.height='90px';ring.style.borderColor='rgba(0,212,255,.9)';});
   el.addEventListener('mouseleave',()=>{ring.style.width='64px';ring.style.height='64px';ring.style.borderColor='rgba(0,212,255,.65)';});
