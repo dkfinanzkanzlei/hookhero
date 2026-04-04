@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hook Hero – Hooks, die Helden erschaffen</title>
+  <link rel="icon" type="image/png" href="public/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
@@ -17,7 +18,7 @@
     .cursor{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:screen;}
     .cursor-ring{width:36px;height:36px;border:1.5px solid rgba(0,212,255,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:linear-gradient(180deg,rgba(6,10,15,.95) 0%,transparent 100%);backdrop-filter:blur(6px);transition:background .3s;}
-    .nav-logo img{height:38px;}
+    .nav-logo img{height:130px;width:auto;filter:drop-shadow(0 0 10px rgba(0,212,255,1)) drop-shadow(0 0 24px rgba(0,212,255,.8)) drop-shadow(0 0 48px rgba(0,212,255,.5));}
     .nav-brands{display:flex;gap:.8rem;}
     .nbtn{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:.38rem .9rem;border-radius:4px;transition:all .2s;}
     .nbtn-hook{color:var(--cyan);border:1.5px solid var(--cyan);background:rgba(0,212,255,.08);}
@@ -107,7 +108,7 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav id="mainNav">
-  <a href="index.html"><img src="public/logo.png" alt="Hook Hero" style="height:38px;" /></a>
+  <a href="index.html"><img src="public/logo.png" alt="Hook Hero" /></a>
   <div class="nav-brands">
     <a class="nbtn nbtn-hook" href="index.html">⚡ Hook Hero</a>
     <a class="nbtn nbtn-close" href="close-hero.html">💰 Close Hero</a>
