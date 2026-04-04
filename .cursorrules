@@ -1,0 +1,86 @@
+# Hook Hero & Close Hero — Cursor Project
+
+## Projektübersicht
+Zwei-Marken-Website:
+- **Hook Hero** (`index.html`) — Content-Tool, Farben: Cyan `#00d4ff` + Dunkelblau
+- **Close Hero** (`close-hero.html`) — Lead-Marktplatz für Versicherungsprofis, Farben: Gold `#c9a84c` + Schwarz
+
+## Dateistruktur
+```
+/
+├── index.html            ← Hook Hero Landing Page
+├── close-hero.html       ← Close Hero Lead-Shop
+├── public/
+│   └── logo.png          ← Shared Logo (beide Seiten)
+├── src/
+│   ├── styles/
+│   │   ├── shared.css    ← Gemeinsame Basis-Styles (Reset, Cursor, Nav-Switches)
+│   │   ├── hook-hero.css ← Hook Hero spezifische Styles
+│   │   └── close-hero.css← Close Hero spezifische Styles
+│   └── js/
+│       ├── shared.js     ← Gemeinsame Logik (Cursor, Scroll-Reveal, Nav-Scroll)
+│       ├── hook-hero.js  ← Hook Hero spezifische JS (Partikel, Count-Up)
+│       └── close-hero.js ← Close Hero spezifische JS (Modal, PayPal)
+├── package.json
+├── .cursorrules          ← Diese Datei
+└── README.md
+```
+
+## Design-System
+
+### Hook Hero Farben
+```css
+--cyan:   #00d4ff
+--blue:   #1a6fd4
+--black:  #060a0f
+--black2: #0d1520
+--white:  #f0f6ff
+--gray:   #8899bb
+```
+
+### Close Hero Farben
+```css
+--gold:    #c9a84c
+--gold-lt: #f5d07a
+--black:   #08060a
+--black2:  #100e14
+--white:   #faf6ee
+--muted:   #7a6e5a
+```
+
+### Fonts
+- Hook Hero: `Bebas Neue` (Display), `Barlow Condensed` (Headlines), `Barlow` (Body)
+- Close Hero: `Playfair Display` (Display + Headlines), `DM Sans` (Body)
+
+## Lead-Preise (Close Hero)
+| Typ       | Preis (netto) | Ratenzahlung    |
+|-----------|--------------|-----------------|
+| Azubi     | € 15         | 3 × € 5         |
+| AV        | € 60         | 3 × € 20        |
+| BU        | € 80         | 3 × € 26,67     |
+| Custom    | Auf Anfrage  | –               |
+
+## PayPal Integration
+- Variable `PAYPAL_ME` in `close-hero.html` und `src/js/close-hero.js`
+- Aktuell: `https://www.paypal.com/paypalme/hookhero`
+- **Anpassen:** Ersetze `hookhero` mit dem echten PayPal.me-Nutzernamen
+
+## Kontakt
+- E-Mail: info@hookhero.de
+
+## Deployment
+Einfach den gesamten Ordner auf einen Webserver hochladen (Netlify, Vercel, Hetzner etc.).
+Alle Pfade sind relativ – keine Build-Step notwendig.
+
+## Lokale Entwicklung
+```bash
+npm install
+npm run dev
+# → http://localhost:3000
+```
+
+## Weiterentwicklung mit Cursor
+- Neue Sections in die jeweilige HTML-Datei einfügen
+- CSS-Variablen aus dem Design-System verwenden (oben dokumentiert)
+- Neue Lead-Typen: Einfach ein weiteres `.lead-card` div in `close-hero.html` kopieren und `data-cat`, `data-title`, `data-price`, `data-desc` anpassen
+- Modal und PayPal-Logik liegt in `src/js/close-hero.js`

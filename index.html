@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hook Hero – Hooks, die Helden erschaffen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cyan:#00d4ff;--blue:#1a6fd4;--black:#060a0f;--black2:#0d1520;--white:#f0f6ff;--gray:#8899bb;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+    .cursor{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:screen;}
+    .cursor-ring{width:36px;height:36px;border:1.5px solid rgba(0,212,255,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:linear-gradient(180deg,rgba(6,10,15,.95) 0%,transparent 100%);backdrop-filter:blur(6px);transition:background .3s;}
+    .nav-logo img{height:38px;}
+    .nav-brands{display:flex;gap:.8rem;}
+    .nbtn{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:.38rem .9rem;border-radius:4px;transition:all .2s;}
+    .nbtn-hook{color:var(--cyan);border:1.5px solid var(--cyan);background:rgba(0,212,255,.08);}
+    .nbtn-hook:hover{background:rgba(0,212,255,.2);}
+    .nbtn-close{color:#f5c842;border:1.5px solid #f5c842;background:rgba(245,200,66,.08);}
+    .nbtn-close:hover{background:rgba(245,200,66,.2);}
+    .nav-cta{background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);padding:.52rem 1.3rem;border-radius:4px;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .2s;}
+    .nav-cta:hover{background:rgba(0,212,255,.12);}
+
+    #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 6rem;position:relative;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(26,111,212,.2) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(0,212,255,.08) 0%,transparent 60%);}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 30%,transparent 100%);}
+    .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+    .particle{position:absolute;border-radius:50%;background:var(--cyan);opacity:0;animation:floatUp linear infinite;}
+    @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(0)}10%{opacity:.4}90%{opacity:.1}100%{opacity:0;transform:translateY(-100vh) scale(1)}}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(0,212,255,.3);background:rgba(0,212,255,.06);padding:.42rem 1.1rem;border-radius:999px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:2rem;position:relative;z-index:1;animation:fadeUp .8s ease both;}
+    .hero-badge::before{content:'';width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan);animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,9rem);line-height:.95;position:relative;z-index:1;animation:fadeUp .9s .1s ease both;}
+    h1.hero-title .accent{color:var(--cyan);display:block;}
+    .hero-sub{max-width:560px;font-size:clamp(.98rem,2vw,1.15rem);color:var(--gray);line-height:1.7;margin:1.8rem auto;position:relative;z-index:1;animation:fadeUp 1s .2s ease both;}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;animation:fadeUp 1s .3s ease both;}
+    .btn-primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:var(--black);border:none;padding:.9rem 2.4rem;border-radius:6px;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;display:inline-block;}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.4);}
+    .btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:var(--white);padding:.9rem 2.4rem;border-radius:6px;font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;transition:border-color .2s,color .2s;}
+    .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+    .hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--gray);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;animation:fadeIn 1.5s 1s both;}
+    .scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--cyan),transparent);animation:scrollAnim 2s infinite;}
+    @keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+    #numbers{padding:5rem 5%;display:flex;justify-content:center;background:var(--black2);}
+    .numbers-inner{display:flex;border:1px solid rgba(0,212,255,.12);border-radius:12px;overflow:hidden;max-width:900px;width:100%;}
+    .number-item{flex:1;padding:2.5rem 2rem;text-align:center;border-right:1px solid rgba(0,212,255,.1);transition:background .3s;}
+    .number-item:last-child{border-right:none;}
+    .number-item:hover{background:rgba(0,212,255,.04);}
+    .number-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--cyan);line-height:1;}
+    .number-label{color:var(--gray);font-size:.86rem;margin-top:.4rem;}
+
+    #features{padding:8rem 5%;max-width:1200px;margin:0 auto;}
+    .section-tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;}
+    .section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.1;max-width:700px;}
+    .section-title .dim{color:var(--gray);}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5px;margin-top:4rem;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.07);border-radius:12px;overflow:hidden;}
+    .feature-card{background:var(--black2);padding:2.5rem;transition:background .3s;}
+    .feature-card:hover{background:#111d2e;}
+    .feature-icon{width:52px;height:52px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.4rem;}
+    .feature-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:.7rem;}
+    .feature-card p{color:var(--gray);line-height:1.7;font-size:.92rem;}
+
+    #how{padding:8rem 5%;background:var(--black2);}
+    .how-inner{max-width:1000px;margin:0 auto;}
+    .how-step{display:grid;grid-template-columns:80px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid rgba(0,212,255,.08);opacity:0;transform:translateX(-30px);transition:opacity .6s,transform .6s;}
+    .how-step.visible{opacity:1;transform:none;}
+    .how-step:last-child{border-bottom:none;}
+    .step-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(0,212,255,.18);line-height:1;}
+    .step-content h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.6rem;}
+    .step-content p{color:var(--gray);line-height:1.7;}
+
+    #closebanner{padding:5rem 5%;background:linear-gradient(135deg,#0d1008 0%,#1a1500 50%,#0d0e08 100%);border-top:1px solid rgba(245,200,66,.1);border-bottom:1px solid rgba(245,200,66,.1);}
+    .closebanner-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:3rem;flex-wrap:wrap;}
+    .closebanner-text h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);color:#f5c842;line-height:1;margin-bottom:.8rem;}
+    .closebanner-text p{color:#b8a96a;font-size:1rem;line-height:1.6;max-width:420px;}
+    .btn-gold{background:linear-gradient(135deg,#f5c842,#d4a017);color:#0d0e08;border:none;padding:.9rem 2.4rem;border-radius:6px;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .2s,box-shadow .2s;}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,200,66,.4);}
+
+    #cta{padding:8rem 5%;text-align:center;position:relative;overflow:hidden;}
+    .cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(26,111,212,.25) 0%,transparent 70%);pointer-events:none;}
+    .cta-box{position:relative;z-index:1;border:1px solid rgba(0,212,255,.2);border-radius:16px;padding:5rem 3rem;max-width:800px;margin:0 auto;background:rgba(13,21,32,.8);backdrop-filter:blur(10px);}
+    .cta-box h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,5.5rem);line-height:.95;margin-bottom:1.5rem;}
+    .cta-box h2 span{color:var(--cyan);}
+    .cta-box p{color:var(--gray);font-size:1.1rem;max-width:500px;margin:0 auto 2.5rem;line-height:1.7;}
+
+    footer{border-top:1px solid rgba(0,212,255,.08);padding:3rem 5%;display:flex;align-items:center;justify-content:space-between;color:var(--gray);font-size:.83rem;flex-wrap:wrap;gap:1rem;}
+    footer a{color:var(--gray);text-decoration:none;transition:color .2s;}
+    footer a:hover{color:var(--cyan);}
+    .footer-links{display:flex;gap:2rem;}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+    .reveal.visible{opacity:1;transform:none;}
+    @media(max-width:768px){.numbers-inner{flex-direction:column;}.number-item{border-right:none;border-bottom:1px solid rgba(0,212,255,.1);}.number-item:last-child{border-bottom:none;}.how-step{grid-template-columns:50px 1fr;gap:1rem;}.closebanner-inner{flex-direction:column;text-align:center;}}
+  </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="mainNav">
+  <a href="index.html"><img src="public/logo.png" alt="Hook Hero" style="height:38px;" /></a>
+  <div class="nav-brands">
+    <a class="nbtn nbtn-hook" href="index.html">⚡ Hook Hero</a>
+    <a class="nbtn nbtn-close" href="close-hero.html">💰 Close Hero</a>
+  </div>
+  <a class="nav-cta" href="#cta">Jetzt starten</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-badge">⚡ Der neue Standard für Content-Ersteller</div>
+  <h1 class="hero-title">Hooks, die<span class="accent">Helden</span>erschaffen.</h1>
+  <p class="hero-sub">Hook Hero gibt dir die Superkraft, dein Publikum vom ersten Wort an zu fesseln – mit bewährten Formeln, die wirklich funktionieren.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#cta">Kostenlos starten</a>
+    <a class="btn-ghost" href="#how"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>So funktioniert's</a>
+  </div>
+  <div class="hero-scroll">Scroll<div class="scroll-line"></div></div>
+</section>
+
+<section id="numbers">
+  <div class="numbers-inner">
+    <div class="number-item"><div class="number-val" data-count="50000">0</div><div class="number-label">Hooks generiert</div></div>
+    <div class="number-item"><div class="number-val" data-count="12000">0</div><div class="number-label">Aktive Nutzer</div></div>
+    <div class="number-item"><div class="number-val" data-count="3" data-suffix="x">0</div><div class="number-label">Mehr Engagement</div></div>
+    <div class="number-item"><div class="number-val" data-count="98" data-suffix="%">0</div><div class="number-label">Zufriedenheit</div></div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="reveal">
+    <span class="section-tag">Features</span>
+    <h2 class="section-title">Alles, was du brauchst,<br/><span class="dim">um aufzufallen.</span></h2>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card"><div class="feature-icon">⚡</div><h3>Blitzschnelle Hook-Generierung</h3><p>In Sekunden zum packenden Einstieg – KI-gestützt, verfeinert durch bewährte Copywriting-Formeln.</p></div>
+    <div class="feature-card"><div class="feature-icon">🎯</div><h3>Zielgruppen-Präzision</h3><p>Definiere dein Publikum und erhalte Hooks, die exakt deren Schmerzpunkte ansprechen.</p></div>
+    <div class="feature-card"><div class="feature-icon">🦸</div><h3>Hero-Templates</h3><p>Über 50 Vorlagen für Social Media, E-Mail, Video und mehr – sofort einsatzbereit.</p></div>
+    <div class="feature-card"><div class="feature-icon">📈</div><h3>Performance-Analyse</h3><p>Lerne aus echten Daten welche Hooks performen und optimiere kontinuierlich.</p></div>
+    <div class="feature-card"><div class="feature-icon">🔄</div><h3>Endlose Variationen</h3><p>Dutzende verschiedene Ansätze für jedes Thema und jede Plattform – auf Knopfdruck.</p></div>
+    <div class="feature-card"><div class="feature-icon">🌍</div><h3>Mehrsprachig</h3><p>Erstelle Hooks auf Deutsch, Englisch und weiteren Sprachen – ohne Qualitätsverlust.</p></div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="how-inner">
+    <div class="reveal">
+      <span class="section-tag">Prozess</span>
+      <h2 class="section-title">In 3 Schritten zum<br/><span class="dim">perfekten Hook.</span></h2>
+    </div>
+    <div style="margin-top:4rem;">
+      <div class="how-step"><div class="step-num">01</div><div class="step-content"><h3>Thema & Ziel eingeben</h3><p>Beschreibe kurz, worum es geht und was du erreichen willst – Hook Hero versteht selbst vage Ideen.</p></div></div>
+      <div class="how-step"><div class="step-num">02</div><div class="step-content"><h3>Hook auswählen & anpassen</h3><p>Wähle aus starken Varianten und passe Ton, Länge und Stil mit wenigen Klicks an.</p></div></div>
+      <div class="how-step"><div class="step-num">03</div><div class="step-content"><h3>Veröffentlichen & performen</h3><p>Kopieren, posten und zusehen wie dein Engagement durch die Decke geht.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="closebanner">
+  <div class="closebanner-inner reveal">
+    <div class="closebanner-text">
+      <h2>Auch Versicherungs-<br/>profi?</h2>
+      <p>Close Hero liefert dir qualifizierte Leads direkt – von Azubi bis BU. Bezahle nur, was du brauchst. Sofort. Per PayPal.</p>
+    </div>
+    <a class="btn-gold" href="close-hero.html">💰 Zu Close Hero →</a>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-box reveal">
+    <h2>Werde zum<br/><span>Hook Hero.</span></h2>
+    <p>Starte kostenlos und erlebe, wie ein starker Einstieg alles verändert.</p>
+    <a class="btn-primary" href="#">Jetzt kostenlos testen</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2025 Hook Hero & Close Hero. Alle Rechte vorbehalten.</div>
+  <div class="footer-links">
+    <a href="#">Datenschutz</a><a href="#">Impressum</a><a href="close-hero.html">Close Hero</a>
+  </div>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;cursor.style.left=mx+'px';cursor.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.feature-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='52px';ring.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
+});
+const pC=document.getElementById('particles');
+for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.15});
+document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
+const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(6,10,15,.97)':'linear-gradient(180deg,rgba(6,10,15,.95) 0%,transparent 100%)';});
+</script>
+</body>
+</html>
