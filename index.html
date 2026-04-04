@@ -16,9 +16,9 @@
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
-    .cursor{width:12px;height:12px;background:var(--cyan);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:screen;}
-    .cursor-ring{width:36px;height:36px;border:1.5px solid rgba(0,212,255,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;}
+    body{background:#000;color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+    .cursor{display:none;}
+    .cursor-ring{width:64px;height:64px;border:3px solid rgba(0,212,255,.65);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s,border-color .3s;opacity:0;backdrop-filter:invert(5%);}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.7rem 5%;background:linear-gradient(180deg,rgba(6,10,15,.95) 0%,transparent 100%);backdrop-filter:blur(6px);transition:background .3s;}
     .nav-logo img{height:100px;width:auto;filter:drop-shadow(0 0 10px rgba(0,212,255,1)) drop-shadow(0 0 24px rgba(0,212,255,.8)) drop-shadow(0 0 48px rgba(0,212,255,.5));}
     .nav-brands{display:flex;gap:.8rem;}
@@ -31,8 +31,8 @@
     .nav-cta:hover{background:rgba(0,212,255,.12);}
 
     #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 6rem;position:relative;overflow:hidden;}
-    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(26,111,212,.2) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(0,212,255,.08) 0%,transparent 60%);}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 30%,transparent 100%);}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at -5% 55%,rgba(0,80,255,.38) 0%,rgba(0,150,255,.12) 40%,transparent 70%);}
+    .hero-grid{display:none;}
     .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
     .particle{position:absolute;border-radius:50%;background:var(--cyan);opacity:0;animation:floatUp linear infinite;}
     @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(0)}10%{opacity:.4}90%{opacity:.1}100%{opacity:0;transform:translateY(-100vh) scale(1)}}
@@ -197,13 +197,16 @@
 </footer>
 
 <script>
-const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;cursor.style.left=mx+'px';cursor.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+const ring=document.getElementById('cursorRing');
+let mx=-200,my=-200,rx=-200,ry=-200,cursorVisible=false;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  if(!cursorVisible){cursorVisible=true;ring.style.opacity='1';}
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
 document.querySelectorAll('a,button,.feature-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='52px';ring.style.height='52px';});
-  el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';});
+  el.addEventListener('mouseenter',()=>{ring.style.width='90px';ring.style.height='90px';ring.style.borderColor='rgba(0,212,255,.9)';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='64px';ring.style.height='64px';ring.style.borderColor='rgba(0,212,255,.65)';});
 });
 const pC=document.getElementById('particles');
 for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}
