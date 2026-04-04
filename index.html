@@ -18,7 +18,7 @@
     html{scroll-behavior:smooth;}
     body{background:#f5f5e6;color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
     .cursor{display:none;}
-    .cursor-ring{width:64px;height:64px;border:3px solid rgba(0,100,200,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s,border-color .3s;opacity:0;}
+    .cursor-ring{width:36px;height:36px;background:radial-gradient(circle,rgba(0,150,255,1) 0%,rgba(0,100,255,.6) 35%,rgba(0,80,255,.15) 65%,transparent 100%);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0;filter:blur(1px);}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.7rem 5%;background:rgba(245,245,230,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.07);transition:background .3s;}
     .nav-logo img{height:100px;width:auto;filter:drop-shadow(0 0 10px rgba(0,212,255,1)) drop-shadow(0 0 24px rgba(0,212,255,.8)) drop-shadow(0 0 48px rgba(0,212,255,.5));}
     .nav-brands{display:flex;gap:.8rem;}
@@ -207,8 +207,8 @@ document.addEventListener('mousemove',e=>{
   if(!cursorVisible){cursorVisible=true;ring.style.opacity='1';}
 });
 document.querySelectorAll('a,button,.feature-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ring.style.width='90px';ring.style.height='90px';ring.style.borderColor='rgba(0,212,255,.9)';});
-  el.addEventListener('mouseleave',()=>{ring.style.width='64px';ring.style.height='64px';ring.style.borderColor='rgba(0,212,255,.65)';});
+  el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
 });
 const pC=document.getElementById('particles');
 for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}
