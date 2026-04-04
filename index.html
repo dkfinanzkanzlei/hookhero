@@ -55,13 +55,15 @@
     .scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--cyan),transparent);animation:scrollAnim 2s infinite;}
     @keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-    #numbers{padding:5rem 5%;display:flex;justify-content:center;background:var(--black2);}
-    .numbers-inner{display:flex;border:1px solid rgba(0,212,255,.12);border-radius:12px;overflow:hidden;max-width:900px;width:100%;}
-    .number-item{flex:1;padding:2.5rem 2rem;text-align:center;border-right:1px solid rgba(0,212,255,.1);transition:background .3s;}
+    #numbers{padding:7rem 5%;max-width:1100px;margin:0 auto;text-align:center;}
+    .numbers-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);line-height:1.05;margin-bottom:1.2rem;color:#0a0a0a;}
+    .numbers-sub{color:#555;font-size:1rem;line-height:1.7;margin-bottom:4rem;max-width:640px;margin-left:auto;margin-right:auto;}
+    .numbers-inner{display:flex;justify-content:center;gap:0;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.5);}
+    .number-item{flex:1;padding:3rem 2rem;text-align:center;border-right:1px solid rgba(0,0,0,.07);transition:background .3s;}
     .number-item:last-child{border-right:none;}
-    .number-item:hover{background:rgba(0,212,255,.04);}
-    .number-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--cyan);line-height:1;}
-    .number-label{color:var(--gray);font-size:.86rem;margin-top:.4rem;}
+    .number-item:hover{background:rgba(0,119,204,.04);}
+    .number-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);color:#0077cc;line-height:1;}
+    .number-label{color:#555;font-size:.88rem;font-weight:600;margin-top:.6rem;text-transform:uppercase;letter-spacing:.06em;}
 
     #features{padding:8rem 5%;max-width:1200px;margin:0 auto;}
     .section-tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;}
@@ -147,11 +149,12 @@
 </section>
 
 <section id="numbers">
+  <h2 class="numbers-headline">Messbare Ergebnisse statt<br/>leere Versprechen.</h2>
+  <p class="numbers-sub">Bei einer Finanzagentur konnten wir in den ersten 30 Tagen folgende Zahlen erreichen:</p>
   <div class="numbers-inner">
-    <div class="number-item"><div class="number-val" data-count="50000">0</div><div class="number-label">Hooks generiert</div></div>
-    <div class="number-item"><div class="number-val" data-count="12000">0</div><div class="number-label">Aktive Nutzer</div></div>
-    <div class="number-item"><div class="number-val" data-count="3" data-suffix="x">0</div><div class="number-label">Mehr Engagement</div></div>
-    <div class="number-item"><div class="number-val" data-count="98" data-suffix="%">0</div><div class="number-label">Zufriedenheit</div></div>
+    <div class="number-item"><div class="number-val" data-count="5500000">0</div><div class="number-label">Mehr Aufrufe</div></div>
+    <div class="number-item"><div class="number-val" data-count="1050">0</div><div class="number-label">Mehr Follower</div></div>
+    <div class="number-item"><div class="number-val" data-count="130">0</div><div class="number-label">Neue Kunden</div></div>
   </div>
 </section>
 
