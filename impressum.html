@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum – Hook Hero</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:#f5f5e6;color:#0a0a0a;font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh;}
+    .cursor-ring{width:36px;height:36px;background:radial-gradient(circle,rgba(0,150,255,1) 0%,rgba(0,100,255,.6) 35%,rgba(0,80,255,.15) 65%,transparent 100%);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;filter:blur(1px);}
+    .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.35rem 5%;background:rgba(245,245,230,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06);}
+    .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;}
+    .nav-logo img{height:52px;width:auto;filter:drop-shadow(0 0 10px rgba(0,212,255,1)) drop-shadow(0 0 24px rgba(0,212,255,.8));}
+    .nav-logo span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.06em;text-transform:uppercase;color:#0a0a0a;}
+    .nav-links{display:flex;align-items:center;gap:1.5rem;}
+    .nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#0a0a0a;transition:color .2s;}
+    .nav-links a:hover{color:#0077cc;}
+    .nbtn-close{color:#b8860b;border:1.5px solid #b8860b;background:rgba(184,134,11,.08);padding:.38rem .9rem;border-radius:4px;}
+    .nav-cta{background:#0a0a0a;color:#f5f5e6 !important;padding:.52rem 1.3rem;border-radius:4px;}
+
+    main{padding:10rem 5% 6rem;max-width:800px;margin:0 auto;position:relative;z-index:1;}
+    .page-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0077cc;margin-bottom:.8rem;}
+    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5rem);line-height:.95;margin-bottom:3rem;}
+    h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#0a0a0a;margin-top:2.5rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid rgba(0,0,0,.08);}
+    p{color:#333;line-height:1.8;font-size:.98rem;margin-bottom:.6rem;}
+    a{color:#0077cc;text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    footer{border-top:1px solid rgba(0,0,0,.08);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;color:#888;font-size:.82rem;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
+    footer a{color:#888;text-decoration:none;transition:color .2s;}
+    footer a:hover{color:#0077cc;}
+  </style>
+</head>
+<body>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="blobs">
+  <div class="blob" style="width:500px;height:500px;background:rgba(0,120,255,.14);top:-10%;right:-5%;"></div>
+  <div class="blob" style="width:350px;height:350px;background:rgba(0,80,220,.1);bottom:15%;left:-5%;"></div>
+</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="public/logo.png" alt="Hook Hero" />
+    <span>Hook Hero</span>
+  </a>
+  <div class="nav-links">
+    <a href="ueber-uns.html">Über uns</a>
+    <a class="nbtn-close" href="close-hero.html">Close Hero</a>
+    <a class="nav-cta" href="index.html#cta">Jetzt starten</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-eyebrow">Rechtliches</div>
+  <h1>Impressum.</h1>
+
+  <h2>Angaben gemäß § 5 TMG</h2>
+  <p>Tamaz Tordia<br/>
+  Brabantstr. 80<br/>
+  52070 Aachen<br/>
+  Deutschland</p>
+
+  <h2>Kontakt</h2>
+  <p>Telefon: <a href="tel:+4915560459946">+49 155 60459946</a><br/>
+  E-Mail: <a href="mailto:info@hookhero.de">info@hookhero.de</a></p>
+
+  <h2>Rechtsform</h2>
+  <p>Einzelunternehmen</p>
+
+  <h2>Umsatzsteuer</h2>
+  <p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung) bzw. eine Umsatzsteuer-ID liegt derzeit nicht vor.</p>
+
+  <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+  <p>Tamaz Tordia<br/>
+  Brabantstr. 80<br/>
+  52070 Aachen</p>
+
+  <h2>Streitschlichtung</h2>
+  <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>.<br/>
+  Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+</main>
+
+<footer>
+  <div>© 2026 Hook Hero & Close Hero. Alle Rechte vorbehalten.</div>
+  <div style="display:flex;gap:2rem;">
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="index.html">Hook Hero</a>
+  </div>
+</footer>
+
+<script>
+const ring=document.getElementById('cursorRing');
+let v=false;
+document.addEventListener('mousemove',e=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';if(!v){v=true;ring.style.opacity='1';}});
+</script>
+</body>
+</html>
