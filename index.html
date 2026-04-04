@@ -19,6 +19,7 @@
     body{background:#f5f5e6;color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
     .cursor{display:none;}
     .cursor-ring{width:36px;height:36px;background:radial-gradient(circle,rgba(0,150,255,1) 0%,rgba(0,100,255,.6) 35%,rgba(0,80,255,.15) 65%,transparent 100%);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0;filter:blur(1px);}
+    section,footer,#numbers{position:relative;z-index:1;}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.7rem 5%;background:rgba(245,245,230,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.07);transition:background .3s;}
     .nav-logo img{height:100px;width:auto;filter:drop-shadow(0 0 10px rgba(0,212,255,1)) drop-shadow(0 0 24px rgba(0,212,255,.8)) drop-shadow(0 0 48px rgba(0,212,255,.5));}
     .nav-brands{display:flex;gap:.8rem;}
@@ -31,7 +32,9 @@
     .nav-cta:hover{background:#333;}
 
     #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 6rem;position:relative;overflow:hidden;}
-    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 65% at -5% 55%,rgba(0,100,220,.15) 0%,transparent 65%);}
+    .hero-bg{display:none;}
+    .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);}
     .hero-grid{display:none;}
     .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
     .particle{position:absolute;border-radius:50%;background:var(--cyan);opacity:0;animation:floatUp linear infinite;}
@@ -108,6 +111,13 @@
 <body>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<div class="blobs">
+  <div class="blob" style="width:700px;height:700px;background:rgba(0,120,255,.22);top:-10%;right:-5%;"></div>
+  <div class="blob" style="width:500px;height:500px;background:rgba(0,80,220,.18);top:40%;left:-8%;"></div>
+  <div class="blob" style="width:600px;height:600px;background:rgba(0,150,255,.15);top:70%;right:10%;"></div>
+  <div class="blob" style="width:350px;height:350px;background:rgba(30,100,255,.12);top:25%;left:30%;"></div>
+</div>
 
 <nav id="mainNav">
   <a class="nav-logo" href="index.html" style="display:flex;align-items:center;gap:.7rem;text-decoration:none;">
