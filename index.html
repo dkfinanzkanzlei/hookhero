@@ -251,7 +251,8 @@
         <textarea name="nachricht" required placeholder="Beschreibe kurz, womit wir dir helfen können..."></textarea>
       </div>
       <input type="hidden" name="_subject" value="Neue Anfrage über hookhero.de" />
-      <button type="submit" class="btn-submit">Nachricht senden →</button>
+      <button type="submit" class="btn-submit" id="submitBtn">Nachricht senden →</button>
+      <p id="formMsg" style="display:none;margin-top:.8rem;font-weight:600;font-size:.95rem;"></p>
     </form>
   </div>
 </section>
@@ -282,6 +283,39 @@ document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
 const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
 window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(245,245,230,.98)':'rgba(245,245,230,.92)';});
+
+/* CONTACT FORM */
+const ctaForm=document.querySelector('.cta-form');
+const submitBtn=document.getElementById('submitBtn');
+const formMsg=document.getElementById('formMsg');
+if(ctaForm){
+  ctaForm.addEventListener('submit',async e=>{
+    e.preventDefault();
+    submitBtn.textContent='Wird gesendet...';
+    submitBtn.disabled=true;
+    try{
+      const res=await fetch('https://formspree.io/f/xaqlljzp',{
+        method:'POST',body:new FormData(ctaForm),headers:{Accept:'application/json'}
+      });
+      if(res.ok){
+        formMsg.textContent='✓ Nachricht gesendet! Wir melden uns bald.';
+        formMsg.style.color='#0077cc';
+        formMsg.style.display='block';
+        ctaForm.reset();
+      } else {
+        formMsg.textContent='Fehler beim Senden. Bitte schreib uns direkt: info@hookhero.de';
+        formMsg.style.color='#cc0000';
+        formMsg.style.display='block';
+      }
+    } catch{
+      formMsg.textContent='Verbindungsfehler. Bitte schreib uns: info@hookhero.de';
+      formMsg.style.color='#cc0000';
+      formMsg.style.display='block';
+    }
+    submitBtn.textContent='Nachricht senden →';
+    submitBtn.disabled=false;
+  });
+}
 </script>
 </body>
 </html>
