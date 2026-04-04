@@ -13,8 +13,8 @@
     html{scroll-behavior:smooth}
     body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 
-    .cursor{width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
-    .cursor-ring{width:34px;height:34px;border:1.5px solid rgba(201,168,76,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+    .cursor{width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;opacity:0;transition:opacity .3s}
+    .cursor-ring{width:34px;height:34px;border:1.5px solid rgba(201,168,76,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0}
 
     nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:rgba(8,6,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.08)}
     .nav-logo-wrap{display:flex;align-items:center;gap:.7rem;text-decoration:none}
@@ -198,7 +198,7 @@
       Weiter zu &nbsp;<span class="pp-text"><span class="pp-pay">Pay</span><span class="pp-pal">Pal</span></span>
     </button>
     <p class="modal-fine">
-      Fragen? <a href="/cdn-cgi/l/email-protection#aac3c4ccc5eac2c5c5c1c2cfd8c584cecf"><span class="__cf_email__" data-cfemail="6b02050d042b03040400030e1904450f0e">[email&#160;protected]</span></a> &nbsp;·&nbsp;
+      Fragen? <a href="mailto:info@hookhero.de">info@hookhero.de</a> &nbsp;·&nbsp;
       Mit dem Kauf akzeptierst du unsere <a href="#">AGB</a> &amp; <a href="#">Datenschutzrichtlinie</a>.<br/>
       Leads werden nach Zahlungsbestätigung per E-Mail zugestellt.
     </p>
@@ -208,7 +208,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <a class="nav-logo-wrap" href="close-hero.html">
-    <img src="public/logo.png" alt="Close Hero" />
+    <img src="logo.png" alt="Close Hero" />
     <div>
       <div class="nav-brand">Close Hero</div>
       <span class="nav-brand-sub">Premium Leads</span>
@@ -218,7 +218,7 @@
     <li><a href="#leads">Leads kaufen</a></li>
     <li><a href="#installment">Ratenzahlung</a></li>
     <li><a href="#how">Ablauf</a></li>
-    <li><a href="/cdn-cgi/l/email-protection#98f1f6fef7d8f0f7f7f3f0fdeaf7b6fcfd">Kontakt</a></li>
+    <li><a href="mailto:info@hookhero.de">Kontakt</a></li>
     <li><a href="index.html" class="nav-hook">⚡ Hook Hero</a></li>
   </ul>
   <a class="nav-cta" href="#leads">Leads kaufen</a>
@@ -357,8 +357,8 @@
         <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);font-weight:700">Auf Anfrage</div>
         <div class="lead-price-meta"><div class="lead-price-netto">Individuelles Angebot</div></div>
       </div>
-      <a class="btn-buy" href="/cdn-cgi/l/email-protection#cca5a2aaa38ca4a3a3a7a4a9bea3e2a8a9f3bfb9aea6a9afb8f18da2aabeadaba9ec8fb9bfb8a3a1ec80a9ada8" style="text-decoration:none">✉️ Jetzt anfragen</a>
-      <div class="paypal-hint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e070008012e06010105060b1c01400a0b">[email&#160;protected]</a></div>
+      <a class="btn-buy" href="mailto:info@hookhero.de?subject=Anfrage Custom Lead" style="text-decoration:none">✉️ Jetzt anfragen</a>
+      <div class="paypal-hint">info@hookhero.de</div>
     </div>
 
   </div>
@@ -426,15 +426,15 @@
     <p>Starte noch heute mit deinem ersten Lead. Oder schreib uns — wir helfen dir, das richtige Paket zu finden.</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.5rem">
       <a class="btn-gold" href="#leads">Leads kaufen</a>
-      <a class="btn-ghost-gold" href="/cdn-cgi/l/email-protection#6f060109002f07000004070a1d00410b0a">✉️ Kontakt aufnehmen</a>
+      <a class="btn-ghost-gold" href="mailto:info@hookhero.de">✉️ Kontakt aufnehmen</a>
     </div>
-    <a class="cta-email-link" href="/cdn-cgi/l/email-protection#83eaede5ecc3ebecece8ebe6f1ecade7e6">📬 <span class="__cf_email__" data-cfemail="d3babdb5bc93bbbcbcb8bbb6a1bcfdb7b6">[email&#160;protected]</span></a>
+    <a class="cta-email-link" href="mailto:info@hookhero.de">📬 info@hookhero.de</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div>© 2025 Close Hero · <a href="/cdn-cgi/l/email-protection#92fbfcf4fdd2fafdfdf9faf7e0fdbcf6f7"><span class="__cf_email__" data-cfemail="d6bfb8b0b996beb9b9bdbeb3a4b9f8b2b3">[email&#160;protected]</span></a></div>
+  <div>© 2025 Close Hero · <a href="mailto:info@hookhero.de">info@hookhero.de</a></div>
   <div class="footer-links">
     <a href="#">Datenschutz</a>
     <a href="#">Impressum</a>
@@ -443,11 +443,14 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* CURSOR */
 const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+let mx=-100,my=-100,rx=-100,ry=-100,cursorVisible=false;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  if(!cursorVisible){cursorVisible=true;cursor.style.opacity='1';ring.style.opacity='1';}
+});
 (function t(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;cursor.style.left=mx+'px';cursor.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(t);})();
 document.querySelectorAll('a,button,.lead-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';ring.style.width='50px';ring.style.height='50px';});
@@ -490,4 +493,27 @@ function openModal(card){
 function closeModal(){modal.classList.remove('open');document.body.style.overflow='';}
 document.getElementById('modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
-document.addEventListene
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+document.querySelectorAll('.lead-card .btn-buy').forEach(btn=>{
+  if(btn.tagName==='A')return;
+  btn.addEventListener('click',()=>openModal(btn.closest('.lead-card')));
+});
+
+document.querySelectorAll('.pay-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('active'));
+    opt.classList.add('active');
+    currentMode=opt.querySelector('input').value;
+  });
+});
+
+document.getElementById('paypalBtn').addEventListener('click',()=>{
+  const amount=currentMode==='rate'
+    ? parseFloat((currentPrice/3).toFixed(2))
+    : currentPrice;
+  window.open(PAYPAL_ME+'/'+amount+'EUR','_blank','noopener');
+});
+</script>
+</body>
+</html>
