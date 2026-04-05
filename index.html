@@ -42,7 +42,7 @@
     #galaxy-intro{position:relative;height:100vh;overflow:hidden;background:#000;}
     #galaxy-canvas{position:absolute;inset:0;width:100%;height:100%;}
     #galaxy-logo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;}
-    #galaxy-logo::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#000 55%,rgba(0,0,0,.95) 75%,transparent 100%);z-index:-1;}
+    #galaxy-logo::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:310px;height:310px;border-radius:50%;background:radial-gradient(circle,#000 60%,rgba(0,0,0,.92) 80%,transparent 100%);z-index:-1;}
     #galaxy-logo img{width:190px;height:190px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(0,255,204,.8)) drop-shadow(0 0 40px rgba(0,102,255,.6)) drop-shadow(0 0 70px rgba(0,200,255,.35));animation:capeWave 3.8s ease-in-out infinite;}
     @keyframes capeWave{
       0%  {transform:rotate(0deg) skewX(0deg) scaleX(1);}
@@ -328,171 +328,136 @@
 </footer>
 
 <script>
-/* ── SPIRAL GALAXY ──────────────────────────────────────────── */
+/* ── GLOWING BALLS ──────────────────────────────────────────── */
 (function() {
   const canvas = document.getElementById('galaxy-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  const TOTAL_STARS    = 6000;
-  const N_ARMS         = 2;
-  const ARM_SPREAD     = 0.28;
-  const RADIAL_SPREAD  = 0.18;
-  const CORE_STARS     = 600;
-  const HALO_STARS     = 350;
-  const ROTATION_SPEED = 0.0018;
-  const DIFF_EXP       = 0.55;
-  const ERASE_RADIUS   = 90;   // px — mouse erase brush size
-  const ERASE_SPEED    = 0.14; // how fast stars fade out under cursor
-  const RESTORE_SPEED  = 0.004;// how slowly stars return after cursor leaves
+  const N_BALLS   = 80;
+  const MOUSE_FORCE = 0.055;
+  const FRICTION    = 0.97;
+  const LOGO_RADIUS = 155; // px — keep balls away from logo
 
-  let W, H, cx, cy, maxR;
-  let stars = [];
-  let angle = 0;
-  // Mouse position in canvas coordinates (null = outside)
-  let mouseX = null, mouseY = null;
+  // Hook Hero palette: cyan #00FFCC, blue #0066FF + variants
+  const COLORS = [
+    [0, 255, 204],   // cyan
+    [0, 102, 255],   // blue
+    [0, 180, 255],   // sky blue
+    [0, 220, 180],   // teal
+    [80, 140, 255],  // periwinkle
+    [0, 255, 170],   // mint
+  ];
+
+  let W, H, mx = -9999, my = -9999, balls = [];
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function makeBall() {
+    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    const radius = rand(4, 14);
+    // Spawn outside logo zone
+    let x, y;
+    do {
+      x = rand(radius, W - radius);
+      y = rand(radius, H - radius);
+    } while ((x - W/2)**2 + (y - H/2)**2 < LOGO_RADIUS**2);
+    return {
+      x, y,
+      vx: rand(-0.6, 0.6),
+      vy: rand(-0.6, 0.6),
+      radius,
+      color,
+      pulse: rand(0, Math.PI * 2), // phase for glow pulse
+      pulseSpeed: rand(0.018, 0.04),
+    };
+  }
 
   function resize() {
     W = canvas.width  = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
-    cx = W / 2; cy = H / 2;
-    // Fill the full width — stars outside canvas height are just clipped
-    maxR = W * 0.5;
-    buildStars();
+    balls = Array.from({ length: N_BALLS }, makeBall);
   }
 
-  function starColor(t, arm) {
-    const bright = Math.max(0, 1 - t * 0.6);
-    if (t < 0.12) {
-      const v = Math.floor(200 + bright * 55);
-      return [v, v, Math.floor(v * 0.9)];
-    }
-    if (arm === 0) {
-      return [Math.floor(t * 30), Math.floor(200 + bright * 55), Math.floor(180 + bright * 75)];
-    }
-    return [Math.floor(30 + t * 20), Math.floor(100 + bright * 80), Math.floor(220 + bright * 35)];
-  }
+  function drawBall(b) {
+    const [r, g, bl] = b.color;
+    const glow = 0.55 + 0.45 * Math.sin(b.pulse); // 0.1 – 1.0
+    const alpha = 0.7 + 0.3 * glow;
 
-  function buildStars() {
-    stars = [];
+    // Outer glow
+    const outerR = b.radius * (2.8 + glow * 1.4);
+    const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, outerR);
+    grad.addColorStop(0,   `rgba(${r},${g},${bl},${(alpha * 0.55).toFixed(3)})`);
+    grad.addColorStop(0.35,`rgba(${r},${g},${bl},${(alpha * 0.25).toFixed(3)})`);
+    grad.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, outerR, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
 
-    // Spiral arm stars
-    for (let arm = 0; arm < N_ARMS; arm++) {
-      const armAngle = (arm / N_ARMS) * Math.PI * 2;
-      const count = Math.floor(TOTAL_STARS / N_ARMS);
-      for (let i = 0; i < count; i++) {
-        const t      = i / count;
-        const R_MIN  = 0.24; // stop before touching logo (~logo radius / maxR)
-        const r      = R_MIN + Math.pow(t, DIFF_EXP) * (1 - R_MIN);
-        const theta  = armAngle + r * Math.PI * 3.2;
-        const spread = ARM_SPREAD * (1 - r * 0.4);
-        const dTheta = (Math.random() - 0.5) * spread;
-        const dR     = (Math.random() - 0.5) * RADIAL_SPREAD * r;
-        const finalR = Math.min(1, r + dR);
-        const baseAlpha = (0.35 + Math.random() * 0.55) * (1 - r * 0.45);
-        stars.push({
-          r: finalR, theta: theta + dTheta,
-          size: (1 - r * 0.7) * 1.8 + 0.25,
-          baseAlpha, curAlpha: baseAlpha,
-          rgb: starColor(r, arm)
-        });
-      }
-    }
-
-    // Core cluster
-    for (let i = 0; i < CORE_STARS; i++) {
-      const r = Math.pow(Math.random(), 2.5) * 0.14;
-      const theta = Math.random() * Math.PI * 2;
-      const v = Math.floor(200 + Math.random() * 55);
-      const baseAlpha = 0.5 + Math.random() * 0.5;
-      stars.push({
-        r, theta, size: Math.random() * 2.2 + 0.4,
-        baseAlpha, curAlpha: baseAlpha,
-        rgb: [v, Math.floor(v * 0.97), Math.floor(v * 0.88)]
-      });
-    }
-
-    // Halo
-    for (let i = 0; i < HALO_STARS; i++) {
-      const r = 0.6 + Math.random() * 0.5;
-      const theta = Math.random() * Math.PI * 2;
-      const baseAlpha = Math.random() * 0.18 + 0.04;
-      stars.push({
-        r: Math.min(r, 1.05), theta,
-        size: Math.random() * 0.8 + 0.15,
-        baseAlpha, curAlpha: baseAlpha,
-        rgb: [80, 160, 255]
-      });
-    }
-  }
-
-  function drawCore() {
-    const glows = [
-      { r: maxR * 0.09, colors: ['rgba(255,250,230,.18)', 'rgba(0,200,255,.08)', 'transparent'] },
-      { r: maxR * 0.035,colors: ['rgba(255,250,220,.55)', 'rgba(0,220,255,.18)', 'transparent'] },
-      { r: maxR * 0.012,colors: ['rgba(255,255,240,.9)',  'rgba(200,240,255,.4)','transparent'] },
-    ];
-    glows.forEach(({ r, colors }) => {
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      g.addColorStop(0, colors[0]); g.addColorStop(0.4, colors[1]); g.addColorStop(1, colors[2]);
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-
-    for (let i = 0; i < stars.length; i++) {
-      const s  = stars[i];
-      const a  = s.theta + angle;
-      const px = cx + s.r * maxR * Math.cos(a);
-      const py = cy + s.r * maxR * Math.sin(a);
-
-      // Mouse erase: fade out near cursor, slowly restore when away
-      if (mouseX !== null) {
-        const dx = px - mouseX, dy = py - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < ERASE_RADIUS) {
-          // Stronger erase closer to center of brush
-          const strength = 1 - dist / ERASE_RADIUS;
-          s.curAlpha = Math.max(0, s.curAlpha - ERASE_SPEED * strength);
-        } else {
-          s.curAlpha = Math.min(s.baseAlpha, s.curAlpha + RESTORE_SPEED);
-        }
-      } else {
-        s.curAlpha = Math.min(s.baseAlpha, s.curAlpha + RESTORE_SPEED);
-      }
-
-      if (s.curAlpha < 0.005) continue;
-      if (px < -2 || px > W + 2 || py < -2 || py > H + 2) continue;
-      // Skip stars inside logo black zone (150px radius from center)
-      const dx = px - cx, dy = py - cy;
-      if (dx*dx + dy*dy < 150*150) continue;
-
-      const [r, g, b] = s.rgb;
-      ctx.beginPath();
-      ctx.arc(px, py, Math.max(0.15, s.size), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${s.curAlpha.toFixed(3)})`;
-      ctx.fill();
-    }
-
-    drawCore();
+    // Core ball
+    const coreGrad = ctx.createRadialGradient(b.x - b.radius * 0.3, b.y - b.radius * 0.3, 0, b.x, b.y, b.radius);
+    coreGrad.addColorStop(0,   `rgba(255,255,255,${(alpha * 0.9).toFixed(3)})`);
+    coreGrad.addColorStop(0.4, `rgba(${r},${g},${bl},${alpha.toFixed(3)})`);
+    coreGrad.addColorStop(1,   `rgba(${Math.floor(r*0.4)},${Math.floor(g*0.4)},${Math.floor(bl*0.4)},${alpha.toFixed(3)})`);
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+    ctx.fillStyle = coreGrad;
+    ctx.fill();
   }
 
   function loop() {
-    angle += ROTATION_SPEED;
-    draw();
+    ctx.clearRect(0, 0, W, H);
+    const cx = W / 2, cy = H / 2;
+
+    balls.forEach(b => {
+      // Attract towards mouse
+      const dx = mx - b.x, dy = my - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) + 0.1;
+      b.vx += MOUSE_FORCE * dx / dist;
+      b.vy += MOUSE_FORCE * dy / dist;
+
+      // Friction
+      b.vx *= FRICTION;
+      b.vy *= FRICTION;
+
+      // Speed cap
+      const spd = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+      if (spd > 8) { b.vx = b.vx / spd * 8; b.vy = b.vy / spd * 8; }
+
+      b.x += b.vx;
+      b.y += b.vy;
+
+      // Keep out of logo zone — push away
+      const lx = b.x - cx, ly = b.y - cy;
+      const ld = Math.sqrt(lx * lx + ly * ly);
+      if (ld < LOGO_RADIUS + b.radius) {
+        const push = (LOGO_RADIUS + b.radius - ld) / ld;
+        b.x += lx * push * 1.1;
+        b.y += ly * push * 1.1;
+        b.vx += lx / ld * 1.5;
+        b.vy += ly / ld * 1.5;
+      }
+
+      // Bounce off walls
+      if (b.x < b.radius)      { b.x = b.radius;      b.vx *= -0.6; }
+      if (b.x > W - b.radius)  { b.x = W - b.radius;  b.vx *= -0.6; }
+      if (b.y < b.radius)      { b.y = b.radius;       b.vy *= -0.6; }
+      if (b.y > H - b.radius)  { b.y = H - b.radius;  b.vy *= -0.6; }
+
+      b.pulse += b.pulseSpeed;
+      drawBall(b);
+    });
+
     requestAnimationFrame(loop);
   }
 
-  // Mouse tracking — canvas-local coordinates
   canvas.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
+    mx = e.clientX - rect.left;
+    my = e.clientY - rect.top;
   }, { passive: true });
-  canvas.addEventListener('mouseleave', () => { mouseX = null; mouseY = null; }, { passive: true });
+  canvas.addEventListener('mouseleave', () => { mx = -9999; my = -9999; }, { passive: true });
 
   resize();
   window.addEventListener('resize', resize, { passive: true });
