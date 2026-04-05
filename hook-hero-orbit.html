@@ -1,164 +1,212 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hook Hero Orbit</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@500;600&display=swap" rel="stylesheet" />
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;}
-    html,body{width:100%;height:100%;background:transparent;overflow:hidden;}
-
-    .orbit-scene{
-      width:100%;height:100%;
-      display:flex;align-items:center;justify-content:center;
-      position:relative;
-    }
-
-    /* CENTER HUB */
-    .hub{
-      position:absolute;
-      width:130px;height:130px;
-      border-radius:50%;
-      background:radial-gradient(circle at 40% 38%,#1a8fff,#0044cc);
-      box-shadow:0 0 40px rgba(0,120,255,.55),0 0 80px rgba(0,100,255,.25);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      z-index:10;
-      animation:hubPulse 3s ease-in-out infinite;
-    }
-    .hub-label{
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:900;font-size:1.05rem;
-      letter-spacing:.06em;text-transform:uppercase;
-      color:#fff;line-height:1.1;text-align:center;
-    }
-    .hub-sub{font-family:'Barlow',sans-serif;font-size:.58rem;color:rgba(255,255,255,.65);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem;}
-    @keyframes hubPulse{0%,100%{box-shadow:0 0 40px rgba(0,120,255,.55),0 0 80px rgba(0,100,255,.25);}50%{box-shadow:0 0 60px rgba(0,150,255,.8),0 0 110px rgba(0,100,255,.4);}}
-
-    /* ORBITS */
-    .orbit-ring{
-      position:absolute;border-radius:50%;
-      border:1px solid rgba(0,120,255,.18);
-      animation:spin linear infinite;
-      transform-origin:center center;
-    }
-    .orbit-ring.r1{width:240px;height:240px;animation-duration:12s;}
-    .orbit-ring.r2{width:380px;height:380px;animation-duration:20s;animation-direction:reverse;}
-    .orbit-ring.r3{width:520px;height:520px;animation-duration:30s;}
-
-    @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-
-    /* NODES */
-    .node{
-      position:absolute;
-      display:flex;flex-direction:column;align-items:center;
-      cursor:default;
-    }
-    .node-dot{
-      width:44px;height:44px;border-radius:50%;
-      background:radial-gradient(circle at 38% 36%,#5bb8ff,#0066cc);
-      box-shadow:0 0 18px rgba(0,120,255,.6),0 0 36px rgba(0,100,255,.25);
-      display:flex;align-items:center;justify-content:center;
-      font-size:1.1rem;
-      transition:transform .3s;
-      animation:nodePop 3s ease-in-out infinite;
-    }
-    .node:hover .node-dot{transform:scale(1.25);}
-    @keyframes nodePop{0%,100%{box-shadow:0 0 18px rgba(0,120,255,.6);}50%{box-shadow:0 0 28px rgba(0,150,255,.9),0 0 50px rgba(0,100,255,.4);}}
-
-    .node-label{
-      font-family:'Barlow Condensed',sans-serif;
-      font-weight:700;font-size:.7rem;
-      letter-spacing:.08em;text-transform:uppercase;
-      color:#0a0a0a;
-      background:rgba(245,245,230,.88);
-      padding:.2rem .5rem;border-radius:4px;
-      margin-top:.35rem;white-space:nowrap;
-      border:1px solid rgba(0,100,220,.15);
-    }
-
-    /* Counter-rotate labels so they stay upright */
-    .orbit-ring .node{animation:spinReverse linear infinite;}
-    .orbit-ring.r1 .node{animation-duration:12s;}
-    .orbit-ring.r2 .node{animation-duration:20s;animation-direction:normal;}
-    .orbit-ring.r3 .node{animation-duration:30s;animation-direction:reverse;}
-    @keyframes spinReverse{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
-
-    /* Position nodes on rings */
-    /* Ring 1: 2 nodes */
-    .r1 .n1{top:-22px;left:50%;transform:translateX(-50%);}
-    .r1 .n2{bottom:-22px;left:50%;transform:translateX(-50%);}
-
-    /* Ring 2: 3 nodes */
-    .r2 .n1{top:-22px;left:50%;transform:translateX(-50%);}
-    .r2 .n2{bottom:-22px;left:25%;transform:translateX(-50%);}
-    .r2 .n3{bottom:-22px;right:25%;transform:translateX(50%);}
-
-    /* Ring 3: 3 nodes */
-    .r3 .n1{top:-22px;left:50%;transform:translateX(-50%);}
-    .r3 .n2{bottom:-22px;left:20%;transform:translateX(-50%);}
-    .r3 .n3{bottom:-22px;right:20%;transform:translateX(50%);}
-
-    /* Connecting lines glow */
-    .glow-line{
-      position:absolute;width:1px;background:linear-gradient(180deg,rgba(0,120,255,.4),transparent);
-      transform-origin:top center;pointer-events:none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hook Hero — Orbit Animation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: transparent; overflow: hidden; }
+  #c { position: absolute; top: 0; left: 0; }
+  #labels { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .sl {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: rgba(0,207,255,0.07);
+    border: 1px solid rgba(0,207,255,0.3);
+    color: #00CFFF;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 13px;
+    border-radius: 30px;
+    white-space: nowrap;
+    opacity: 0;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s;
+  }
+  .corner { position: absolute; width: 36px; height: 36px; border-color: rgba(0,207,255,0.25); border-style: solid; pointer-events: none; z-index: 10; }
+  .tl { top: 20px; left: 20px; border-width: 1px 0 0 1px; }
+  .tr { top: 20px; right: 20px; border-width: 1px 1px 0 0; }
+  .bl { bottom: 20px; left: 20px; border-width: 0 0 1px 1px; }
+  .br { bottom: 20px; right: 20px; border-width: 0 1px 1px 0; }
+  #tagline {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 0.28em;
+    color: rgba(0,207,255,0.3); text-transform: uppercase; pointer-events: none; z-index: 10;
+    animation: fi 2s 2s both;
+  }
+  #hint {
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    font-family: 'Rajdhani', sans-serif; font-size: 10px; letter-spacing: 0.18em;
+    color: rgba(0,207,255,0.18); text-transform: uppercase; pointer-events: none; z-index: 10;
+    animation: fi 2s 3s both;
+  }
+  @keyframes fi { from { opacity:0 } to { opacity:1 } }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="orbit-scene">
+<canvas id="c"></canvas>
+<div id="labels"></div>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+<div id="tagline">Alle Kanäle · Eine Agentur · Ein Ziel</div>
+<div id="hint">Maus bewegen zum Rotieren</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const services = [
+  { name: 'Hook-Erstellung', col: 0x00FFCC },
+  { name: 'Social Media',    col: 0x00CFFF },
+  { name: 'Copywriting',     col: 0x0088FF },
+  { name: 'Content-Strategie', col: 0x00FFCC },
+  { name: 'Reichweite',      col: 0x00CFFF },
+  { name: 'Branding',        col: 0x0088FF },
+];
 
-  <!-- CENTER -->
-  <div class="hub">
-    <div class="hub-label">Hook<br/>Hero</div>
-    <div class="hub-sub">Agentur</div>
-  </div>
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true, alpha: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.3;
 
-  <!-- RING 1 — innerste -->
-  <div class="orbit-ring r1">
-    <div class="node n1">
-      <div class="node-dot">⚡</div>
-      <div class="node-label">Hook-Erstellung</div>
-    </div>
-    <div class="node n2">
-      <div class="node-dot">📱</div>
-      <div class="node-label">Social Media</div>
-    </div>
-  </div>
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x000000, 0.028);
 
-  <!-- RING 2 — mittel -->
-  <div class="orbit-ring r2">
-    <div class="node n1">
-      <div class="node-dot">🎯</div>
-      <div class="node-label">Content-Strategie</div>
-    </div>
-    <div class="node n2">
-      <div class="node-dot">📈</div>
-      <div class="node-label">Reichweite</div>
-    </div>
-    <div class="node n3">
-      <div class="node-dot">🤝</div>
-      <div class="node-label">Lead-Generierung</div>
-    </div>
-  </div>
+const camera = new THREE.PerspectiveCamera(52, innerWidth / innerHeight, 0.1, 200);
+camera.position.set(0, 2.5, 13);
+camera.lookAt(0, 0, 0);
 
-  <!-- RING 3 — äußerste -->
-  <div class="orbit-ring r3">
-    <div class="node n1">
-      <div class="node-dot">🦸</div>
-      <div class="node-label">Branding</div>
-    </div>
-    <div class="node n2">
-      <div class="node-dot">✍️</div>
-      <div class="node-label">Copywriting</div>
-    </div>
-    <div class="node n3">
-      <div class="node-dot">🔥</div>
-      <div class="node-label">Virales Marketing</div>
-    </div>
-  </div>
+scene.add(new THREE.AmbientLight(0x001133, 2));
+const pl1 = new THREE.PointLight(0x00CFFF, 4, 25); pl1.position.set(0, 6, 6); scene.add(pl1);
+const pl2 = new THREE.PointLight(0x00FFCC, 2, 20); pl2.position.set(-6, -3, -6); scene.add(pl2);
 
-</div>
+const grp = new THREE.Group();
+scene.add(grp);
+
+function orbitLine(r, tiltX) {
+  const pts = [];
+  for (let i = 0; i <= 128; i++) {
+    const a = (i / 128) * Math.PI * 2;
+    pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r));
+  }
+  const l = new THREE.LineLoop(
+    new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({ color: 0x003355, transparent: true, opacity: 0.35 })
+  );
+  l.rotation.x = tiltX;
+  grp.add(l);
+}
+orbitLine(4.5, 0.28);
+orbitLine(3.5, -0.18);
+
+/* LOGO IN DER MITTE */
+const loader = new THREE.TextureLoader();
+loader.load('public/logo.png', function(tex) {
+  tex.minFilter = THREE.LinearFilter;
+  const logoPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.2, 3.2),
+    new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide })
+  );
+  logoPlane.userData.isLogo = true;
+  scene.add(logoPlane);
+});
+
+const glowRingMat = new THREE.MeshBasicMaterial({ color: 0x00FFCC, transparent: true, opacity: 0.2 });
+grp.add(new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.025, 16, 100), glowRingMat));
+const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x00CFFF, transparent: true, opacity: 0.4 });
+grp.add(new THREE.Mesh(new THREE.TorusGeometry(1.85, 0.008, 16, 100), ring2Mat));
+
+const nodes = [];
+const labelEls = [];
+const labelsDiv = document.getElementById('labels');
+
+services.forEach((s, i) => {
+  const radius = i % 2 === 0 ? 4.5 : 3.5;
+  const tilt   = i % 2 === 0 ? 0.28 : -0.18;
+  const baseAngle = (i / services.length) * Math.PI * 2;
+  const pillMat = new THREE.MeshStandardMaterial({
+    color: 0x001a2e, emissive: s.col, emissiveIntensity: 0.12,
+    metalness: 0.7, roughness: 0.25, transparent: true, opacity: 0.9,
+  });
+  const pill = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.44, 0.15), pillMat);
+  pill.add(new THREE.Mesh(new THREE.BoxGeometry(1.72, 0.46, 0.17),
+    new THREE.MeshBasicMaterial({ color: s.col, transparent: true, opacity: 0.22, wireframe: true })));
+  const dot = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 8), new THREE.MeshBasicMaterial({ color: s.col }));
+  dot.position.set(-0.65, 0, 0.09);
+  pill.add(dot);
+  grp.add(pill);
+  nodes.push({ mesh: pill, mat: pillMat, angle: baseAngle, radius, tilt, speed: 0.0016 + i * 0.00012 });
+  const el = document.createElement('div');
+  el.className = 'sl';
+  el.textContent = s.name;
+  labelsDiv.appendChild(el);
+  labelEls.push(el);
+});
+
+const pPos = new Float32Array(400 * 3);
+for (let i = 0; i < 400; i++) {
+  pPos[i*3]   = (Math.random() - 0.5) * 70;
+  pPos[i*3+1] = (Math.random() - 0.5) * 50;
+  pPos[i*3+2] = (Math.random() - 0.5) * 70;
+}
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+scene.add(new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x003344, size: 0.06, transparent: true, opacity: 0.6 })));
+
+let mx = 0, my = 0, tRX = 0, tRY = 0;
+document.addEventListener('mousemove', e => {
+  mx = (e.clientX / innerWidth  - 0.5) * 2;
+  my = (e.clientY / innerHeight - 0.5) * 2;
+});
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+const _v = new THREE.Vector3();
+function toScreen(mesh) {
+  mesh.getWorldPosition(_v);
+  _v.project(camera);
+  return { x: (_v.x * 0.5 + 0.5) * innerWidth, y: (-_v.y * 0.5 + 0.5) * innerHeight, behind: _v.z > 1 };
+}
+
+let t = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  t += 0.016;
+  tRY += (mx * 0.45 - tRY) * 0.04;
+  tRX += (-my * 0.2  - tRX) * 0.04;
+  grp.rotation.y = tRY;
+  grp.rotation.x = tRX;
+  scene.children.forEach(obj => { if (obj.userData && obj.userData.isLogo) obj.quaternion.copy(camera.quaternion); });
+  glowRingMat.opacity = 0.12 + Math.sin(t * 1.4) * 0.08;
+  ring2Mat.opacity    = 0.3  + Math.sin(t * 1.8) * 0.12;
+  nodes.forEach((n, i) => {
+    n.angle += n.speed;
+    const x = Math.cos(n.angle) * n.radius;
+    const z = Math.sin(n.angle) * n.radius;
+    const y = Math.sin(n.angle + n.tilt) * 0.75;
+    n.mesh.position.set(x, y, z);
+    n.mesh.lookAt(camera.position);
+    const depth = (z + n.radius) / (n.radius * 2);
+    n.mat.opacity = 0.45 + depth * 0.55;
+    n.mat.emissiveIntensity = 0.05 + depth * 0.22;
+    const s = toScreen(n.mesh);
+    const el = labelEls[i];
+    if (!s.behind) {
+      el.style.left = s.x + 'px'; el.style.top = s.y + 'px';
+      el.style.opacity = (n.mat.opacity * 0.9).toFixed(2);
+      el.style.fontSize = (10 + depth * 3) + 'px';
+    } else { el.style.opacity = 0; }
+  });
+  renderer.render(scene, camera);
+}
+animate();
+setTimeout(() => labelEls.forEach(e => e.style.transition = 'opacity 0.4s'), 600);
+</script>
 </body>
 </html>
