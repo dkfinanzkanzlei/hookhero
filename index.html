@@ -46,9 +46,7 @@
       85% {transform:rotate(.6deg) skewX(1.1deg) scaleX(1.007);}
       100%{transform:rotate(0deg) skewX(0deg) scaleX(1);}
     }
-    #arc-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(420px,88vw);height:min(420px,88vw);z-index:3;pointer-events:none;animation:arcSpin 38s linear infinite,fadeIn 2s 1.2s both;}
-    @keyframes arcSpin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
-    #scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.6);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;animation:fadeIn 2s 1.5s both;z-index:3;text-decoration:none;cursor:pointer;}
+#scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.6);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;animation:fadeIn 2s 1.5s both;z-index:3;text-decoration:none;cursor:pointer;}
     #scroll-hint .scroll-line{width:1px;height:48px;background:linear-gradient(180deg,var(--cyan),transparent);animation:scrollAnim 2s infinite;}
 
     #hero{height:100vh;position:relative;overflow:hidden;}
@@ -188,15 +186,6 @@
 <div id="galaxy-intro">
   <canvas id="galaxy-canvas"></canvas>
   <div id="galaxy-logo"><img src="public/hh-logo.png" alt="Hook Hero" /></div>
-  <svg id="arc-text" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="textGlow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      <path id="textCircle" d="M 200,25 A 175,175 0 1,1 199.99,25"/>
-    </defs>
-    <text fill="rgba(0,255,204,0.72)" font-family="Barlow Condensed,sans-serif" font-size="14" font-weight="700" letter-spacing="4" filter="url(#textGlow)">
-      <textPath href="#textCircle" startOffset="50%" text-anchor="middle">VOLLSERVICE · MARKETING · AGENTUR</textPath>
-    </text>
-  </svg>
   <a id="scroll-hint" href="#hero" onclick="event.preventDefault();document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
 </div>
 
