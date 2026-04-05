@@ -21,7 +21,8 @@
     background: transparent;
     transition: width 0.4s cubic-bezier(.34,1.4,.64,1),
                 height 0.4s cubic-bezier(.34,1.4,.64,1),
-                background 0.35s, border-color 0.35s, box-shadow 0.35s;
+                background 0.35s, border-color 0.35s, box-shadow 0.35s,
+                opacity 0.25s;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
@@ -125,8 +126,17 @@ const curText = document.getElementById('cur-text');
 document.addEventListener('mousemove', e => {
   cur.style.left = e.clientX + 'px';
   cur.style.top  = e.clientY + 'px';
+  cur.style.opacity = '1';
   mx = (e.clientX / innerWidth  - 0.5) * 2;
   my = (e.clientY / innerHeight - 0.5) * 2;
+});
+document.addEventListener('mouseleave', () => {
+  cur.style.opacity = '0';
+  cur.classList.remove('big');
+  curText.textContent = '';
+});
+document.addEventListener('mouseenter', () => {
+  cur.style.opacity = '1';
 });
 
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true, alpha: true });
