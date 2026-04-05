@@ -20,7 +20,7 @@
     .cursor{display:none;}
     .cursor-ring{width:36px;height:36px;background:radial-gradient(circle,rgba(0,150,255,1) 0%,rgba(0,100,255,.6) 35%,rgba(0,80,255,.15) 65%,transparent 100%);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0;filter:blur(1px);}
     section,footer,#numbers{position:relative;z-index:1;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.35rem 5%;background:rgba(5,5,18,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s;overflow:visible;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.35rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s;overflow:visible;}
     .nav-logo img{height:80px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
     .nav-brands{display:flex;gap:.8rem;}
     .nbtn{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:.38rem .9rem;border-radius:4px;transition:all .2s;}
@@ -326,7 +326,7 @@ const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target
 document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
 const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
-window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(5,5,18,.96)':'rgba(5,5,18,.82)';});
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';});
 
 /* VIDEO SCRUB */
 (function(){
