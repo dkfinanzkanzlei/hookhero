@@ -5,57 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Impressum – Hook Hero</title>
   <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="public/favicon-64.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="public/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
   <style>
+    :root{--cyan:#00FFCC;--blue:#0066FF;--black:#000d1a;--white:#e8f4ff;--gray:#7090b0;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{background:#f5f5e6;color:#0a0a0a;font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh;}
-    .cursor-ring{width:34px;height:34px;background:transparent;border:1.5px solid rgba(0,180,255,0.8);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;}
+    body{background:#000d1a;color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh;}
+    .cursor-ring{width:34px;height:34px;background:transparent;border:1.5px solid rgba(0,180,255,0.8);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
     .blob{position:absolute;border-radius:50%;filter:blur(80px);}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.18rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);overflow:visible;}
-    .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.18rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s;overflow:visible;}
     .nav-logo img{height:52px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
-    .nav-logo span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;}
-    .nav-links{display:flex;align-items:center;gap:1.5rem;}
-    .nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#fff;transition:color .2s;}
-    .nav-links a:hover{color:#0077cc;}
-    .nbtn-close{color:#b8860b;border:1.5px solid #b8860b;background:rgba(184,134,11,.08);padding:.38rem .9rem;border-radius:4px;}
-    .nav-cta{background:#fff;color:#0a0a0a !important;padding:.52rem 1.3rem;border-radius:4px;transition:background .2s,color .2s;}
-    .nav-cta:hover{background:#0077cc !important;color:#fff !important;}
-
+    .nav-cta{background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;color:#000d1a;padding:.52rem 1.3rem;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s;}
+    .nav-cta:hover{opacity:.85;transform:translateY(-1px);}
     main{padding:10rem 5% 6rem;max-width:800px;margin:0 auto;position:relative;z-index:1;}
-    .page-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#0077cc;margin-bottom:.8rem;}
-    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5rem);line-height:.95;margin-bottom:3rem;}
-    h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#0a0a0a;margin-top:2.5rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid rgba(0,0,0,.08);}
-    p{color:#333;line-height:1.8;font-size:.98rem;margin-bottom:.6rem;}
-    a{color:#0077cc;text-decoration:none;}
+    .page-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem;}
+    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5rem);line-height:.95;margin-bottom:3rem;color:var(--white);}
+    h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--white);margin-top:2.5rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid rgba(0,102,255,.2);}
+    p{color:var(--gray);line-height:1.8;font-size:.98rem;margin-bottom:.6rem;}
+    a{color:var(--cyan);text-decoration:none;}
     a:hover{text-decoration:underline;}
-
-    footer{border-top:1px solid rgba(0,0,0,.08);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;color:#888;font-size:.82rem;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
-    footer a{color:#888;text-decoration:none;transition:color .2s;}
-    footer a:hover{color:#0077cc;}
+    footer{border-top:1px solid rgba(0,102,255,.15);padding:3rem 5%;display:flex;align-items:center;justify-content:space-between;color:var(--gray);font-size:.83rem;flex-wrap:wrap;gap:1rem;background:#000d1a;position:relative;z-index:1;}
+    footer a{color:var(--gray);text-decoration:none;transition:color .2s;}
+    footer a:hover{color:var(--cyan);}
+    .footer-links{display:flex;gap:2rem;}
+    #back-top{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(0,255,204,.5),0 0 40px rgba(0,102,255,.3);transition:transform .2s,box-shadow .2s,opacity .3s;opacity:0;pointer-events:none;z-index:200;}
+    #back-top.visible{opacity:1;pointer-events:auto;}
+    #back-top:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(0,255,204,.7),0 0 60px rgba(0,102,255,.4);}
+    #back-top svg{width:20px;height:20px;fill:none;stroke:#000d1a;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
   </style>
 </head>
 <body>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="blobs">
-  <div class="blob" style="width:500px;height:500px;background:rgba(0,120,255,.14);top:-10%;right:-5%;"></div>
-  <div class="blob" style="width:350px;height:350px;background:rgba(0,80,220,.1);bottom:15%;left:-5%;"></div>
+  <div class="blob" style="width:700px;height:700px;background:rgba(0,102,255,.18);top:-10%;right:-5%;"></div>
+  <div class="blob" style="width:500px;height:500px;background:rgba(0,51,102,.22);top:40%;left:-8%;"></div>
+  <div class="blob" style="width:350px;height:350px;background:rgba(0,255,204,.07);top:25%;left:30%;"></div>
 </div>
 
-<nav>
-  <a class="nav-logo" href="index.html">
-    <img src="public/logo.png" alt="Hook Hero" />
-    <span>Hook Hero</span>
-  </a>
-  <div class="nav-links">
-    <a href="ueber-uns.html">Über uns</a>
-    <a class="nbtn-close" href="close-hero.html">Close Hero</a>
-    <a class="nav-cta" href="index.html#cta">Jetzt starten</a>
+<nav id="mainNav">
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <a class="nav-logo" href="index.html" style="display:flex;align-items:center;gap:.7rem;text-decoration:none;">
+      <img src="public/logo.png" alt="Hook Hero" />
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;">Hook Hero</span>
+    </a>
+    <a href="close-hero.html" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:.38rem 1rem;border-radius:4px;border:1.5px solid #FF4500;color:#FFB800;background:rgba(255,69,0,.08);transition:background .2s;white-space:nowrap;">Close Hero</a>
   </div>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a href="ueber-uns.html" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#fff;transition:color .2s;">Über uns</a>
+  </div>
+  <a class="nav-cta" href="index.html#cta">Jetzt starten</a>
 </nav>
 
 <main>
@@ -88,9 +91,13 @@
   Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 </main>
 
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Nach oben">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <footer>
   <div>© 2026 Hook Hero & Close Hero. Alle Rechte vorbehalten.</div>
-  <div style="display:flex;gap:2rem;">
+  <div class="footer-links">
     <a href="datenschutz.html">Datenschutz</a>
     <a href="impressum.html">Impressum</a>
     <a href="index.html">Hook Hero</a>
@@ -100,9 +107,12 @@
 <script>
 const ring=document.getElementById('cursorRing');
 let v=false;
-document.addEventListener('mousemove',e=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';if(!v){v=true;}ring.style.opacity='1';});
+document.addEventListener('mousemove',e=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';if(!v)v=true;ring.style.opacity='1';});
 document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
 document.addEventListener('mouseenter',()=>{if(v)ring.style.opacity='1';});
+const backTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);},{passive:true});
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';},{passive:true});
 </script>
 </body>
 </html>
