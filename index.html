@@ -35,7 +35,7 @@
     #galaxy-intro{position:relative;height:100vh;overflow:hidden;background:#000;}
     #galaxy-canvas{position:absolute;inset:0;width:100%;height:100%;}
     #galaxy-logo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;}
-    #galaxy-logo::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:270px;height:270px;border-radius:50%;background:radial-gradient(circle,rgba(0,0,0,.94) 32%,rgba(0,0,0,.7) 58%,transparent 100%);z-index:-1;}
+    #galaxy-logo::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#000 55%,rgba(0,0,0,.95) 75%,transparent 100%);z-index:-1;}
     #galaxy-logo img{width:190px;height:190px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(0,255,204,.8)) drop-shadow(0 0 40px rgba(0,102,255,.6)) drop-shadow(0 0 70px rgba(0,200,255,.35));animation:capeWave 3.8s ease-in-out infinite;}
     @keyframes capeWave{
       0%  {transform:rotate(0deg) skewX(0deg) scaleX(1);}
@@ -454,6 +454,9 @@
 
       if (s.curAlpha < 0.005) continue;
       if (px < -2 || px > W + 2 || py < -2 || py > H + 2) continue;
+      // Skip stars inside logo black zone (150px radius from center)
+      const dx = px - cx, dy = py - cy;
+      if (dx*dx + dy*dy < 150*150) continue;
 
       const [r, g, b] = s.rgb;
       ctx.beginPath();
