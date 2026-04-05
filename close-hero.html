@@ -10,8 +10,8 @@
     *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body {
-      background: #08060a;
-      color: #faf6ee;
+      background: #0a0500;
+      color: #fff5ee;
       font-family: 'Barlow', sans-serif;
       display: flex;
       flex-direction: column;
@@ -20,27 +20,32 @@
       min-height: 100vh;
       text-align: center;
       padding: 2rem;
+      background-image: radial-gradient(ellipse at 50% 30%, rgba(255,69,0,.12) 0%, transparent 65%),
+                        radial-gradient(ellipse at 50% 80%, rgba(255,184,0,.07) 0%, transparent 60%);
     }
     .icon { font-size: 3rem; margin-bottom: 1.5rem; }
     h1 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.5rem, 7vw, 5rem);
       line-height: 1;
-      color: #c9a84c;
+      background: linear-gradient(135deg, #FF4500, #FFB800);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 1.5rem;
       letter-spacing: .02em;
     }
     p {
       font-size: clamp(1rem, 2vw, 1.15rem);
       line-height: 1.75;
-      color: #b8a96a;
+      color: rgba(255,245,238,.7);
       max-width: 520px;
     }
-    a { color: #f5d07a; text-decoration: none; border-bottom: 1px solid rgba(245,208,122,.4); transition: border-color .2s; }
-    a:hover { border-color: #f5d07a; }
+    a { color: #FFB800; text-decoration: none; border-bottom: 1px solid rgba(255,184,0,.4); transition: border-color .2s, color .2s; }
+    a:hover { color: #FF4500; border-color: #FF4500; }
     .divider {
       width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+      background: linear-gradient(90deg, transparent, #FF4500, #FFB800, transparent);
       margin: 2rem auto;
     }
   </style>
