@@ -59,7 +59,8 @@
   /* SERVICE LABELS */
   #labels { position: absolute; inset: 0; pointer-events: none; }
   .sl {
-    position: absolute; transform: translate(-50%,-50%);
+    position: absolute; left: 0; top: 0;
+    will-change: transform;
     background: rgba(0,10,30,0.82);
     border: 1px solid rgba(0,180,255,0.6);
     color: #fff; font-family: 'Rajdhani',sans-serif;
@@ -69,9 +70,8 @@
     backdrop-filter: blur(6px);
     box-shadow: 0 0 12px rgba(0,180,255,0.2);
     pointer-events: auto; cursor: none;
-    transition: transform .2s, box-shadow .2s;
   }
-  .sl:hover { transform: translate(-50%,-50%) scale(1.08); box-shadow: 0 0 28px rgba(0,180,255,0.45); }
+  .sl.hovered { box-shadow: 0 0 28px rgba(0,180,255,0.45); }
   .sl-emoji { font-size: 15px; line-height: 1; }
 
   /* CORNERS */
@@ -150,6 +150,8 @@ function resize() {
 resize();
 window.addEventListener('resize', resize);
 
+const isMobile = window.innerWidth < 768;
+
 /* Build label elements */
 const nodes = services.map(s => {
   const el = document.createElement('div');
@@ -159,10 +161,10 @@ const nodes = services.map(s => {
   el.appendChild(esp); el.appendChild(tsp);
   labelsDiv.appendChild(el);
 
-  el.addEventListener('mouseenter', () => { cur.classList.add('big'); curText.textContent = s.tooltip; });
-  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); curText.textContent = ''; });
+  el.addEventListener('mouseenter', () => { cur.classList.add('big'); curText.textContent = s.tooltip; el.classList.add('hovered'); });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); curText.textContent = ''; el.classList.remove('hovered'); });
 
-  return { ...s, el, angle: s.phase };
+  return { ...s, el, angle: s.phase, hovering: false };
 });
 
 /* Cursor */
@@ -192,13 +194,17 @@ function animate(ts) {
   positioned.sort((a, b) => a.depth - b.depth);
 
   positioned.forEach(({ n, x, y, depth }) => {
-    n.el.style.left    = x + 'px';
-    n.el.style.top     = y + 'px';
+    // Use transform instead of left/top — avoids layout recalculation every frame
+    const scale = n.el.classList.contains('hovered') ? ' scale(1.08)' : '';
+    n.el.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))${scale}`;
     n.el.style.opacity = (0.35 + depth * 0.65).toFixed(2);
     n.el.style.zIndex  = depth < 0.5 ? '2' : '8';
-    n.el.style.fontSize = (11 + depth * 4) + 'px';
-    const b = Math.round(100 + depth * 155);
-    n.el.style.borderColor = `rgba(0,${b},255,${(0.4 + depth*0.5).toFixed(2)})`;
+    // Skip expensive layout-triggering style changes on mobile
+    if (!isMobile) {
+      n.el.style.fontSize = (11 + depth * 4) + 'px';
+      const b = Math.round(100 + depth * 155);
+      n.el.style.borderColor = `rgba(0,${b},255,${(0.4 + depth*0.5).toFixed(2)})`;
+    }
   });
 }
 requestAnimationFrame(animate);

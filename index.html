@@ -34,10 +34,8 @@
     .nav-cta:hover{opacity:.85;transform:translateY(-1px);}
     .nav-arrow{animation:arrowPulse 2.2s ease-in-out infinite;}
     @keyframes arrowPulse{
-      0%  {opacity:0;filter:drop-shadow(0 0 0px #FF4500);}
-      40% {opacity:1;filter:drop-shadow(0 0 6px #FF4500) drop-shadow(0 0 14px #FF6820);}
-      60% {opacity:1;filter:drop-shadow(0 0 8px #FF4500) drop-shadow(0 0 18px #FF6820);}
-      100%{opacity:0;filter:drop-shadow(0 0 0px #FF4500);}
+      0%,100%{opacity:0;}
+      40%,60%{opacity:1;}
     }
     /* Desktop nav groups */
     .nav-left{display:flex;align-items:center;gap:1.2rem;}
@@ -86,7 +84,7 @@
     .hero-scroll{z-index:4;}
     .hero-bg{display:none;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-    .blob{position:absolute;border-radius:50%;filter:blur(80px);}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform;transform:translateZ(0);}
     .hero-grid{display:none;}
     .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
     .particle{position:absolute;border-radius:50%;background:var(--cyan);opacity:0;animation:floatUp linear infinite;}
@@ -220,6 +218,16 @@
       /* Galaxy intro: smaller logo on mobile */
       #galaxy-logo img{width:140px;height:140px;}
       #galaxy-logo::before{width:220px;height:220px;}
+
+      /* Simplified capeWave: no skewX/scaleX (those bypass GPU compositor) */
+      @keyframes capeWave{
+        0%,100%{transform:rotate(0deg);}
+        30%{transform:rotate(.7deg);}
+        65%{transform:rotate(-.4deg);}
+      }
+
+      /* Particles: hide on mobile (saves 20 simultaneous CSS animations) */
+      .particles{display:none;}
 
       /* Hero */
       #hero{padding-top:7rem;}
@@ -497,12 +505,12 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const isMobile = window.innerWidth < 768;
-  const TOTAL_STARS    = isMobile ? 1800 : 6000;
+  const TOTAL_STARS    = isMobile ? 400 : 6000;
   const N_ARMS         = 2;
   const ARM_SPREAD     = 0.28;
   const RADIAL_SPREAD  = 0.18;
-  const CORE_STARS     = isMobile ? 200 : 600;
-  const HALO_STARS     = isMobile ? 100 : 350;
+  const CORE_STARS     = isMobile ? 60 : 600;
+  const HALO_STARS     = isMobile ? 30 : 350;
   const ROTATION_SPEED = 0.0018;
   const DIFF_EXP       = 0.55;
   const ERASE_RADIUS   = 90;   // px — mouse erase brush size
@@ -521,6 +529,7 @@
     cx = W / 2; cy = H / 2;
     // Fill the full width — stars outside canvas height are just clipped
     maxR = W * 0.5;
+    coreGlowCache = null; // invalidate gradient cache on resize
     buildStars();
   }
 
@@ -538,6 +547,7 @@
 
   function buildStars() {
     stars = [];
+    mobileBatches = null; // invalidate batch cache
 
     // Spiral arm stars
     for (let arm = 0; arm < N_ARMS; arm++) {
@@ -589,63 +599,112 @@
     }
   }
 
-  function drawCore() {
-    const glows = [
-      { r: maxR * 0.09, colors: ['rgba(255,250,230,.18)', 'rgba(0,200,255,.08)', 'transparent'] },
-      { r: maxR * 0.035,colors: ['rgba(255,250,220,.55)', 'rgba(0,220,255,.18)', 'transparent'] },
-      { r: maxR * 0.012,colors: ['rgba(255,255,240,.9)',  'rgba(200,240,255,.4)','transparent'] },
-    ];
-    glows.forEach(({ r, colors }) => {
+  // Cache core gradients — recreate only on resize, not every frame
+  let coreGlowCache = null;
+  function buildCoreGlowCache() {
+    coreGlowCache = [
+      { r: maxR * 0.09,  colors: ['rgba(255,250,230,.18)', 'rgba(0,200,255,.08)', 'transparent'] },
+      { r: maxR * 0.035, colors: ['rgba(255,250,220,.55)', 'rgba(0,220,255,.18)', 'transparent'] },
+      { r: maxR * 0.012, colors: ['rgba(255,255,240,.9)',  'rgba(200,240,255,.4)','transparent'] },
+    ].map(({ r, colors }) => {
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
       g.addColorStop(0, colors[0]); g.addColorStop(0.4, colors[1]); g.addColorStop(1, colors[2]);
+      return { g, r };
+    });
+  }
+
+  function drawCore() {
+    if (!coreGlowCache) buildCoreGlowCache();
+    for (const { g, r } of coreGlowCache) {
       ctx.fillStyle = g;
       ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
-    });
+    }
+  }
+
+  // Mobile: pre-group stars by color for batch drawing (built once, reused every frame)
+  let mobileBatches = null;
+  function buildMobileBatches() {
+    const map = new Map();
+    for (const s of stars) {
+      const [r, g, b] = s.rgb;
+      const key = `rgba(${r},${g},${b},${s.baseAlpha.toFixed(2)})`;
+      if (!map.has(key)) map.set(key, { style: key, stars: [] });
+      map.get(key).stars.push(s);
+    }
+    mobileBatches = Array.from(map.values());
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    for (let i = 0; i < stars.length; i++) {
-      const s  = stars[i];
-      const a  = s.theta + angle;
-      const px = cx + s.r * maxR * Math.cos(a);
-      const py = cy + s.r * maxR * Math.sin(a);
+    if (isMobile) {
+      // Batch draw: one fill() per color group instead of one per star
+      if (!mobileBatches) buildMobileBatches();
+      for (const { style, stars: gs } of mobileBatches) {
+        ctx.beginPath();
+        for (const s of gs) {
+          const a  = s.theta + angle;
+          const px = cx + s.r * maxR * Math.cos(a);
+          const py = cy + s.r * maxR * Math.sin(a);
+          if (px < -2 || px > W + 2 || py < -2 || py > H + 2) continue;
+          const ddx = px - cx, ddy = py - cy;
+          if (ddx*ddx + ddy*ddy < 150*150) continue;
+          const sz = Math.max(0.15, s.size);
+          ctx.moveTo(px + sz, py);
+          ctx.arc(px, py, sz, 0, Math.PI * 2);
+        }
+        ctx.fillStyle = style;
+        ctx.fill();
+      }
+    } else {
+      for (let i = 0; i < stars.length; i++) {
+        const s  = stars[i];
+        const a  = s.theta + angle;
+        const px = cx + s.r * maxR * Math.cos(a);
+        const py = cy + s.r * maxR * Math.sin(a);
 
-      // Mouse erase: fade out near cursor, slowly restore when away
-      if (mouseX !== null) {
-        const dx = px - mouseX, dy = py - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < ERASE_RADIUS) {
-          // Stronger erase closer to center of brush
-          const strength = 1 - dist / ERASE_RADIUS;
-          s.curAlpha = Math.max(0, s.curAlpha - ERASE_SPEED * strength);
+        // Mouse erase: fade out near cursor, slowly restore when away
+        if (mouseX !== null) {
+          const dx = px - mouseX, dy = py - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < ERASE_RADIUS) {
+            const strength = 1 - dist / ERASE_RADIUS;
+            s.curAlpha = Math.max(0, s.curAlpha - ERASE_SPEED * strength);
+          } else {
+            s.curAlpha = Math.min(s.baseAlpha, s.curAlpha + RESTORE_SPEED);
+          }
         } else {
           s.curAlpha = Math.min(s.baseAlpha, s.curAlpha + RESTORE_SPEED);
         }
-      } else {
-        s.curAlpha = Math.min(s.baseAlpha, s.curAlpha + RESTORE_SPEED);
+
+        if (s.curAlpha < 0.005) continue;
+        if (px < -2 || px > W + 2 || py < -2 || py > H + 2) continue;
+        const dx = px - cx, dy = py - cy;
+        if (dx*dx + dy*dy < 150*150) continue;
+
+        const [r, g, b] = s.rgb;
+        ctx.beginPath();
+        ctx.arc(px, py, Math.max(0.15, s.size), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${s.curAlpha.toFixed(3)})`;
+        ctx.fill();
       }
-
-      if (s.curAlpha < 0.005) continue;
-      if (px < -2 || px > W + 2 || py < -2 || py > H + 2) continue;
-      // Skip stars inside logo black zone (150px radius from center)
-      const dx = px - cx, dy = py - cy;
-      if (dx*dx + dy*dy < 150*150) continue;
-
-      const [r, g, b] = s.rgb;
-      ctx.beginPath();
-      ctx.arc(px, py, Math.max(0.15, s.size), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r},${g},${b},${s.curAlpha.toFixed(3)})`;
-      ctx.fill();
     }
 
     drawCore();
   }
 
+  // Pause animation when galaxy is scrolled out of view
+  let galaxyVisible = true;
+  new IntersectionObserver(
+    entries => { galaxyVisible = entries[0].isIntersecting; },
+    { threshold: 0 }
+  ).observe(canvas);
+
   function loop() {
-    angle += ROTATION_SPEED;
-    draw();
+    if (galaxyVisible) {
+      angle += ROTATION_SPEED;
+      draw();
+    }
     requestAnimationFrame(loop);
   }
 
@@ -693,7 +752,7 @@ gsap.matchMedia().add('(min-width:901px)', () => {
 
 /* ── BACK TO TOP ─────────────────────────────────────────────── */
 const backTop=document.getElementById('back-top');
-window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);});
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);},{passive:true});
 const ring=document.getElementById('cursorRing');
 let cursorVisible=false;
 document.addEventListener('mousemove',e=>{
@@ -720,7 +779,7 @@ const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target
 document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
 const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
-window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';});
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';},{passive:true});
 /* Close mobile menu on resize to desktop */
 window.addEventListener('resize',()=>{if(window.innerWidth>768&&typeof closeMobileMenu==='function')closeMobileMenu();});
 

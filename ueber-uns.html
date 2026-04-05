@@ -17,7 +17,7 @@
     body{background:#000d1a;color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;min-height:100vh;}
     .cursor-ring{width:34px;height:34px;background:transparent;border:1.5px solid rgba(0,180,255,0.8);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-    .blob{position:absolute;border-radius:50%;filter:blur(80px);}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform;transform:translateZ(0);}
     /* NAV */
     nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.18rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s;overflow:visible;min-height:60px;}
     .nav-logo img{height:52px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
