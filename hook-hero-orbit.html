@@ -43,14 +43,14 @@
   #tagline {
     position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
     font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 0.26em;
-    color: rgba(0,207,255,0.55); text-transform: uppercase; pointer-events: none; z-index: 10;
+    color: rgba(0,0,0,0.75); text-transform: uppercase; pointer-events: none; z-index: 10;
     white-space: nowrap;
     animation: fi 2s 2s both;
   }
   #hint {
     position: absolute; bottom: 42px; left: 50%; transform: translateX(-50%);
     font-family: 'Rajdhani', sans-serif; font-size: 10px; letter-spacing: 0.16em;
-    color: rgba(0,207,255,0.3); text-transform: uppercase; pointer-events: none; z-index: 10;
+    color: rgba(0,0,0,0.45); text-transform: uppercase; pointer-events: none; z-index: 10;
     white-space: nowrap;
     animation: fi 2s 3s both;
   }
@@ -70,7 +70,7 @@
 const services = [
   { name: 'Hook-Erstellung', emoji: '🎣', col: 0x00FFCC },
   { name: 'Social Media',    emoji: '📱', col: 0x00CFFF },
-  { name: 'Copywriting',     emoji: '✍️',  col: 0x4DB8FF },
+  { name: 'Website',         emoji: '🌐', col: 0x4DB8FF },
   { name: 'Content-Strategie', emoji: '🧠', col: 0x00FFCC },
   { name: 'Reichweite',      emoji: '🚀', col: 0x00CFFF },
   { name: 'Branding',        emoji: '⚡', col: 0x4DB8FF },
@@ -110,15 +110,25 @@ function orbitLine(r, tiltX, col, opacity) {
   l.rotation.x = tiltX;
   grp.add(l);
 }
-orbitLine(4.5, 0.28, 0x0088cc, 0.55);
-orbitLine(3.5, -0.18, 0x00CCAA, 0.45);
+orbitLine(4.5, 0.28, 0x003366, 0.85);
+orbitLine(3.5, -0.18, 0x004433, 0.75);
+
+/* LOGO GLOW HALO */
+const haloMat = new THREE.MeshBasicMaterial({ color: 0x00DDFF, transparent: true, opacity: 0.18, side: THREE.DoubleSide });
+const halo = new THREE.Mesh(new THREE.CircleGeometry(2.4, 64), haloMat);
+halo.userData.isLogo = true;
+scene.add(halo);
+const halo2Mat = new THREE.MeshBasicMaterial({ color: 0x00FFCC, transparent: true, opacity: 0.08, side: THREE.DoubleSide });
+const halo2 = new THREE.Mesh(new THREE.CircleGeometry(3.0, 64), halo2Mat);
+halo2.userData.isLogo = true;
+scene.add(halo2);
 
 /* LOGO IN DER MITTE */
 const loader = new THREE.TextureLoader();
 loader.load('public/logo.png', function(tex) {
   tex.minFilter = THREE.LinearFilter;
   const logoPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry(3.4, 3.4),
+    new THREE.PlaneGeometry(3.8, 3.8),
     new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide })
   );
   logoPlane.userData.isLogo = true;
@@ -205,9 +215,11 @@ function animate() {
   grp.rotation.y = tRY;
   grp.rotation.x = tRX;
   scene.children.forEach(obj => { if (obj.userData && obj.userData.isLogo) obj.quaternion.copy(camera.quaternion); });
-  glowRingMat.opacity = 0.22 + Math.sin(t * 1.4) * 0.1;
-  ring2Mat.opacity    = 0.45 + Math.sin(t * 1.8) * 0.15;
-  ring3Mat.opacity    = 0.15 + Math.sin(t * 2.1) * 0.08;
+  glowRingMat.opacity = 0.28 + Math.sin(t * 1.4) * 0.12;
+  ring2Mat.opacity    = 0.5  + Math.sin(t * 1.8) * 0.18;
+  ring3Mat.opacity    = 0.18 + Math.sin(t * 2.1) * 0.1;
+  haloMat.opacity     = 0.14 + Math.sin(t * 0.9) * 0.07;
+  halo2Mat.opacity    = 0.06 + Math.sin(t * 0.7) * 0.04;
   nodes.forEach((n, i) => {
     n.angle += n.speed;
     const x = Math.cos(n.angle) * n.radius;
