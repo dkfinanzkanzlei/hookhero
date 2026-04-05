@@ -161,6 +161,9 @@ const nodes = services.map(s => {
 
   el.addEventListener('mouseenter', () => { cur.classList.add('big'); curText.textContent = s.tooltip; });
   el.addEventListener('mouseleave', () => { cur.classList.remove('big'); curText.textContent = ''; });
+  el.addEventListener('click', () => {
+    window.parent.postMessage({ type: 'serviceClick', name: s.name }, '*');
+  });
 
   return { ...s, el, angle: s.phase };
 });
