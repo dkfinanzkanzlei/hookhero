@@ -158,7 +158,7 @@
 
 <div id="intro-wrapper">
   <div id="intro-sticky">
-    <video id="heroVideo" muted playsinline preload="auto">
+    <video id="heroVideo" autoplay muted playsinline preload="auto">
       <source src="public/hero.mp4" type="video/mp4" />
     </video>
     <div id="scroll-hint">Scroll<div class="scroll-line"></div></div>
@@ -314,12 +314,14 @@ window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.b
 (function(){
   const wrapper=document.getElementById('intro-wrapper');
   const video=document.getElementById('heroVideo');
-  video.addEventListener('loadedmetadata',()=>{video.pause();video.currentTime=0;});
+  let ended=false;
+  video.addEventListener('ended',()=>{video.pause();ended=true;});
   window.addEventListener('scroll',()=>{
-    if(!video.duration)return;
+    if(!ended||!video.duration)return;
     const scrolled=Math.max(0,window.scrollY-(wrapper.offsetTop||0));
     const scrollable=wrapper.offsetHeight-window.innerHeight;
-    video.currentTime=Math.min(1,scrolled/scrollable)*video.duration;
+    const p=Math.min(1,scrolled/scrollable);
+    video.currentTime=video.duration*(1-p);
   },{passive:true});
 })();
 
