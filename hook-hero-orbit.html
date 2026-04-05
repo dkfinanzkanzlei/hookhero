@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hook Hero Orbit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{width:100%;height:100%;background:transparent;overflow:hidden;}
+
+    .orbit-scene{
+      width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;
+    }
+
+    /* CENTER HUB */
+    .hub{
+      position:absolute;
+      width:130px;height:130px;
+      border-radius:50%;
+      background:radial-gradient(circle at 40% 38%,#1a8fff,#0044cc);
+      box-shadow:0 0 40px rgba(0,120,255,.55),0 0 80px rgba(0,100,255,.25);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      z-index:10;
+      animation:hubPulse 3s ease-in-out infinite;
+    }
+    .hub-label{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:900;font-size:1.05rem;
+      letter-spacing:.06em;text-transform:uppercase;
+      color:#fff;line-height:1.1;text-align:center;
+    }
+    .hub-sub{font-family:'Barlow',sans-serif;font-size:.58rem;color:rgba(255,255,255,.65);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem;}
+    @keyframes hubPulse{0%,100%{box-shadow:0 0 40px rgba(0,120,255,.55),0 0 80px rgba(0,100,255,.25);}50%{box-shadow:0 0 60px rgba(0,150,255,.8),0 0 110px rgba(0,100,255,.4);}}
+
+    /* ORBITS */
+    .orbit-ring{
+      position:absolute;border-radius:50%;
+      border:1px solid rgba(0,120,255,.18);
+      animation:spin linear infinite;
+      transform-origin:center center;
+    }
+    .orbit-ring.r1{width:240px;height:240px;animation-duration:12s;}
+    .orbit-ring.r2{width:380px;height:380px;animation-duration:20s;animation-direction:reverse;}
+    .orbit-ring.r3{width:520px;height:520px;animation-duration:30s;}
+
+    @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+    /* NODES */
+    .node{
+      position:absolute;
+      display:flex;flex-direction:column;align-items:center;
+      cursor:default;
+    }
+    .node-dot{
+      width:44px;height:44px;border-radius:50%;
+      background:radial-gradient(circle at 38% 36%,#5bb8ff,#0066cc);
+      box-shadow:0 0 18px rgba(0,120,255,.6),0 0 36px rgba(0,100,255,.25);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.1rem;
+      transition:transform .3s;
+      animation:nodePop 3s ease-in-out infinite;
+    }
+    .node:hover .node-dot{transform:scale(1.25);}
+    @keyframes nodePop{0%,100%{box-shadow:0 0 18px rgba(0,120,255,.6);}50%{box-shadow:0 0 28px rgba(0,150,255,.9),0 0 50px rgba(0,100,255,.4);}}
+
+    .node-label{
+      font-family:'Barlow Condensed',sans-serif;
+      font-weight:700;font-size:.7rem;
+      letter-spacing:.08em;text-transform:uppercase;
+      color:#0a0a0a;
+      background:rgba(245,245,230,.88);
+      padding:.2rem .5rem;border-radius:4px;
+      margin-top:.35rem;white-space:nowrap;
+      border:1px solid rgba(0,100,220,.15);
+    }
+
+    /* Counter-rotate labels so they stay upright */
+    .orbit-ring .node{animation:spinReverse linear infinite;}
+    .orbit-ring.r1 .node{animation-duration:12s;}
+    .orbit-ring.r2 .node{animation-duration:20s;animation-direction:normal;}
+    .orbit-ring.r3 .node{animation-duration:30s;animation-direction:reverse;}
+    @keyframes spinReverse{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+
+    /* Position nodes on rings */
+    /* Ring 1: 2 nodes */
+    .r1 .n1{top:-22px;left:50%;transform:translateX(-50%);}
+    .r1 .n2{bottom:-22px;left:50%;transform:translateX(-50%);}
+
+    /* Ring 2: 3 nodes */
+    .r2 .n1{top:-22px;left:50%;transform:translateX(-50%);}
+    .r2 .n2{bottom:-22px;left:25%;transform:translateX(-50%);}
+    .r2 .n3{bottom:-22px;right:25%;transform:translateX(50%);}
+
+    /* Ring 3: 3 nodes */
+    .r3 .n1{top:-22px;left:50%;transform:translateX(-50%);}
+    .r3 .n2{bottom:-22px;left:20%;transform:translateX(-50%);}
+    .r3 .n3{bottom:-22px;right:20%;transform:translateX(50%);}
+
+    /* Connecting lines glow */
+    .glow-line{
+      position:absolute;width:1px;background:linear-gradient(180deg,rgba(0,120,255,.4),transparent);
+      transform-origin:top center;pointer-events:none;
+    }
+  </style>
+</head>
+<body>
+<div class="orbit-scene">
+
+  <!-- CENTER -->
+  <div class="hub">
+    <div class="hub-label">Hook<br/>Hero</div>
+    <div class="hub-sub">Agentur</div>
+  </div>
+
+  <!-- RING 1 — innerste -->
+  <div class="orbit-ring r1">
+    <div class="node n1">
+      <div class="node-dot">⚡</div>
+      <div class="node-label">Hook-Erstellung</div>
+    </div>
+    <div class="node n2">
+      <div class="node-dot">📱</div>
+      <div class="node-label">Social Media</div>
+    </div>
+  </div>
+
+  <!-- RING 2 — mittel -->
+  <div class="orbit-ring r2">
+    <div class="node n1">
+      <div class="node-dot">🎯</div>
+      <div class="node-label">Content-Strategie</div>
+    </div>
+    <div class="node n2">
+      <div class="node-dot">📈</div>
+      <div class="node-label">Reichweite</div>
+    </div>
+    <div class="node n3">
+      <div class="node-dot">🤝</div>
+      <div class="node-label">Lead-Generierung</div>
+    </div>
+  </div>
+
+  <!-- RING 3 — äußerste -->
+  <div class="orbit-ring r3">
+    <div class="node n1">
+      <div class="node-dot">🦸</div>
+      <div class="node-label">Branding</div>
+    </div>
+    <div class="node n2">
+      <div class="node-dot">✍️</div>
+      <div class="node-label">Copywriting</div>
+    </div>
+    <div class="node n3">
+      <div class="node-dot">🔥</div>
+      <div class="node-label">Virales Marketing</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
