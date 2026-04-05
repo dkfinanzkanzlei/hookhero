@@ -319,6 +319,12 @@ document.addEventListener('mousemove',e=>{
 });
 document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
 document.addEventListener('mouseenter',()=>{if(cursorVisible)ring.style.opacity='1';});
+/* Hide main cursor when entering orbit iframe, restore on exit */
+const orbitIframe = document.querySelector('.hero-orbit iframe');
+if(orbitIframe){
+  orbitIframe.addEventListener('mouseenter',()=>{ring.style.opacity='0';});
+  orbitIframe.addEventListener('mouseleave',()=>{if(cursorVisible)ring.style.opacity='1';});
+}
 document.querySelectorAll('a,button,.feature-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';});
   el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});

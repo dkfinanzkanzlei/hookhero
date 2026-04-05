@@ -3,311 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hook Hero — Orbit Animation</title>
+<title>Hook Hero — Orbit</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: radial-gradient(ellipse at 50% 40%, #050d1a 0%, #000814 60%, #000000 100%); overflow: hidden; cursor: none; }
-  #c { position: absolute; top: 0; left: 0; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:transparent; overflow:hidden; cursor:none; }
 
   /* CUSTOM CURSOR */
   #cur {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed; pointer-events: none; z-index: 9999;
+    border-radius: 50%; transform: translate(-50%,-50%);
     width: 34px; height: 34px;
     border: 1.5px solid rgba(0,180,255,0.8);
     background: transparent;
-    transition: width 0.4s cubic-bezier(.34,1.4,.64,1),
-                height 0.4s cubic-bezier(.34,1.4,.64,1),
-                background 0.35s, border-color 0.35s, box-shadow 0.35s,
-                opacity 0.25s;
+    transition: width .4s cubic-bezier(.34,1.4,.64,1),
+                height .4s cubic-bezier(.34,1.4,.64,1),
+                background .35s, border-color .35s, box-shadow .35s, opacity .25s;
     display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
+    overflow: hidden; opacity: 0;
   }
   #cur.big {
     width: 210px; height: 210px;
     background: rgba(0,8,28,0.93);
-    border-color: rgba(0,207,255,1);
-    box-shadow: 0 0 40px rgba(0,207,255,0.35), 0 0 80px rgba(0,207,255,0.12);
+    border-color: rgba(0,180,255,1);
+    box-shadow: 0 0 40px rgba(0,180,255,0.35), 0 0 80px rgba(0,180,255,0.12);
   }
   #cur-text {
-    color: #fff;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 11.5px;
-    font-weight: 600;
-    line-height: 1.55;
-    text-align: center;
-    padding: 18px;
-    opacity: 0;
-    transition: opacity 0.22s 0.18s;
-    letter-spacing: 0.02em;
+    color: #fff; font-family: 'Rajdhani',sans-serif; font-size: 11.5px;
+    font-weight: 600; line-height: 1.55; text-align: center; padding: 18px;
+    opacity: 0; transition: opacity .22s .18s; letter-spacing: .02em;
   }
   #cur.big #cur-text { opacity: 1; }
 
-  #labels { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-  .sl {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 15, 35, 0.78);
-    border: 1px solid rgba(0,207,255,0.6);
-    color: #fff;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 6px 16px 6px 13px;
-    border-radius: 30px;
-    white-space: nowrap;
-    opacity: 0;
-    backdrop-filter: blur(8px);
-    transition: opacity 0.3s, transform 0.25s;
-    box-shadow: 0 0 14px rgba(0,207,255,0.25), inset 0 0 10px rgba(0,207,255,0.05);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    pointer-events: auto;
-    cursor: none;
+  /* ORBIT RINGS */
+  .ring {
+    position: absolute; border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
   }
-  .sl:hover { transform: translate(-50%, -50%) scale(1.08); }
-  .sl-emoji { font-size: 14px; line-height: 1; }
 
-  .corner { position: absolute; width: 28px; height: 28px; border-color: rgba(0,207,255,0.4); border-style: solid; pointer-events: none; z-index: 10; }
-  .tl { top: 16px; left: 16px; border-width: 1.5px 0 0 1.5px; }
-  .tr { top: 16px; right: 16px; border-width: 1.5px 1.5px 0 0; }
-  .bl { bottom: 16px; left: 16px; border-width: 0 0 1.5px 1.5px; }
-  .br { bottom: 16px; right: 16px; border-width: 0 1.5px 1.5px 0; }
+  /* LOGO */
+  #logo-wrap {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none; z-index: 5;
+  }
+  #logo-wrap img {
+    width: 130px; height: 130px; object-fit: contain; display: block;
+    filter: drop-shadow(0 0 14px rgba(0,190,255,0.55))
+            drop-shadow(0 0 36px rgba(0,190,255,0.25));
+  }
+
+  /* SERVICE LABELS */
+  #labels { position: absolute; inset: 0; pointer-events: none; }
+  .sl {
+    position: absolute; transform: translate(-50%,-50%);
+    background: rgba(0,10,30,0.82);
+    border: 1px solid rgba(0,180,255,0.6);
+    color: #fff; font-family: 'Rajdhani',sans-serif;
+    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: 7px 18px 7px 14px; border-radius: 30px; white-space: nowrap;
+    display: flex; align-items: center; gap: 7px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 12px rgba(0,180,255,0.2);
+    pointer-events: auto; cursor: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .sl:hover { transform: translate(-50%,-50%) scale(1.08); box-shadow: 0 0 28px rgba(0,180,255,0.45); }
+  .sl-emoji { font-size: 15px; line-height: 1; }
+
+  /* CORNERS */
+  .corner { position: absolute; width: 22px; height: 22px; border-color: rgba(0,150,255,0.35); border-style: solid; pointer-events: none; z-index: 10; }
+  .tl { top:14px; left:14px; border-width:1.5px 0 0 1.5px; }
+  .tr { top:14px; right:14px; border-width:1.5px 1.5px 0 0; }
+  .bl { bottom:14px; left:14px; border-width:0 0 1.5px 1.5px; }
+  .br { bottom:14px; right:14px; border-width:0 1.5px 1.5px 0; }
+
+  /* TAGLINE */
   #tagline {
     position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
-    font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 0.26em;
-    color: rgba(0,0,0,0.75); text-transform: uppercase; pointer-events: none; z-index: 10;
-    white-space: nowrap; animation: fi 2s 2s both;
+    font-family: 'Rajdhani',sans-serif; font-size: 16px; font-weight: 700;
+    letter-spacing: .22em; color: rgba(0,0,0,0.72); text-transform: uppercase;
+    pointer-events: none; white-space: nowrap; z-index: 10;
+    animation: fi 2s 2s both;
   }
-  #hint {
-    position: absolute; bottom: 42px; left: 50%; transform: translateX(-50%);
-    font-family: 'Rajdhani', sans-serif; font-size: 10px; letter-spacing: 0.16em;
-    color: rgba(0,0,0,0.45); text-transform: uppercase; pointer-events: none; z-index: 10;
-    white-space: nowrap; animation: fi 2s 3s both;
-  }
-  @keyframes fi { from { opacity:0 } to { opacity:1 } }
+  @keyframes fi { from{opacity:0} to{opacity:1} }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<canvas id="c"></canvas>
+
 <div id="cur"><div id="cur-text"></div></div>
 <div id="labels"></div>
+<div id="logo-wrap"><img src="public/logo.png" alt="Hook Hero"></div>
 <div class="corner tl"></div><div class="corner tr"></div>
 <div class="corner bl"></div><div class="corner br"></div>
 <div id="tagline">Alle Kanäle · Eine Agentur · Ein Ziel</div>
-<div id="hint">🖱️ Maus bewegen zum Rotieren</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 <script>
 const services = [
-  { name: 'Hook-Erstellung', emoji: '🎣', col: 0x00FFCC,
+  { name: 'Hook-Erstellung', emoji: '🎣', orbit: 0, phase: 0,
     tooltip: 'Ein starker Hook entscheidet, ob dein Content gesehen wird — oder für immer ignoriert bleibt.' },
-  { name: 'Social Media',    emoji: '📱', col: 0x00CFFF,
-    tooltip: 'Wir bauen deinen Kanal auf und sorgen dafür, dass jeder Post performt und Reichweite generiert.' },
-  { name: 'Website',         emoji: '🌐', col: 0x4DB8FF,
+  { name: 'Social Media',    emoji: '📱', orbit: 1, phase: 0.5,
+    tooltip: 'Wir bauen deinen Kanal auf und sorgen dafür, dass jeder Post performt.' },
+  { name: 'Website',         emoji: '🌐', orbit: 0, phase: 2.09,
     tooltip: 'Investiere einmal in eine Website, die dein Produkt für dich verkauft.' },
-  { name: 'Content-Strategie', emoji: '🧠', col: 0x00FFCC,
-    tooltip: 'Kein Zufall, nur System — wir planen Content, der kontinuierlich wächst und konvertiert.' },
-  { name: 'Reichweite',      emoji: '🚀', col: 0x00CFFF,
+  { name: 'Content-Strategie', emoji: '🧠', orbit: 1, phase: 2.62,
+    tooltip: 'Kein Zufall, nur System — wir planen Content, der kontinuierlich wächst.' },
+  { name: 'Reichweite',      emoji: '🚀', orbit: 0, phase: 4.19,
     tooltip: 'Wir wissen ganz genau, wie du in den nächsten 30 Tagen mehrere Millionen Menschen erreichst.' },
-  { name: 'Branding',        emoji: '⚡', col: 0x4DB8FF,
+  { name: 'Branding',        emoji: '⚡', orbit: 1, phase: 4.71,
     tooltip: 'Deine Marke muss auf den ersten Blick überzeugen — wir machen sie unverwechselbar.' },
 ];
 
-/* CUSTOM CURSOR */
+const labelsDiv = document.getElementById('labels');
 const cur = document.getElementById('cur');
 const curText = document.getElementById('cur-text');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top  = e.clientY + 'px';
-  cur.style.opacity = '1';
-  mx = (e.clientX / innerWidth  - 0.5) * 2;
-  my = (e.clientY / innerHeight - 0.5) * 2;
-});
-document.addEventListener('mouseleave', () => {
-  cur.style.opacity = '0';
-  cur.classList.remove('big');
-  curText.textContent = '';
-});
-document.addEventListener('mouseenter', () => {
-  cur.style.opacity = '1';
-});
 
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true, alpha: true });
-renderer.setSize(innerWidth, innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.6;
-
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x000000, 0.022);
-
-const camera = new THREE.PerspectiveCamera(52, innerWidth / innerHeight, 0.1, 200);
-camera.position.set(0, 2.5, 13);
-camera.lookAt(0, 0, 0);
-
-scene.add(new THREE.AmbientLight(0x001a44, 3));
-const pl1 = new THREE.PointLight(0x00CFFF, 6, 30); pl1.position.set(0, 6, 6); scene.add(pl1);
-const pl2 = new THREE.PointLight(0x00FFCC, 3, 22); pl2.position.set(-6, -3, -6); scene.add(pl2);
-const pl3 = new THREE.PointLight(0x0055FF, 2, 18); pl3.position.set(5, 2, -4); scene.add(pl3);
-
-const grp = new THREE.Group();
-scene.add(grp);
-
-function orbitLine(r, tiltX, col, opacity) {
-  const pts = [];
-  for (let i = 0; i <= 128; i++) {
-    const a = (i / 128) * Math.PI * 2;
-    pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r));
-  }
-  const l = new THREE.LineLoop(
-    new THREE.BufferGeometry().setFromPoints(pts),
-    new THREE.LineBasicMaterial({ color: col, transparent: true, opacity })
-  );
-  l.rotation.x = tiltX;
-  grp.add(l);
+/* Build orbit ring divs */
+function makeRing(rx, ry) {
+  const d = document.createElement('div');
+  d.className = 'ring';
+  d.style.width  = rx * 2 + 'px';
+  d.style.height = ry * 2 + 'px';
+  d.style.border = '1px solid rgba(0,80,180,0.45)';
+  document.body.appendChild(d);
+  return d;
 }
-orbitLine(4.5, 0.28, 0x003366, 0.85);
-orbitLine(3.5, -0.18, 0x004433, 0.75);
 
-/* LOGO GLOW HALO */
-const haloMat = new THREE.MeshBasicMaterial({ color: 0x00DDFF, transparent: true, opacity: 0.18, side: THREE.DoubleSide });
-const halo = new THREE.Mesh(new THREE.CircleGeometry(2.4, 64), haloMat);
-halo.userData.isLogo = true;
-scene.add(halo);
-const halo2Mat = new THREE.MeshBasicMaterial({ color: 0x00FFCC, transparent: true, opacity: 0.08, side: THREE.DoubleSide });
-const halo2 = new THREE.Mesh(new THREE.CircleGeometry(3.0, 64), halo2Mat);
-halo2.userData.isLogo = true;
-scene.add(halo2);
+let W, H, cx, cy, rings = [];
+const ORBITS = [
+  { speedFactor: 1,    rxF: 0.40, ryF: 0.30 },
+  { speedFactor: 1.45, rxF: 0.27, ryF: 0.20 },
+];
 
-/* LOGO */
-const loader = new THREE.TextureLoader();
-loader.load('public/logo.png', function(tex) {
-  tex.minFilter = THREE.LinearFilter;
-  const logoPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry(3.8, 3.8),
-    new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: THREE.DoubleSide })
-  );
-  logoPlane.userData.isLogo = true;
-  scene.add(logoPlane);
-});
+function resize() {
+  W = innerWidth; H = innerHeight; cx = W/2; cy = H/2;
+  rings.forEach(r => r.remove());
+  rings = ORBITS.map(o => makeRing(W * o.rxF, H * o.ryF));
+  // Reposition logo
+  const lw = document.getElementById('logo-wrap');
+  lw.style.left = cx + 'px'; lw.style.top = cy + 'px';
+}
+resize();
+window.addEventListener('resize', resize);
 
-/* GLOW RINGS */
-const glowRingMat = new THREE.MeshBasicMaterial({ color: 0x00FFCC, transparent: true, opacity: 0.3 });
-grp.add(new THREE.Mesh(new THREE.TorusGeometry(1.9, 0.035, 16, 100), glowRingMat));
-const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x00CFFF, transparent: true, opacity: 0.55 });
-grp.add(new THREE.Mesh(new THREE.TorusGeometry(1.98, 0.012, 16, 100), ring2Mat));
-const ring3Mat = new THREE.MeshBasicMaterial({ color: 0x0088FF, transparent: true, opacity: 0.2 });
-grp.add(new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.006, 16, 100), ring3Mat));
-
-const nodes = [];
-const labelEls = [];
-const labelsDiv = document.getElementById('labels');
-
-services.forEach((s, i) => {
-  const radius = i % 2 === 0 ? 4.5 : 3.5;
-  const tilt   = i % 2 === 0 ? 0.28 : -0.18;
-  const baseAngle = (i / services.length) * Math.PI * 2;
-  const pillMat = new THREE.MeshStandardMaterial({
-    color: 0x001830, emissive: s.col, emissiveIntensity: 0.0,
-    metalness: 0.8, roughness: 0.2, transparent: true, opacity: 0.0,
-  });
-  const pill = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.44, 0.15), pillMat);
-  pill.visible = false;
-  grp.add(pill);
-  nodes.push({ mesh: pill, mat: pillMat, angle: baseAngle, radius, tilt, speed: 0.0016 + i * 0.00012 });
-
+/* Build label elements */
+const nodes = services.map(s => {
   const el = document.createElement('div');
   el.className = 'sl';
-  const emojiSpan = document.createElement('span');
-  emojiSpan.className = 'sl-emoji';
-  emojiSpan.textContent = s.emoji;
-  const textSpan = document.createElement('span');
-  textSpan.textContent = s.name;
-  el.appendChild(emojiSpan);
-  el.appendChild(textSpan);
+  const esp = document.createElement('span'); esp.className = 'sl-emoji'; esp.textContent = s.emoji;
+  const tsp = document.createElement('span'); tsp.textContent = s.name;
+  el.appendChild(esp); el.appendChild(tsp);
   labelsDiv.appendChild(el);
-  labelEls.push(el);
 
-  el.addEventListener('mouseenter', () => {
-    cur.classList.add('big');
-    curText.textContent = s.tooltip;
-  });
-  el.addEventListener('mouseleave', () => {
-    cur.classList.remove('big');
-    curText.textContent = '';
-  });
+  el.addEventListener('mouseenter', () => { cur.classList.add('big'); curText.textContent = s.tooltip; });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); curText.textContent = ''; });
+
+  return { ...s, el, angle: s.phase };
 });
 
-/* STAR FIELD */
-const pPos = new Float32Array(600 * 3);
-for (let i = 0; i < 600; i++) {
-  pPos[i*3]   = (Math.random() - 0.5) * 80;
-  pPos[i*3+1] = (Math.random() - 0.5) * 60;
-  pPos[i*3+2] = (Math.random() - 0.5) * 80;
-}
-const pGeo = new THREE.BufferGeometry();
-pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-scene.add(new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x4488bb, size: 0.08, transparent: true, opacity: 0.7 })));
-
-let mx = 0, my = 0, tRX = 0, tRY = 0;
-window.addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
+/* Cursor */
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; cur.style.opacity = '1';
 });
+document.addEventListener('mouseleave', () => { cur.style.opacity='0'; cur.classList.remove('big'); curText.textContent=''; });
+document.addEventListener('mouseenter', () => { cur.style.opacity='1'; });
 
-const _v = new THREE.Vector3();
-function toScreen(mesh) {
-  mesh.getWorldPosition(_v);
-  _v.project(camera);
-  return { x: (_v.x * 0.5 + 0.5) * innerWidth, y: (-_v.y * 0.5 + 0.5) * innerHeight, behind: _v.z > 1 };
-}
-
-let t = 0;
-function animate() {
+/* Animation */
+const BASE_SPEED = 0.0035;
+let last = 0;
+function animate(ts) {
   requestAnimationFrame(animate);
-  t += 0.016;
-  tRY += (mx * 0.45 - tRY) * 0.04;
-  tRX += (-my * 0.2  - tRX) * 0.04;
-  grp.rotation.y = tRY;
-  grp.rotation.x = tRX;
-  scene.children.forEach(obj => { if (obj.userData && obj.userData.isLogo) obj.quaternion.copy(camera.quaternion); });
-  glowRingMat.opacity = 0.28 + Math.sin(t * 1.4) * 0.12;
-  ring2Mat.opacity    = 0.5  + Math.sin(t * 1.8) * 0.18;
-  ring3Mat.opacity    = 0.18 + Math.sin(t * 2.1) * 0.1;
-  haloMat.opacity     = 0.14 + Math.sin(t * 0.9) * 0.07;
-  halo2Mat.opacity    = 0.06 + Math.sin(t * 0.7) * 0.04;
-  nodes.forEach((n, i) => {
-    n.angle += n.speed;
-    const x = Math.cos(n.angle) * n.radius;
-    const z = Math.sin(n.angle) * n.radius;
-    const y = Math.sin(n.angle + n.tilt) * 0.75;
-    n.mesh.position.set(x, y, z);
-    n.mesh.lookAt(camera.position);
-    const depth = (z + n.radius) / (n.radius * 2);
-    // pill mesh invisible, only HTML labels used
-    const s = toScreen(n.mesh);
-    const el = labelEls[i];
-    if (!s.behind) {
-      el.style.left = s.x + 'px'; el.style.top = s.y + 'px';
-      el.style.opacity = (0.55 + depth * 0.45).toFixed(2);
-      el.style.fontSize = (12 + depth * 3) + 'px';
-      const cyan = Math.round(150 + depth * 105);
-      el.style.boxShadow = `0 0 ${8 + depth * 12}px rgba(0,${cyan},255,${(0.2 + depth * 0.3).toFixed(2)})`;
-      el.style.borderColor = `rgba(0,${cyan},255,${(0.4 + depth * 0.5).toFixed(2)})`;
-    } else { el.style.opacity = 0; }
+  const dt = Math.min(ts - last, 50); last = ts;
+
+  /* Sort by depth for z-index */
+  const positioned = nodes.map(n => {
+    const o = ORBITS[n.orbit];
+    n.angle += BASE_SPEED * o.speedFactor * (dt / 16);
+    const rx = W * o.rxF, ry = H * o.ryF;
+    const x = cx + rx * Math.cos(n.angle);
+    const y = cy + ry * Math.sin(n.angle);
+    const depth = (Math.sin(n.angle) + 1) / 2; // 0=back, 1=front
+    return { n, x, y, depth };
   });
-  renderer.render(scene, camera);
+  positioned.sort((a, b) => a.depth - b.depth);
+
+  positioned.forEach(({ n, x, y, depth }) => {
+    n.el.style.left    = x + 'px';
+    n.el.style.top     = y + 'px';
+    n.el.style.opacity = (0.35 + depth * 0.65).toFixed(2);
+    n.el.style.zIndex  = depth < 0.5 ? '2' : '8';
+    n.el.style.fontSize = (11 + depth * 4) + 'px';
+    const b = Math.round(100 + depth * 155);
+    n.el.style.borderColor = `rgba(0,${b},255,${(0.4 + depth*0.5).toFixed(2)})`;
+  });
 }
-animate();
-setTimeout(() => labelEls.forEach(e => e.style.transition = 'opacity 0.4s'), 600);
+requestAnimationFrame(animate);
 </script>
 </body>
 </html>
