@@ -381,7 +381,8 @@
       const count = Math.floor(TOTAL_STARS / N_ARMS);
       for (let i = 0; i < count; i++) {
         const t      = i / count;
-        const r      = Math.pow(t, DIFF_EXP);
+        const R_MIN  = 0.24; // stop before touching logo (~logo radius / maxR)
+        const r      = R_MIN + Math.pow(t, DIFF_EXP) * (1 - R_MIN);
         const theta  = armAngle + r * Math.PI * 3.2;
         const spread = ARM_SPREAD * (1 - r * 0.4);
         const dTheta = (Math.random() - 0.5) * spread;
