@@ -38,14 +38,13 @@
     #scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.7);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;animation:fadeIn 2s 1.5s both;}
     #scroll-hint .scroll-line{width:1px;height:48px;background:linear-gradient(180deg,rgba(255,255,255,.6),transparent);animation:scrollAnim 2s infinite;}
 
-    #hero{height:100vh;min-height:600px;position:relative;overflow:hidden;}
-    .hero-text{position:absolute;left:5%;top:50%;transform:translateY(-50%);width:44%;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;opacity:0;}
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 5% 4rem;position:relative;overflow:hidden;gap:2rem;}
+    .hero-text{display:flex;flex-direction:column;align-items:flex-start;text-align:left;z-index:1;}
     .hero-text .hero-sub{margin:1.8rem 0;max-width:480px;}
     .hero-text .hero-actions{justify-content:flex-start;}
-    .hero-orbit{position:absolute;inset:0;z-index:2;opacity:0;clip-path:inset(0 0 0 48%);}
+    .hero-orbit{width:100%;height:600px;z-index:1;}
     .hero-orbit iframe{width:100%;height:100%;border:none;background:transparent;}
-    .hero-scroll{z-index:4;}
-    @media(max-width:900px){#hero{height:auto;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:8rem;padding-bottom:3rem;}.hero-text{position:relative;left:auto;top:auto;transform:none;width:100%;align-items:center;text-align:center;padding:0 5%;margin-bottom:1rem;}.hero-text .hero-actions{justify-content:center;}.hero-orbit{position:relative;right:auto;top:auto;width:100%;height:360px;}}
+    @media(max-width:900px){#hero{grid-template-columns:1fr;}.hero-text{align-items:center;text-align:center;}.hero-text .hero-actions{justify-content:center;}.hero-orbit{height:380px;}}
     .hero-bg{display:none;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
     .blob{position:absolute;border-radius:50%;filter:blur(80px);}
@@ -53,13 +52,13 @@
     .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
     .particle{position:absolute;border-radius:50%;background:var(--cyan);opacity:0;animation:floatUp linear infinite;}
     @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(0)}10%{opacity:.4}90%{opacity:.1}100%{opacity:0;transform:translateY(-100vh) scale(1)}}
-    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(0,255,204,.3);background:rgba(0,255,204,.06);padding:.42rem 1.1rem;border-radius:999px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:2rem;position:relative;z-index:1;}
+    .hero-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(0,255,204,.3);background:rgba(0,255,204,.06);padding:.42rem 1.1rem;border-radius:999px;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:2rem;position:relative;z-index:1;animation:fadeUp .8s ease both;}
     .hero-badge::before{content:'';width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan);animation:pulse 2s infinite;}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-    h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,9rem);line-height:.95;position:relative;z-index:1;}
+    h1.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,9rem);line-height:.95;position:relative;z-index:1;animation:fadeUp .9s .1s ease both;}
     h1.hero-title .accent{color:var(--cyan);display:block;}
-    .hero-sub{max-width:560px;font-size:clamp(.98rem,2vw,1.15rem);color:var(--gray);line-height:1.7;margin:1.8rem auto;position:relative;z-index:1;}
-    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;}
+    .hero-sub{max-width:560px;font-size:clamp(.98rem,2vw,1.15rem);color:var(--gray);line-height:1.7;margin:1.8rem auto;position:relative;z-index:1;animation:fadeUp 1s .2s ease both;}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;animation:fadeUp 1s .3s ease both;}
     .btn-primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#000d1a;border:none;padding:.9rem 2.4rem;border-radius:6px;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;display:inline-block;}
     .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,204,.35);}
     .btn-ghost{background:transparent;border:1.5px solid rgba(0,102,255,.4);color:var(--white);padding:.9rem 2.4rem;border-radius:6px;font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;transition:border-color .2s,color .2s;}
@@ -99,7 +98,8 @@
 
     #how{padding:8rem 5%;background:#001428;}
     .how-inner{max-width:1000px;margin:0 auto;}
-    .how-step{display:grid;grid-template-columns:80px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid rgba(0,102,255,.12);}
+    .how-step{display:grid;grid-template-columns:80px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid rgba(0,102,255,.12);opacity:0;transform:translateX(-30px);transition:opacity .6s,transform .6s;}
+    .how-step.visible{opacity:1;transform:none;}
     .how-step:last-child{border-bottom:none;}
     .step-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--cyan);line-height:1;}
     .step-content h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.6rem;color:#e8f4ff;}
@@ -139,27 +139,10 @@
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
+    .reveal.visible{opacity:1;transform:none;}
     @media(max-width:768px){.numbers-inner{flex-direction:column;}.number-item{border-right:none;border-bottom:1px solid rgba(0,212,255,.1);}.number-item:last-child{border-bottom:none;}.how-step{grid-template-columns:50px 1fr;gap:1rem;}.closebanner-inner{flex-direction:column;text-align:center;}}
-    /* HELIX CANVAS */
-    canvas#helix{position:fixed;inset:0;pointer-events:none;z-index:0;}
-    /* H INTRO */
-    #h-intro{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;overflow:hidden;perspective:900px;}
-    #h-letter{font-family:'Bebas Neue',sans-serif;font-size:clamp(15rem,34vw,26rem);line-height:1;background:linear-gradient(135deg,var(--cyan) 0%,#e8f4ff 65%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;user-select:none;will-change:transform,opacity,filter;transform-origin:center center;}
-    #hero{perspective:1100px;}
-    .hero-text,.hero-orbit{will-change:transform,opacity;}
-    /* SERVICE PANEL */
-    #service-panel{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;background:rgba(0,13,26,.97);backdrop-filter:blur(28px);opacity:0;pointer-events:none;}
-    #service-panel.open{pointer-events:auto;}
-    #panel-close{position:absolute;top:2rem;right:2rem;background:transparent;border:1.5px solid rgba(0,255,204,.35);color:var(--cyan);width:50px;height:50px;border-radius:50%;font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:sans-serif;line-height:1;}
-    #panel-close:hover{background:rgba(0,255,204,.1);}
-    #panel-body{max-width:640px;padding:2rem;text-align:center;}
-    #panel-emoji{font-size:3.5rem;margin-bottom:1rem;display:block;}
-    #panel-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5.5rem);color:var(--cyan);line-height:1;margin-bottom:1rem;}
-    #panel-text{color:var(--gray);font-size:1.05rem;line-height:1.8;margin-bottom:2rem;}
-    #panel-cta{display:inline-block;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#000d1a;border:none;padding:.85rem 2.2rem;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-decoration:none;}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
@@ -186,10 +169,14 @@
   <a class="nav-cta" href="#cta">Jetzt starten</a>
 </nav>
 
-<canvas id="helix"></canvas>
-<section id="h-intro">
-  <div id="h-letter">H</div>
-</section>
+<div id="intro-wrapper">
+  <div id="intro-sticky">
+    <video id="heroVideo" autoplay muted playsinline preload="auto">
+      <source src="public/hero.mp4" type="video/mp4" />
+    </video>
+    <div id="scroll-hint">Scroll<div class="scroll-line"></div></div>
+  </div>
+</div>
 
 <section id="hero">
   <div class="hero-bg"></div>
@@ -306,16 +293,6 @@
   </div>
 </section>
 
-<div id="service-panel">
-  <button id="panel-close">&#x2715;</button>
-  <div id="panel-body">
-    <span id="panel-emoji"></span>
-    <div id="panel-title"></div>
-    <p id="panel-text"></p>
-    <a id="panel-cta" href="#cta">Jetzt anfragen →</a>
-  </div>
-</div>
-
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Nach oben">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
@@ -328,268 +305,81 @@
 </footer>
 
 <script>
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   HOOK HERO — Cinematic Scroll Engine
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.registerPlugin(ScrollTrigger);
+const backTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);});
+const ring=document.getElementById('cursorRing');
+let cursorVisible=false;
+document.addEventListener('mousemove',e=>{
+  ring.style.left=e.clientX+'px';
+  ring.style.top=e.clientY+'px';
+  if(!cursorVisible){cursorVisible=true;}
+  ring.style.opacity='1';
+});
+document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
+document.addEventListener('mouseenter',()=>{if(cursorVisible)ring.style.opacity='1';});
+/* Hide main cursor when entering orbit iframe, restore on exit */
+const orbitIframe = document.querySelector('.hero-orbit iframe');
+if(orbitIframe){
+  orbitIframe.addEventListener('mouseenter',()=>{ring.style.opacity='0';});
+  orbitIframe.addEventListener('mouseleave',()=>{if(cursorVisible)ring.style.opacity='1';});
+}
+document.querySelectorAll('a,button,.feature-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
+});
+const pC=document.getElementById('particles');
+for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.15});
+document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
+const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';});
 
-/* ── HELIX CANVAS — animated DNA background ─────────────── */
-(function() {
-  const canvas = document.getElementById('helix');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let t = 0;
-  function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
-  resize();
-  window.addEventListener('resize', resize, {passive:true});
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const W = canvas.width, H = canvas.height, amp = W * 0.055, freq = 0.013;
-    for (let s = 0; s < 2; s++) {
-      const off = s * Math.PI;
-      ctx.beginPath();
-      for (let y = -20; y <= H + 20; y += 4) {
-        const x = W * 0.5 + amp * Math.sin(y * freq + t + off);
-        y === -20 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle = s ? 'rgba(0,102,255,0.055)' : 'rgba(0,255,204,0.075)';
-      ctx.lineWidth = 1.5; ctx.stroke();
-    }
-    for (let y = 14; y < H; y += 40) {
-      const ph = y * freq + t;
-      const x1 = W * 0.5 + amp * Math.sin(ph);
-      const x2 = W * 0.5 + amp * Math.sin(ph + Math.PI);
-      const a = (0.022 + 0.016 * Math.abs(Math.sin(ph))).toFixed(3);
-      ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y);
-      ctx.strokeStyle = `rgba(80,190,255,${a})`; ctx.lineWidth = 0.8; ctx.stroke();
-    }
-    t += 0.007;
-    requestAnimationFrame(draw);
-  }
-  draw();
-  ScrollTrigger.create({
-    trigger: 'body', start: 'top top', end: '+=250%',
-    onUpdate: self => { canvas.style.opacity = Math.max(0, 1 - self.progress * 1.3).toFixed(2); }
-  });
+/* VIDEO SCRUB */
+(function(){
+  const wrapper=document.getElementById('intro-wrapper');
+  const video=document.getElementById('heroVideo');
+  let ended=false;
+  video.addEventListener('ended',()=>{video.pause();ended=true;});
+  window.addEventListener('scroll',()=>{
+    if(!ended||!video.duration)return;
+    const scrolled=Math.max(0,window.scrollY-(wrapper.offsetTop||0));
+    const scrollable=wrapper.offsetHeight-window.innerHeight;
+    const p=Math.min(1,scrolled/scrollable);
+    video.currentTime=video.duration*(1-p);
+  },{passive:true});
 })();
 
-/* ── BACK TO TOP ─────────────────────────────────────────── */
-const backTop = document.getElementById('back-top');
-window.addEventListener('scroll', () => { backTop.classList.toggle('visible', window.scrollY > 400); }, {passive:true});
-
-/* ── CURSOR ──────────────────────────────────────────────── */
-const ring = document.getElementById('cursorRing');
-let cursorVisible = false;
-document.addEventListener('mousemove', e => {
-  ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
-  if (!cursorVisible) cursorVisible = true; ring.style.opacity = '1';
-});
-document.addEventListener('mouseleave', () => { ring.style.opacity = '0'; });
-document.addEventListener('mouseenter', () => { if (cursorVisible) ring.style.opacity = '1'; });
-const orbitIframe = document.querySelector('.hero-orbit iframe');
-if (orbitIframe) {
-  orbitIframe.addEventListener('mouseenter', () => { ring.style.opacity = '0'; });
-  orbitIframe.addEventListener('mouseleave', () => { if (cursorVisible) ring.style.opacity = '1'; });
-}
-document.querySelectorAll('a,button').forEach(el => {
-  el.addEventListener('mouseenter', () => { ring.style.width = '52px'; ring.style.height = '52px'; });
-  el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; });
-});
-
-/* ── PARTICLES ───────────────────────────────────────────── */
-const pC = document.getElementById('particles');
-if (pC) for (let i = 0; i < 18; i++) {
-  const p = document.createElement('div'); p.className = 'particle';
-  const s = Math.random() * 2.5 + 0.8;
-  p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*15}%;animation-duration:${9+Math.random()*11}s;animation-delay:${Math.random()*10}s;`;
-  pC.appendChild(p);
-}
-
-/* ── NAV ─────────────────────────────────────────────────── */
-window.addEventListener('scroll', () => {
-  document.getElementById('mainNav').style.background = window.scrollY > 60 ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,.95)';
-}, {passive:true});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 1 — H: enters from depth, exits into spiral
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.fromTo('#h-letter',
-  { opacity:0, scale:.80, rotateY:-22, rotateZ:6, filter:'blur(28px)', transformPerspective:900 },
-  { opacity:1, scale:1,   rotateY:0,   rotateZ:0, filter:'blur(0px)',  duration:1.5, delay:.25, ease:'power3.out', transformPerspective:900 }
-);
-
-gsap.timeline({
-  scrollTrigger: {
-    trigger: '#h-intro', start: 'top top', end: '+=120%',
-    scrub: 2, pin: true, pinSpacing: true, anticipatePin: 1,
-  }
-})
-.to('#h-letter', {
-  rotateY: 44, rotateZ: -14, y: 90, scale: 0.68,
-  opacity: 0, filter: 'blur(26px)', transformPerspective: 900, ease: 'power2.in'
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 2 — HERO: text + orbit emerge from spiral depth
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.timeline({ scrollTrigger: { trigger: '#hero', start: 'top 80%', once: true } })
-  .fromTo('.hero-text',
-    { opacity:0, x:-90, rotateY:-22, filter:'blur(14px)', transformPerspective:1000 },
-    { opacity:1, x:0,   rotateY:0,   filter:'blur(0px)',  duration:1.3, ease:'power3.out' }
-  )
-  .fromTo('.hero-orbit',
-    { opacity:0, rotateY:14, filter:'blur(10px)', transformPerspective:1000 },
-    { opacity:1, rotateY:0,  filter:'blur(0px)',  duration:1.3, ease:'power3.out' }
-  , '-=1.0');
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 3 — ORBIT FULLSCREEN TAKEOVER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.matchMedia().add('(min-width:901px)', () => {
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: '#hero', start: 'top top', end: '+=110%',
-      scrub: 2, pin: true, pinSpacing: true, anticipatePin: 1,
-    }
-  })
-  .to('.hero-text', {
-    opacity:0, y:-100, rotateX:28, filter:'blur(12px)',
-    transformPerspective:700, ease:'power2.inOut', duration:.5
-  })
-  .to('.hero-orbit', { clipPath:'inset(0 0 0 0%)', ease:'power2.inOut', duration:.5 }, 0)
-  .to('.hero-scroll', { opacity:0, duration:.15 }, 0);
-});
-
-/* ── MOUSE PARALLAX ──────────────────────────────────────── */
-let heroInView = true;
-ScrollTrigger.create({
-  trigger:'#hero', start:'top top', end:'bottom top',
-  onLeave:()=>{ heroInView=false; }, onEnterBack:()=>{ heroInView=true; }
-});
-document.addEventListener('mousemove', e => {
-  if (!heroInView) return;
-  const dx = (e.clientX - innerWidth*.5) / innerWidth;
-  const dy = (e.clientY - innerHeight*.5) / innerHeight;
-  gsap.to('.hero-title',   {x:dx*15,y:dy*8,  duration:1.8, ease:'power2.out', overwrite:'auto'});
-  gsap.to('.hero-badge',   {x:dx*10,y:dy*5,  duration:1.9, ease:'power2.out', overwrite:'auto'});
-  gsap.to('.hero-sub',     {x:dx*8, y:dy*4,  duration:2.1, ease:'power2.out', overwrite:'auto'});
-  gsap.to('.hero-actions', {x:dx*6, y:dy*3,  duration:2.1, ease:'power2.out', overwrite:'auto'});
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 4 — NUMBERS: emerge with depth push
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.from('.numbers-headline,.numbers-sub', {
-  scrollTrigger:{trigger:'#numbers',start:'top 78%',once:true},
-  y:45, rotateX:10, transformPerspective:700, opacity:0, stagger:.15, duration:1, ease:'power3.out'
-});
-gsap.from('.social-btn,.social-handle', {
-  scrollTrigger:{trigger:'.numbers-social',start:'top 88%',once:true},
-  y:20, opacity:0, stagger:.1, duration:.7, ease:'power3.out'
-});
-gsap.from('.number-item', {
-  scrollTrigger:{trigger:'.numbers-inner',start:'top 82%',once:true},
-  y:55, rotateX:18, transformPerspective:500, opacity:0, stagger:.15, duration:1, ease:'power3.out'
-});
-document.querySelectorAll('[data-count]').forEach(el => {
-  const target = +el.dataset.count;
-  ScrollTrigger.create({ trigger:el, start:'top 85%', once:true,
-    onEnter() {
-      gsap.to({val:0},{val:target,duration:2.4,ease:'power2.out',
-        onUpdate() { el.textContent = Math.floor(this.targets()[0].val).toLocaleString('de-DE'); },
-        onComplete() { el.textContent = target.toLocaleString('de-DE'); }
-      });
-    }
-  });
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 5 — 3 STEPS: helix lateral emergence
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.from('#how .section-tag,#how .section-title', {
-  scrollTrigger:{trigger:'#how',start:'top 78%',once:true},
-  y:35, opacity:0, stagger:.15, duration:1, ease:'power3.out'
-});
-gsap.from('.how-step', {
-  scrollTrigger:{trigger:'.how-inner',start:'top 72%',once:true},
-  x:-85, rotateY:-18, transformPerspective:900, opacity:0,
-  stagger:{each:.22,ease:'power2.out'}, duration:1.2, ease:'power3.out'
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 6 — CLOSEBANNER: split from center
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.from('.closebanner-text', {
-  scrollTrigger:{trigger:'#closebanner',start:'top 82%',once:true},
-  x:-60, rotateY:-12, transformPerspective:800, opacity:0, duration:1.1, ease:'power3.out'
-});
-gsap.from('.btn-gold', {
-  scrollTrigger:{trigger:'#closebanner',start:'top 82%',once:true},
-  x:60, rotateY:12, transformPerspective:800, opacity:0, duration:1.1, ease:'power3.out'
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCENE 7 — CTA: depth-driven entrance
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-gsap.from('.cta-left', {
-  scrollTrigger:{trigger:'#cta',start:'top 72%',once:true},
-  x:-70, rotateY:-14, transformPerspective:800, opacity:0, duration:1.2, ease:'power3.out'
-});
-gsap.from('.cta-form > *', {
-  scrollTrigger:{trigger:'#cta',start:'top 68%',once:true},
-  y:35, rotateX:12, transformPerspective:600, opacity:0, stagger:.08, duration:.8, ease:'power3.out'
-});
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SERVICE PANEL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const serviceData = {
-  'Hook-Erstellung':   {emoji:'🎣',desc:'Ein starker Hook entscheidet, ob dein Content gesehen wird — oder für immer ignoriert bleibt. Wir entwickeln Hooks, die sofort fesseln und deine Zielgruppe nicht mehr loslassen.'},
-  'Social Media':      {emoji:'📱',desc:'Wir bauen deinen Kanal auf und sorgen dafür, dass jeder Post performt — auf TikTok, Instagram und YouTube. Organische Reichweite, die wirklich konvertiert.'},
-  'Website':           {emoji:'🌐',desc:'Investiere einmal in eine Website, die dein Produkt für dich verkauft. Kein Template. Kein Kompromiss. Alles auf Conversion optimiert.'},
-  'Content-Strategie': {emoji:'🧠',desc:'Kein Zufall, nur System — wir planen Content, der kontinuierlich wächst und deine Zielgruppe genau dort abholt, wo sie ist.'},
-  'Reichweite':        {emoji:'🚀',desc:'Wir wissen ganz genau, wie du in den nächsten 30 Tagen mehrere Millionen Menschen erreichst. Ohne Werbebudget. Mit der richtigen Strategie.'},
-  'Branding':          {emoji:'⚡',desc:'Deine Marke muss auf den ersten Blick überzeugen — wir machen sie unverwechselbar, einprägsam und stark positioniert.'},
-};
-const panel      = document.getElementById('service-panel');
-const panelEmoji = document.getElementById('panel-emoji');
-const panelTitle = document.getElementById('panel-title');
-const panelText  = document.getElementById('panel-text');
-function openPanel(name) {
-  const s = serviceData[name]; if (!s) return;
-  panelEmoji.textContent = s.emoji; panelTitle.textContent = name; panelText.textContent = s.desc;
-  panel.classList.add('open');
-  gsap.fromTo(panel,       {opacity:0},        {opacity:1,duration:.4,ease:'power2.out'});
-  gsap.fromTo('#panel-body',{y:40,opacity:0},  {y:0,opacity:1,duration:.6,delay:.08,ease:'power3.out'});
-}
-function closePanel() {
-  gsap.to(panel, {opacity:0,duration:.3,ease:'power2.in',onComplete:()=>panel.classList.remove('open')});
-}
-document.getElementById('panel-close').addEventListener('click', closePanel);
-panel.addEventListener('click', e => { if (e.target===panel) closePanel(); });
-document.addEventListener('keydown', e => { if (e.key==='Escape') closePanel(); });
-window.addEventListener('message', e => { if (e.data&&e.data.type==='serviceClick') openPanel(e.data.name); });
-
-/* ── CONTACT FORM ─────────────────────────────────────────── */
-const ctaForm  = document.querySelector('.cta-form');
-const submitBtn = document.getElementById('submitBtn');
-const formMsg   = document.getElementById('formMsg');
-if (ctaForm) {
-  ctaForm.addEventListener('submit', async e => {
-    e.preventDefault(); submitBtn.textContent='Wird gesendet...'; submitBtn.disabled=true;
-    try {
-      const res = await fetch('https://formspree.io/f/xaqlljzp',{
+/* CONTACT FORM */
+const ctaForm=document.querySelector('.cta-form');
+const submitBtn=document.getElementById('submitBtn');
+const formMsg=document.getElementById('formMsg');
+if(ctaForm){
+  ctaForm.addEventListener('submit',async e=>{
+    e.preventDefault();
+    submitBtn.textContent='Wird gesendet...';
+    submitBtn.disabled=true;
+    try{
+      const res=await fetch('https://formspree.io/f/xaqlljzp',{
         method:'POST',body:new FormData(ctaForm),headers:{Accept:'application/json'}
       });
-      if (res.ok) {
+      if(res.ok){
         formMsg.textContent='✓ Nachricht gesendet! Wir melden uns bald.';
-        formMsg.style.color='#00FFCC'; formMsg.style.display='block'; ctaForm.reset();
+        formMsg.style.color='#0077cc';
+        formMsg.style.display='block';
+        ctaForm.reset();
       } else {
-        formMsg.textContent='Fehler. Bitte schreib uns: info@hookhero.de';
-        formMsg.style.color='#cc0000'; formMsg.style.display='block';
+        formMsg.textContent='Fehler beim Senden. Bitte schreib uns direkt: info@hookhero.de';
+        formMsg.style.color='#cc0000';
+        formMsg.style.display='block';
       }
-    } catch { formMsg.textContent='Verbindungsfehler: info@hookhero.de'; formMsg.style.color='#cc0000'; formMsg.style.display='block'; }
-    submitBtn.textContent='Nachricht senden →'; submitBtn.disabled=false;
+    } catch{
+      formMsg.textContent='Verbindungsfehler. Bitte schreib uns: info@hookhero.de';
+      formMsg.style.color='#cc0000';
+      formMsg.style.display='block';
+    }
+    submitBtn.textContent='Nachricht senden →';
+    submitBtn.disabled=false;
   });
 }
 </script>
