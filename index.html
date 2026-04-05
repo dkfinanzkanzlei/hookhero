@@ -32,7 +32,19 @@
     .nav-cta{background:var(--white);border:1.5px solid var(--white);color:#f5f5e6;padding:.52rem 1.3rem;border-radius:4px;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:background .2s;}
     .nav-cta:hover{background:#333;}
 
-    #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 6rem;position:relative;overflow:hidden;}
+    /* VIDEO INTRO */
+    #video-intro{position:relative;width:100%;height:100vh;overflow:hidden;background:#000;}
+    #video-intro video{width:100%;height:100%;object-fit:cover;display:block;}
+    .video-scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.7);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;animation:fadeIn 2s 1.5s both;}
+    .video-scroll-hint .scroll-line{width:1px;height:48px;background:linear-gradient(180deg,rgba(255,255,255,.6),transparent);animation:scrollAnim 2s infinite;}
+
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 5% 4rem;position:relative;overflow:hidden;gap:2rem;}
+    .hero-text{display:flex;flex-direction:column;align-items:flex-start;text-align:left;z-index:1;}
+    .hero-text .hero-sub{margin:1.8rem 0;max-width:480px;}
+    .hero-text .hero-actions{justify-content:flex-start;}
+    .hero-orbit{width:100%;height:600px;z-index:1;}
+    .hero-orbit iframe{width:100%;height:100%;border:none;background:transparent;}
+    @media(max-width:900px){#hero{grid-template-columns:1fr;}.hero-text{align-items:center;text-align:center;}.hero-text .hero-actions{justify-content:center;}.hero-orbit{height:380px;}}
     .hero-bg{display:none;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
     .blob{position:absolute;border-radius:50%;filter:blur(80px);}
@@ -143,15 +155,27 @@
   <a class="nav-cta" href="#cta">Jetzt starten</a>
 </nav>
 
+<section id="video-intro">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="public/hero.mp4" type="video/mp4" />
+  </video>
+  <div class="video-scroll-hint">Scroll<div class="scroll-line"></div></div>
+</section>
+
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="particles" id="particles"></div>
-<h1 class="hero-title">Hooks, die<span class="accent">Helden</span>erschaffen.</h1>
-  <p class="hero-sub">Hook Hero gibt dir die Superkraft, dein Publikum vom ersten Wort an zu fesseln – mit bewährten Formeln, die wirklich funktionieren.</p>
-  <div class="hero-actions">
-    <a class="btn-primary" href="#cta">Kostenlos starten</a>
-    <a class="btn-ghost" href="#how"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>So funktioniert's</a>
+  <div class="hero-text">
+    <h1 class="hero-title">Hooks, die<span class="accent">Helden</span>erschaffen.</h1>
+    <p class="hero-sub">Hook Hero gibt dir die Superkraft, dein Publikum vom ersten Wort an zu fesseln – mit bewährten Formeln, die wirklich funktionieren.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#cta">Kostenlos starten</a>
+      <a class="btn-ghost" href="#how"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>So funktioniert's</a>
+    </div>
+  </div>
+  <div class="hero-orbit">
+    <iframe src="hook-hero-orbit.html" scrolling="no" allowtransparency="true"></iframe>
   </div>
   <div class="hero-scroll">Scroll<div class="scroll-line"></div></div>
 </section>
