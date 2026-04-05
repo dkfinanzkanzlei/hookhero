@@ -20,8 +20,8 @@
     .cursor{display:none;}
     .cursor-ring{width:34px;height:34px;background:transparent;border:1.5px solid rgba(0,180,255,0.8);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0;}
     section,footer,#numbers{position:relative;z-index:1;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.35rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s;overflow:visible;}
-    .nav-logo img{height:80px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.18rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s;overflow:visible;}
+    .nav-logo img{height:52px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
     .nav-brands{display:flex;gap:.8rem;}
     .nbtn{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:.38rem .9rem;border-radius:4px;transition:all .2s;}
     .nbtn-hook{color:var(--cyan);border:1.5px solid var(--cyan);background:rgba(0,119,204,.08);}
@@ -314,8 +314,11 @@ let cursorVisible=false;
 document.addEventListener('mousemove',e=>{
   ring.style.left=e.clientX+'px';
   ring.style.top=e.clientY+'px';
-  if(!cursorVisible){cursorVisible=true;ring.style.opacity='1';}
+  if(!cursorVisible){cursorVisible=true;}
+  ring.style.opacity='1';
 });
+document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
+document.addEventListener('mouseenter',()=>{if(cursorVisible)ring.style.opacity='1';});
 document.querySelectorAll('a,button,.feature-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';});
   el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});

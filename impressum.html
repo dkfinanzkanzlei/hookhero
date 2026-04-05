@@ -15,9 +15,9 @@
     .cursor-ring{width:34px;height:34px;background:transparent;border:1.5px solid rgba(0,180,255,0.8);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
     .blob{position:absolute;border-radius:50%;filter:blur(80px);}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.35rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);overflow:visible;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.18rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);overflow:visible;}
     .nav-logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;}
-    .nav-logo img{height:80px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
+    .nav-logo img{height:52px !important;width:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,.9)) drop-shadow(0 0 20px rgba(180,230,255,.8)) drop-shadow(0 0 40px rgba(0,212,255,.6));}
     .nav-logo span{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;}
     .nav-links{display:flex;align-items:center;gap:1.5rem;}
     .nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#fff;transition:color .2s;}
@@ -100,7 +100,9 @@
 <script>
 const ring=document.getElementById('cursorRing');
 let v=false;
-document.addEventListener('mousemove',e=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';if(!v){v=true;ring.style.opacity='1';}});
+document.addEventListener('mousemove',e=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';if(!v){v=true;}ring.style.opacity='1';});
+document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
+document.addEventListener('mouseenter',()=>{if(v)ring.style.opacity='1';});
 </script>
 </body>
 </html>

@@ -19,9 +19,9 @@
     .cursor{display:none}
     .cursor-ring{width:34px;height:34px;background:transparent;border:1.5px solid rgba(0,180,255,0.8);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;opacity:0}
 
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.7rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,.08)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:.18rem 5%;background:rgba(0,0,0,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,.08)}
     .nav-logo-wrap{display:flex;align-items:center;gap:.7rem;text-decoration:none}
-    .nav-logo-wrap img{height:100px;width:auto;filter:drop-shadow(0 0 10px rgba(201,168,76,1)) drop-shadow(0 0 24px rgba(201,168,76,.8)) drop-shadow(0 0 48px rgba(201,168,76,.5))}
+    .nav-logo-wrap img{height:52px;width:auto;filter:drop-shadow(0 0 10px rgba(201,168,76,1)) drop-shadow(0 0 24px rgba(201,168,76,.8)) drop-shadow(0 0 48px rgba(201,168,76,.5))}
     .nav-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold-lt)}
     .nav-brand-sub{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-top:.1rem}
     .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
@@ -451,8 +451,11 @@ const cursor=document.getElementById('cursor'),ring=document.getElementById('cur
 let mx=-100,my=-100,rx=-100,ry=-100,cursorVisible=false;
 document.addEventListener('mousemove',e=>{
   mx=e.clientX;my=e.clientY;
-  if(!cursorVisible){cursorVisible=true;cursor.style.opacity='1';ring.style.opacity='1';}
+  if(!cursorVisible){cursorVisible=true;}
+  ring.style.opacity='1';
 });
+document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
+document.addEventListener('mouseenter',()=>{if(cursorVisible)ring.style.opacity='1';});
 (function t(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;cursor.style.left=mx+'px';cursor.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(t);})();
 document.querySelectorAll('a,button,.lead-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';ring.style.width='50px';ring.style.height='50px';});
