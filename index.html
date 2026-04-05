@@ -132,6 +132,10 @@
     footer a{color:var(--gray);text-decoration:none;transition:color .2s;}
     footer a:hover{color:var(--cyan);}
     .footer-links{display:flex;gap:2rem;}
+    #back-top{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(0,255,204,.5),0 0 40px rgba(0,102,255,.3);transition:transform .2s,box-shadow .2s,opacity .3s;opacity:0;pointer-events:none;z-index:200;}
+    #back-top.visible{opacity:1;pointer-events:auto;}
+    #back-top:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(0,255,204,.7),0 0 60px rgba(0,102,255,.4);}
+    #back-top svg{width:20px;height:20px;fill:none;stroke:#000d1a;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -289,6 +293,10 @@
   </div>
 </section>
 
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Nach oben">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <footer>
   <div>© 2026 Hook Hero & Close Hero. Alle Rechte vorbehalten.</div>
   <div class="footer-links">
@@ -297,6 +305,8 @@
 </footer>
 
 <script>
+const backTop=document.getElementById('back-top');
+window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);});
 const ring=document.getElementById('cursorRing');
 let cursorVisible=false;
 document.addEventListener('mousemove',e=>{
