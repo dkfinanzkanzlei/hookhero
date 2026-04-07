@@ -161,8 +161,8 @@ const nodes = services.map(s => {
   el.appendChild(esp); el.appendChild(tsp);
   labelsDiv.appendChild(el);
 
-  el.addEventListener('mouseenter', () => { cur.classList.add('big'); curText.textContent = s.tooltip; el.classList.add('hovered'); });
-  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); curText.textContent = ''; el.classList.remove('hovered'); });
+  el.addEventListener('mouseenter', () => { cur.classList.add('big'); curText.textContent = s.tooltip; el.classList.add('hovered'); orbitPaused = true; });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('big'); curText.textContent = ''; el.classList.remove('hovered'); orbitPaused = false; });
 
   return { ...s, el, angle: s.phase, hovering: false };
 });
@@ -177,6 +177,7 @@ document.addEventListener('mouseenter', () => { cur.style.opacity='1'; });
 /* Animation */
 const BASE_SPEED = 0.0035;
 let last = 0;
+let orbitPaused = false;
 function animate(ts) {
   requestAnimationFrame(animate);
   const dt = Math.min(ts - last, 50); last = ts;
@@ -184,7 +185,7 @@ function animate(ts) {
   /* Sort by depth for z-index */
   const positioned = nodes.map(n => {
     const o = ORBITS[n.orbit];
-    n.angle += BASE_SPEED * o.speedFactor * (dt / 16);
+    if (!orbitPaused) n.angle += BASE_SPEED * o.speedFactor * (dt / 16);
     const rx = W * o.rxF, ry = H * o.ryF;
     const x = cx + rx * Math.cos(n.angle);
     const y = cy + ry * Math.sin(n.angle);
