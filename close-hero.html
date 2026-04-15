@@ -3,354 +3,980 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Close Hero – Premium Leads</title>
+  <title>Close Hero – Vorqualifizierte Leads für Versicherung, Finanzen & Immobilien</title>
   <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32.png" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
+    :root {
+      --orange: #FF4500;
+      --gold: #FFB800;
+      --bg: #0a0500;
+      --text: #fff5ee;
+      --muted: rgba(255,245,238,.55);
+      --dim: rgba(255,245,238,.35);
+      --border: rgba(255,255,255,.08);
+      --card-bg: rgba(255,255,255,.03);
+    }
+
     body {
-      background: #0a0500;
-      color: #fff5ee;
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Barlow', sans-serif;
       min-height: 100svh;
       padding-bottom: 5rem;
       background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(255,69,0,.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(255,184,0,.07) 0%, transparent 50%),
-        radial-gradient(ellipse at 20% 70%, rgba(255,69,0,.06) 0%, transparent 50%);
+        radial-gradient(ellipse at 50% 0%, rgba(255,69,0,.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 60%, rgba(255,184,0,.07) 0%, transparent 45%),
+        radial-gradient(ellipse at 15% 80%, rgba(255,69,0,.06) 0%, transparent 45%);
     }
 
-    /* ── HERO ── */
-    .hero {
-      text-align: center;
-      padding: 5rem 1.5rem 3.5rem;
-      max-width: 700px;
-      margin: 0 auto;
+    /* ─── TYPOGRAPHY ─── */
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      letter-spacing: .03em;
+      line-height: 1.05;
+      color: var(--text);
     }
-    .hero-label {
+    h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+      letter-spacing: .03em;
+      color: var(--text);
+    }
+
+    /* ─── SHARED ─── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    .section-sm {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+    .section-center { text-align: center; }
+
+    .label {
       display: inline-block;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: .85rem;
+      font-size: .8rem;
       font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
-      color: #FFB800;
-      border: 1px solid rgba(255,184,0,.35);
-      padding: .3rem 1rem;
+      color: var(--gold);
+      border: 1px solid rgba(255,184,0,.3);
+      padding: .28rem .9rem;
       border-radius: 2rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--orange), var(--gold), transparent);
+      margin: 2rem auto;
+    }
+    .divider-left {
+      margin: 1.5rem 0;
+    }
+
+    a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(255,184,0,.35); transition: color .2s, border-color .2s; }
+    a:hover { color: var(--orange); border-color: var(--orange); }
+
+    /* ─── HERO ─── */
+    .hero {
+      text-align: center;
+      padding: 5.5rem 1.5rem 2rem;
+      max-width: 760px;
+      margin: 0 auto;
     }
     h1 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 11vw, 6rem);
-      line-height: 1;
-      background: linear-gradient(135deg, #FF4500 20%, #FFB800 80%);
+      font-size: clamp(3.2rem, 12vw, 6.5rem);
+      line-height: .96;
+      background: linear-gradient(135deg, var(--orange) 15%, var(--gold) 85%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       letter-spacing: .02em;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .hero-sub {
-      font-size: clamp(1rem, 2.2vw, 1.2rem);
-      line-height: 1.7;
-      color: rgba(255,245,238,.65);
-      max-width: 540px;
-      margin: 0 auto;
+      font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 2rem;
     }
-    .divider {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, #FF4500, #FFB800, transparent);
-      margin: 2.5rem auto;
+    .hero-sub strong { color: var(--text); }
+
+    /* Trust bullets */
+    .trust-bullets {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .6rem .9rem;
+      margin-bottom: 1rem;
+    }
+    .trust-bullets li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .88rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .trust-bullets li::before {
+      content: '✓';
+      color: var(--gold);
+      font-size: .9rem;
     }
 
-    /* ── GRID ── */
+    /* ─── CARDS ─── */
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
       gap: 1.5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
     }
-
-    /* ── CARD ── */
     .card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 1rem;
       padding: 2rem 1.75rem 2.25rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: .9rem;
       position: relative;
       transition: border-color .25s, transform .25s, box-shadow .25s;
     }
     .card:hover {
       border-color: rgba(255,184,0,.4);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(255,69,0,.12);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 52px rgba(255,69,0,.13);
     }
     .card.featured {
       border-color: rgba(255,69,0,.5);
       background: rgba(255,69,0,.06);
     }
-    .card.featured::before {
-      content: 'Beliebt';
+    .card-badge {
       position: absolute;
-      top: -1px; right: 1.5rem;
+      top: -1px; right: 1.4rem;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: .78rem;
+      font-size: .75rem;
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #FF4500, #FFB800);
-      color: #0a0500;
-      padding: .25rem .9rem;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      color: var(--bg);
+      padding: .22rem .85rem;
       border-radius: 0 0 .5rem .5rem;
     }
-
     .card-icon { font-size: 2rem; line-height: 1; }
-
     .card-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-size: clamp(1.7rem, 4.5vw, 2.1rem);
       letter-spacing: .03em;
-      color: #fff5ee;
-      line-height: 1.1;
+      line-height: 1.05;
     }
-
+    .card-tagline {
+      font-size: .78rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: -.3rem;
+    }
     .card-desc {
-      font-size: .92rem;
-      color: rgba(255,245,238,.55);
-      line-height: 1.6;
+      font-size: .93rem;
+      color: var(--muted);
+      line-height: 1.65;
       flex-grow: 1;
     }
+    .card-desc strong { color: var(--text); }
 
-    .price-block { margin-top: .25rem; }
+    .price-block { margin-top: .15rem; }
+
+    /* ─── PAKET-TIERS ─── */
+    .price-tiers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      margin-top: .4rem;
+    }
+    .price-tier {
+      background: rgba(255,245,238,.06);
+      border: 1px solid rgba(255,245,238,.12);
+      border-radius: 10px;
+      padding: .7rem .75rem .8rem;
+      display: flex;
+      flex-direction: column;
+      gap: .15rem;
+    }
+    .price-tier-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
     .price-netto {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.8rem, 8vw, 3.5rem);
+      font-size: clamp(1.9rem, 6vw, 2.4rem);
       line-height: 1;
-      background: linear-gradient(135deg, #FF4500, #FFB800);
+      background: linear-gradient(135deg, var(--orange), var(--gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: .01em;
     }
-    .price-netto span { font-size: 55%; vertical-align: top; padding-top: .4em; display: inline-block; }
-    .price-note {
-      font-size: .8rem;
-      color: rgba(255,245,238,.4);
-      margin-top: .2rem;
-    }
-    .price-brutto {
-      font-size: .88rem;
-      color: rgba(255,245,238,.5);
-      margin-top: .15rem;
+    .price-netto sup { font-size: 50%; vertical-align: top; padding-top: .4em; display: inline-block; }
+    .price-note { font-size: .72rem; color: var(--dim); margin-top: .1rem; }
+    .price-brutto { font-size: .78rem; color: rgba(255,245,238,.4); margin-top: .05rem; }
+
+    /* ─── PAKET BUTTONS WRAPPER ─── */
+    .price-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem;
+      margin-top: .5rem;
     }
 
-    /* ── PAYPAL BUTTON ── */
+    /* ─── PAYPAL BUTTON ─── */
     .btn-paypal {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: .55rem;
-      margin-top: .5rem;
-      padding: .85rem 1.25rem;
-      background: #FFB800;
-      color: #0a0500;
+      gap: .35rem;
+      padding: .75rem .5rem;
+      background: var(--gold);
+      color: var(--bg);
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem;
+      font-size: .88rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: .07em;
       text-transform: uppercase;
       border: none;
       border-radius: .6rem;
       cursor: pointer;
-      text-decoration: none;
-      transition: background .2s, transform .15s, box-shadow .2s;
       width: 100%;
+      transition: background .2s, color .2s, transform .15s, box-shadow .2s;
     }
     .btn-paypal:hover {
-      background: #FF4500;
-      color: #fff5ee;
+      background: var(--orange);
+      color: var(--text);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(255,69,0,.3);
+      box-shadow: 0 10px 28px rgba(255,69,0,.32);
     }
     .btn-paypal svg { flex-shrink: 0; }
 
-    /* ── TRUST BAR ── */
-    .trust {
-      text-align: center;
-      margin: 3.5rem auto 0;
-      padding: 0 1.5rem;
-      max-width: 700px;
+    /* ─── WHY SECTION ─── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
     }
-    .trust p {
-      font-size: .85rem;
-      color: rgba(255,245,238,.35);
-      line-height: 1.8;
+    .why-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: .9rem;
+      padding: 1.5rem 1.4rem;
+      transition: border-color .25s;
     }
-    .trust strong { color: rgba(255,245,238,.6); }
+    .why-item:hover { border-color: rgba(255,184,0,.3); }
+    .why-icon {
+      font-size: 1.6rem;
+      margin-bottom: .75rem;
+    }
+    .why-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+    .why-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
-    /* ── FOOTER ── */
+    /* ─── STEPS ─── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      counter-reset: step;
+    }
+    .step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: .9rem;
+      position: relative;
+    }
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .6rem;
+    }
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+    .step-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── FOR WHOM ─── */
+    .whom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .whom-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.4rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: .85rem;
+    }
+    .whom-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .whom-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+    .whom-desc { font-size: .87rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── FAQ ─── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-top: 2rem;
+    }
+    details {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: .8rem;
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    details:hover, details[open] { border-color: rgba(255,184,0,.35); }
+    summary {
+      padding: 1.15rem 1.5rem;
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: var(--text);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--gold);
+      transition: transform .2s;
+    }
+    details[open] summary::after { transform: rotate(45deg); }
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem;
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .faq-answer strong { color: var(--text); }
+
+    /* ─── FINAL CTA ─── */
+    .cta-section {
+      text-align: center;
+      background: rgba(255,69,0,.06);
+      border: 1px solid rgba(255,69,0,.2);
+      border-radius: 1.2rem;
+      padding: 3.5rem 2rem;
+      margin: 0 1.5rem;
+      max-width: 760px;
+      margin-inline: auto;
+    }
+    .cta-section h2 {
+      background: linear-gradient(135deg, var(--orange) 20%, var(--gold) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    .cta-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      color: var(--bg);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: .65rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-cta:hover {
+      opacity: .88;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(255,69,0,.35);
+      border-bottom: none;
+    }
+
+    /* ─── BOTTOM TRUST BAR ─── */
+    .bottom-trust {
+      text-align: center;
+      padding: 2rem 1.5rem 0;
+      font-size: .82rem;
+      color: var(--dim);
+      line-height: 1.9;
+    }
+
+    /* ─── FOOTER ─── */
     footer {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      padding: .9rem 5%;
+      padding: .85rem 5%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1.5rem;
       font-size: .8rem;
       flex-wrap: wrap;
-      background: rgba(10,5,0,.85);
-      backdrop-filter: blur(12px);
+      background: rgba(10,5,0,.88);
+      backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255,255,255,.06);
+      z-index: 100;
     }
-    footer a { color: rgba(255,245,238,.4); text-decoration: none; transition: color .2s; }
-    footer a:hover { color: #FFB800; }
+    footer a { color: var(--dim); border: none; }
+    footer a:hover { color: var(--gold); border: none; }
 
-    @media (max-width: 480px) {
-      .hero { padding: 3.5rem 1.2rem 2.5rem; }
-      .cards { gap: 1.25rem; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .hero { padding: 4rem 1.2rem 1.5rem; }
+      .section, .section-sm { padding: 3rem 1.2rem; }
+      .cards { gap: 1.1rem; }
       .card { padding: 1.75rem 1.4rem 2rem; }
+      .cta-section { padding: 2.5rem 1.25rem; margin: 0 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
+  <!-- ══════════════════════════════════════════
+       1. HERO
+  ══════════════════════════════════════════ -->
   <section class="hero">
-    <div class="hero-label">Close Hero · Premium Leads</div>
-    <h1>Dein nächster<br>Abschluss wartet</h1>
+    <div class="label">Close Hero · Premium Leads</div>
+    <h1>Kein Kalt&shy;kontakt.<br>Nur echte Käufer.</h1>
     <p class="hero-sub">
-      Hochwertige, vorqualifizierte Leads direkt in dein Postfach –
-      sofort einsatzbereit für deinen Vertrieb.
+      <strong>Vorqualifizierte Leads</strong> für Versicherung, Finanzen &amp; Immobilien –
+      Menschen mit echtem Bedarf, die aktiv nach einer Lösung suchen.
+      Du kommst ins Gespräch, wenn der Abschluss schon halb gemacht ist.
     </p>
+    <ul class="trust-bullets">
+      <li>Echte Anfragen – kein Datenmüll</li>
+      <li>Vorqualifiziert &amp; bedarfsorientiert</li>
+      <li>Keine Kaltakquise mehr</li>
+      <li>Lieferung nach Zahlungseingang</li>
+      <li>Zahlung sicher via PayPal</li>
+    </ul>
     <div class="divider"></div>
   </section>
 
-  <!-- PRICING CARDS -->
-  <section class="cards">
-
-    <!-- Azubi -->
-    <div class="card">
-      <div class="card-icon">🎓</div>
-      <div class="card-title">Azubi&#8209;Lead</div>
-      <p class="card-desc">Kontaktdaten von Auszubildenden – ideal für Einsteigerprodukte und Berufsstart-Absicherung.</p>
-      <div class="price-block">
-        <div class="price-netto"><span>€</span>15</div>
-        <div class="price-note">zzgl. 19&thinsp;% MwSt. &nbsp;·&nbsp; pro Lead</div>
-        <div class="price-brutto">= 17,85&thinsp;€ brutto</div>
-      </div>
-      <!-- PAYPAL: business & item_name anpassen -->
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
-        <input type="hidden" name="item_name" value="Azubi-Lead">
-        <input type="hidden" name="amount" value="17.85">
-        <input type="hidden" name="currency_code" value="EUR">
-        <input type="hidden" name="no_shipping" value="1">
-        <input type="hidden" name="tax" value="0">
-        <button type="submit" class="btn-paypal">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-          Jetzt kaufen
-        </button>
-      </form>
+  <!-- ══════════════════════════════════════════
+       2. PRICING CARDS
+  ══════════════════════════════════════════ -->
+  <section class="section">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div class="label">Leadauswahl</div>
+      <h2>Wähle deinen Lead-Typ</h2>
     </div>
+    <div class="cards">
 
-    <!-- Altersvorsorge -->
-    <div class="card">
-      <div class="card-icon">🏦</div>
-      <div class="card-title">Altersvorsorge&#8209;Lead</div>
-      <p class="card-desc">Interessenten für private Altersvorsorge, Rente und langfristige Absicherungslösungen.</p>
-      <div class="price-block">
-        <div class="price-netto"><span>€</span>75</div>
-        <div class="price-note">zzgl. 19&thinsp;% MwSt. &nbsp;·&nbsp; pro Lead</div>
-        <div class="price-brutto">= 89,25&thinsp;€ brutto</div>
+      <!-- Azubi -->
+      <div class="card">
+        <div class="card-icon">🎓</div>
+        <div class="card-title">Azubi&#8209;Lead</div>
+        <div class="card-tagline">Einstieg · Berufsstart · Erste Absicherung</div>
+        <p class="card-desc">
+          Junge Menschen am Beginn ihrer Karriere – mit konkretem Bedarf an
+          <strong>erster Absicherung, Berufsunfähigkeit und Altersvorsorge</strong>.
+          Einfach zu beraten, kaum Vorbehalte, hohes Langzeitpotenzial als Kunde.
+        </p>
+        <div class="price-block">
+          <div class="price-tiers">
+            <div class="price-tier">
+              <div class="price-tier-label">10 Leads</div>
+              <div class="price-netto"><sup>€</sup>150</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 178,50&thinsp;€ brutto</div>
+            </div>
+            <div class="price-tier">
+              <div class="price-tier-label">100 Leads</div>
+              <div class="price-netto"><sup>€</sup>1.200</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 1.428,00&thinsp;€ brutto</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-buttons">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="Azubi-Lead 10er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="178.50">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              10 sichern
+            </button>
+          </form>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="Azubi-Lead 100er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="1428.00">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              100 sichern
+            </button>
+          </form>
+        </div>
       </div>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
-        <input type="hidden" name="item_name" value="Altersvorsorge-Lead">
-        <input type="hidden" name="amount" value="89.25">
-        <input type="hidden" name="currency_code" value="EUR">
-        <input type="hidden" name="no_shipping" value="1">
-        <input type="hidden" name="tax" value="0">
-        <button type="submit" class="btn-paypal">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-          Jetzt kaufen
-        </button>
-      </form>
-    </div>
 
-    <!-- BU -->
-    <div class="card featured">
-      <div class="card-icon">🛡️</div>
-      <div class="card-title">BU&#8209;Lead</div>
-      <p class="card-desc">Vorqualifizierte Interessenten für Berufsunfähigkeitsversicherungen mit echtem Absicherungsbedarf.</p>
-      <div class="price-block">
-        <div class="price-netto"><span>€</span>90</div>
-        <div class="price-note">zzgl. 19&thinsp;% MwSt. &nbsp;·&nbsp; pro Lead</div>
-        <div class="price-brutto">= 107,10&thinsp;€ brutto</div>
+      <!-- Altersvorsorge -->
+      <div class="card featured">
+        <div class="card-badge">Hohe Abschlusschance</div>
+        <div class="card-icon">🏦</div>
+        <div class="card-title">Alters&shy;vorsorge&#8209;Lead</div>
+        <div class="card-tagline">Rente · Private Vorsorge · Vermögensaufbau</div>
+        <p class="card-desc">
+          Personen, die aktiv nach <strong>privater Altersvorsorge oder Rentenlösungen</strong> gefragt haben.
+          Klarer Bedarf, konkreter Handlungsdruck – du musst nicht überzeugen, sondern nur noch beraten.
+        </p>
+        <div class="price-block">
+          <div class="price-tiers">
+            <div class="price-tier">
+              <div class="price-tier-label">10 Leads</div>
+              <div class="price-netto"><sup>€</sup>750</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 892,50&thinsp;€ brutto</div>
+            </div>
+            <div class="price-tier">
+              <div class="price-tier-label">100 Leads</div>
+              <div class="price-netto"><sup>€</sup>6.700</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 7.973,00&thinsp;€ brutto</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-buttons">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="Altersvorsorge-Lead 10er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="892.50">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              10 sichern
+            </button>
+          </form>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="Altersvorsorge-Lead 100er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="7973.00">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              100 sichern
+            </button>
+          </form>
+        </div>
       </div>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
-        <input type="hidden" name="item_name" value="BU-Lead">
-        <input type="hidden" name="amount" value="107.10">
-        <input type="hidden" name="currency_code" value="EUR">
-        <input type="hidden" name="no_shipping" value="1">
-        <input type="hidden" name="tax" value="0">
-        <button type="submit" class="btn-paypal">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-          Jetzt kaufen
-        </button>
-      </form>
-    </div>
 
-    <!-- Immobilien -->
-    <div class="card featured">
-      <div class="card-icon">🏠</div>
-      <div class="card-title">Immobilien&#8209;Lead</div>
-      <p class="card-desc">Kaufinteressenten und Finanzierungsanfragen rund um Immobilien – hochwertiges Closing-Potenzial.</p>
-      <div class="price-block">
-        <div class="price-netto"><span>€</span>90</div>
-        <div class="price-note">zzgl. 19&thinsp;% MwSt. &nbsp;·&nbsp; pro Lead</div>
-        <div class="price-brutto">= 107,10&thinsp;€ brutto</div>
+      <!-- BU -->
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <div class="card-title">BU&#8209;Lead</div>
+        <div class="card-tagline">Berufsunfähigkeit · Einkommensschutz · Premium</div>
+        <p class="card-desc">
+          Menschen, die ihren <strong>Einkommensschutz absichern</strong> wollen – mit konkretem Anlass
+          (Berufsstart, Jobwechsel, Familie). Hohe Abschlussbereitschaft,
+          starkes Provisionspotenzial pro Vertrag.
+        </p>
+        <div class="price-block">
+          <div class="price-tiers">
+            <div class="price-tier">
+              <div class="price-tier-label">10 Leads</div>
+              <div class="price-netto"><sup>€</sup>900</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 1.071,00&thinsp;€ brutto</div>
+            </div>
+            <div class="price-tier">
+              <div class="price-tier-label">100 Leads</div>
+              <div class="price-netto"><sup>€</sup>7.000</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 8.330,00&thinsp;€ brutto</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-buttons">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="BU-Lead 10er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="1071.00">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              10 sichern
+            </button>
+          </form>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="BU-Lead 100er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="8330.00">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              100 sichern
+            </button>
+          </form>
+        </div>
       </div>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
-        <input type="hidden" name="item_name" value="Immobilien-Lead">
-        <input type="hidden" name="amount" value="107.10">
-        <input type="hidden" name="currency_code" value="EUR">
-        <input type="hidden" name="no_shipping" value="1">
-        <input type="hidden" name="tax" value="0">
-        <button type="submit" class="btn-paypal">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-          Jetzt kaufen
-        </button>
-      </form>
-    </div>
 
+      <!-- Immobilien -->
+      <div class="card featured">
+        <div class="card-badge">Premium</div>
+        <div class="card-icon">🏠</div>
+        <div class="card-title">Immobilien&#8209;Lead</div>
+        <div class="card-tagline">Kauf · Finanzierung · Hohe Provision</div>
+        <p class="card-desc">
+          Kaufinteressenten und Finanzierungsanfragen mit <strong>konkretem Zeitplan und Budget</strong>.
+          Kein Schaufensterbummler – wer hier anfrägt, hat Kaufabsicht.
+          Hohes Provisionspotenzial pro Abschluss.
+        </p>
+        <div class="price-block">
+          <div class="price-tiers">
+            <div class="price-tier">
+              <div class="price-tier-label">10 Leads</div>
+              <div class="price-netto"><sup>€</sup>900</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 1.071,00&thinsp;€ brutto</div>
+            </div>
+            <div class="price-tier">
+              <div class="price-tier-label">100 Leads</div>
+              <div class="price-netto"><sup>€</sup>7.000</div>
+              <div class="price-note">zzgl. 19&thinsp;% MwSt.</div>
+              <div class="price-brutto">= 8.330,00&thinsp;€ brutto</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-buttons">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="Immobilien-Lead 10er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="1071.00">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              10 sichern
+            </button>
+          </form>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="DEINE-PAYPAL-EMAIL@beispiel.de">
+            <input type="hidden" name="item_name" value="Immobilien-Lead 100er-Paket – Close Hero">
+            <input type="hidden" name="amount" value="8330.00">
+            <input type="hidden" name="currency_code" value="EUR">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="tax" value="0">
+            <button type="submit" class="btn-paypal">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+              100 sichern
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- TRUST -->
-  <div class="trust">
-    <div class="divider"></div>
-    <p>
-      <strong>Alle Preise netto zzgl. 19&thinsp;% MwSt.</strong> &nbsp;·&nbsp;
-      Zahlung sicher über PayPal &nbsp;·&nbsp;
-      Lieferung nach Zahlungseingang<br>
-      Fragen? <a href="mailto:info@hookhero.de" style="color:#FFB800;text-decoration:none;border-bottom:1px solid rgba(255,184,0,.4);">info@hookhero.de</a>
+  <!-- ══════════════════════════════════════════
+       3. WARUM UNSERE LEADS?
+  ══════════════════════════════════════════ -->
+  <section class="section">
+    <div style="text-align:center;margin-bottom:.5rem;">
+      <div class="label">Kein Zufall – System</div>
+      <h2>Warum unsere Leads?</h2>
+      <p style="color:var(--muted);font-size:1rem;max-width:540px;margin:.8rem auto 0;line-height:1.7;">
+        Schlechte Leads kennt jeder. Fake-Nummern, doppelt verkaufte Kontakte, Menschen ohne Bedarf.
+        Das ist bei uns anders – und hier ist der Grund:
+      </p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">🎯</div>
+        <div class="why-title">Echter Bedarf</div>
+        <p class="why-desc">Jeder Lead hat aktiv eine Anfrage gestellt – kein Opt-in-Spam, keine erkauften Datensätze.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">✅</div>
+        <div class="why-title">Vorqualifiziert</div>
+        <p class="why-desc">Kontakte werden auf Erreichbarkeit und Bedarf geprüft, bevor sie an dich gehen.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🚫</div>
+        <div class="why-title">Kein Streuverlust</div>
+        <p class="why-desc">Du sprichst nur mit Menschen, die zu deinem Produkt passen – keine Zeit für Uninteressierte.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Schneller Start</div>
+        <p class="why-desc">Kauf, Zahlung, Lieferung – keine langen Wartezeiten. Du kannst heute noch den ersten Lead kontaktieren.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🔒</div>
+        <div class="why-title">Sichere Zahlung</div>
+        <p class="why-desc">Abwicklung ausschließlich über PayPal – Käuferschutz inklusive, keine versteckten Kosten.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">📈</div>
+        <div class="why-title">Kalkulierbarer ROI</div>
+        <p class="why-desc">Feste Preise pro Lead. Du weißt exakt, was du ausgibst – und kannst deinen Einsatz direkt gegen Provisionen rechnen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       4. SO FUNKTIONIERT'S
+  ══════════════════════════════════════════ -->
+  <section class="section section-center">
+    <div class="label">Einfacher Ablauf</div>
+    <h2>So funktioniert's</h2>
+    <p style="color:var(--muted);font-size:1rem;max-width:480px;margin:.8rem auto 0;line-height:1.7;">
+      Drei Schritte. Kein Bürokratie. Sofort einsatzbereit.
     </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Lead-Typ wählen</div>
+        <p class="step-desc">Entscheide dich für den Lead-Typ, der zu deinem Angebot und deiner Zielgruppe passt.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Sicher bezahlen</div>
+        <p class="step-desc">Zahlung läuft schnell und sicher über PayPal. Kein Account nötig – auch Kreditkarte möglich.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Lead erhalten &amp; kontaktieren</div>
+        <p class="step-desc">Nach Zahlungseingang erhältst du den Kontakt direkt. Erreichbarkeit prüfen, anrufen, abschließen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       5. FÜR WEN GEEIGNET
+  ══════════════════════════════════════════ -->
+  <section class="section">
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div class="label">Zielgruppe</div>
+      <h2>Für wen sind diese Leads?</h2>
+    </div>
+    <div class="whom-grid">
+      <div class="whom-item">
+        <div class="whom-icon">🧑‍💼</div>
+        <div>
+          <div class="whom-title">Versicherungsberater</div>
+          <p class="whom-desc">BU, Altersvorsorge, Azubi-Absicherung – vorqualifizierte Interessenten mit konkretem Schutzbedarf.</p>
+        </div>
+      </div>
+      <div class="whom-item">
+        <div class="whom-icon">📊</div>
+        <div>
+          <div class="whom-title">Finanzberater</div>
+          <p class="whom-desc">Kontakte mit aktivem Interesse an Vermögensaufbau, Rente und privater Finanzplanung.</p>
+        </div>
+      </div>
+      <div class="whom-item">
+        <div class="whom-icon">🏡</div>
+        <div>
+          <div class="whom-title">Immobilienmakler</div>
+          <p class="whom-desc">Kaufinteressenten und Finanzierungsanfragen – kein Erstkontakt nötig, Bedarf ist vorhanden.</p>
+        </div>
+      </div>
+      <div class="whom-item">
+        <div class="whom-icon">🔥</div>
+        <div>
+          <div class="whom-title">Vertriebler &amp; Closer</div>
+          <p class="whom-desc">Du brauchst keinen Kaltkontakt – du bekommst warme Leads und kannst direkt in den Sale gehen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       6. FAQ
+  ══════════════════════════════════════════ -->
+  <section class="section-sm">
+    <div style="text-align:center;margin-bottom:.5rem;">
+      <div class="label">Häufige Fragen</div>
+      <h2>Deine Fragen – ehrliche Antworten</h2>
+    </div>
+    <div class="faq-list">
+
+      <details>
+        <summary>Sind die Leads wirklich echt?</summary>
+        <p class="faq-answer">
+          Ja. Jeder Lead basiert auf einer <strong>aktiven Anfrage</strong> der jeweiligen Person.
+          Keine erkauften Datensätze, kein Opt-in-Spam, keine generierten Kontakte.
+          Die Daten werden vor der Lieferung auf Vollständigkeit und Plausibilität geprüft.
+        </p>
+      </details>
+
+      <details>
+        <summary>Wie schnell bekomme ich die Leads?</summary>
+        <p class="faq-answer">
+          Die Lieferung erfolgt <strong>nach Zahlungseingang</strong> – in der Regel innerhalb weniger Stunden,
+          spätestens am nächsten Werktag. Du erhältst die Kontaktdaten direkt per E-Mail.
+        </p>
+      </details>
+
+      <details>
+        <summary>Was passiert bei falschen oder nicht erreichbaren Kontakten?</summary>
+        <p class="faq-answer">
+          Bei nachweislich falschen Daten (falsche Nummer, nicht existente E-Mail) melde dich unter
+          <strong>info@hookhero.de</strong>. Wir prüfen jeden gemeldeten Fall individuell und finden
+          eine faire Lösung.
+        </p>
+      </details>
+
+      <details>
+        <summary>Wie funktioniert die Zahlung?</summary>
+        <p class="faq-answer">
+          Zahlung erfolgt <strong>sicher über PayPal</strong>. Du brauchst keinen PayPal-Account –
+          Kredit- und Debitkarte werden ebenfalls akzeptiert. Alle Preise verstehen sich netto
+          zzgl. 19&thinsp;% MwSt.
+        </p>
+      </details>
+
+      <details>
+        <summary>Kann ich mehrere Leads auf einmal kaufen?</summary>
+        <p class="faq-answer">
+          Aktuell ist der Kauf einzelner Leads möglich. Für <strong>Pakete oder Mengenrabatte</strong>
+          kontaktiere uns direkt unter <a href="mailto:info@hookhero.de">info@hookhero.de</a> –
+          wir erstellen dir ein individuelles Angebot.
+        </p>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       7. FINAL CTA
+  ══════════════════════════════════════════ -->
+  <section style="padding:2rem 1.5rem 4rem;max-width:800px;margin:0 auto;">
+    <div class="cta-section">
+      <div class="label">Jetzt loslegen</div>
+      <h2>Schluss mit Kaltakquise.<br>Starte heute.</h2>
+      <p class="cta-sub">
+        Jeder Tag ohne qualifizierte Leads ist ein Tag mit unnötigem Aufwand.
+        Wähle deinen Lead-Typ, bezahle sicher per PayPal – und leg los.
+      </p>
+      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="btn-cta">
+        Jetzt hochwertige Leads sichern
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       BOTTOM TRUST BAR
+  ══════════════════════════════════════════ -->
+  <div class="bottom-trust">
+    <strong style="color:rgba(255,245,238,.55);">Alle Preise netto zzgl. 19&thinsp;% MwSt.</strong>
+    &nbsp;·&nbsp; Zahlung sicher über PayPal &nbsp;·&nbsp; Lieferung nach Zahlungseingang<br>
+    Fragen? <a href="mailto:info@hookhero.de">info@hookhero.de</a>
   </div>
 
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
   <footer>
     <a href="datenschutz.html">Datenschutz</a>
     <a href="impressum.html">Impressum</a>
