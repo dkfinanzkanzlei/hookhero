@@ -183,20 +183,26 @@
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
     /* ── FACE INTRO SCENE ────────────────────────────────────── */
-    /* Face fills the full intro viewport — like Lando Norris */
-    .hf-scene{position:absolute;inset:0;z-index:2;pointer-events:none;}
-    .hf-stack{position:absolute;inset:0;pointer-events:auto;cursor:crosshair;}
-    /* Base portrait: fills screen, top-aligned so face is visible */
-    .hf-base{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;user-select:none;pointer-events:none;}
-    /* Three horizontal bands of the hero that slide in on hover */
-    .hf-strip{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0;transition:opacity .3s cubic-bezier(.65,.05,0,1),transform .5s cubic-bezier(.65,.05,0,1);pointer-events:none;user-select:none;}
-    .hf-s1{clip-path:inset(0 0 65% 0);transform:translateX(-28px);transition-delay:0s;}
-    .hf-s2{clip-path:inset(37% 0 36% 0);transform:translateX(28px);transition-delay:.08s;}
-    .hf-s3{clip-path:inset(66% 0 0 0);transform:translateX(-20px);transition-delay:.16s;}
+    /* Face intro — transparent PNG, anchored at bottom of viewport */
+    .hf-scene{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:center;pointer-events:none;overflow:hidden;}
+    /* Stack is sized by the base image naturally */
+    .hf-stack{position:relative;display:inline-block;pointer-events:auto;cursor:crosshair;width:100%;}
+    /* Base image: full-width, auto-height → at 16:9 this fills ~100vh on 1920px screens */
+    .hf-base{display:block;width:100%;height:auto;user-select:none;pointer-events:none;}
+    /* Strips: same dimensions as base, overlay exactly */
+    .hf-strip{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;opacity:0;transition:opacity .32s cubic-bezier(.65,.05,0,1),transform .5s cubic-bezier(.65,.05,0,1);pointer-events:none;user-select:none;}
+    /* Helmet/head area */
+    .hf-s1{clip-path:inset(0 0 58% 0);transform:translateX(-28px);transition-delay:0s;}
+    /* Chest / logo area */
+    .hf-s2{clip-path:inset(42% 0 30% 0);transform:translateX(28px);transition-delay:.08s;}
+    /* Shoulder / upper-arm area */
+    .hf-s3{clip-path:inset(22% 0 50% 0);transform:translateX(-20px);transition-delay:.15s;}
     .hf-stack:hover .hf-strip{opacity:1;transform:translateX(0);}
-    /* Ambient blue glow that intensifies on hover */
-    .hf-stack::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(0,100,255,.12) 0%,transparent 65%);opacity:0;transition:opacity .5s ease;pointer-events:none;z-index:5;}
+    /* Cyan edge glow on hover */
+    .hf-stack::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,200,255,.08) 0%,transparent 60%);opacity:0;transition:opacity .5s ease;pointer-events:none;z-index:5;}
     .hf-stack:hover::after{opacity:1;}
+    @media(max-width:768px){.hf-stack{width:180%;margin-left:-40%;}}
+    @media(max-width:480px){.hf-stack{width:250%;margin-left:-75%;}}
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
     .reveal.visible{opacity:1;transform:none;}
 
