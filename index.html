@@ -181,6 +181,26 @@
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    /* ── FACE HOVER EFFECT ───────────────────────────────────── */
+    .hh-face-wrap{position:relative;width:100%;height:100%;cursor:none;}
+    .hh-face-base,.hh-face-hover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);will-change:opacity,transform;}
+    .hh-face-base{opacity:1;transform:scale(1);}
+    .hh-face-hover{opacity:0;transform:scale(1.04);}
+    .hh-face-wrap:hover .hh-face-base{opacity:0;transform:scale(1.04);}
+    .hh-face-wrap:hover .hh-face-hover{opacity:1;transform:scale(1);}
+    .hh-face-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:220px;background:linear-gradient(to top,#000d1a 0%,transparent 100%);pointer-events:none;z-index:2;}
+    .hh-face-wrap::before{content:'';position:absolute;inset:0;border:1px solid transparent;transition:border-color .4s ease,box-shadow .4s ease;pointer-events:none;z-index:3;}
+    .hh-face-wrap:hover::before{border-color:rgba(0,255,204,.25);box-shadow:inset 0 0 60px rgba(0,255,204,.04);}
+    .hh-face-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,255,204,.55);font-family:inherit;white-space:nowrap;transition:opacity .3s ease;pointer-events:none;}
+    .hh-face-wrap:hover .hh-face-hint{opacity:0;}
+    .hh-hint-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:hh-pulse 1.6s ease-in-out infinite;}
+    @keyframes hh-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
+    .hh-hero-label{position:absolute;top:20px;left:20px;z-index:4;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);background:rgba(0,13,26,.75);padding:5px 12px;border:1px solid rgba(0,255,204,.3);border-radius:2px;opacity:0;transform:translateY(-6px);transition:opacity .3s ease .2s,transform .3s ease .2s;pointer-events:none;}
+    .hh-face-wrap:hover .hh-hero-label{opacity:1;transform:translateY(0);}
+    .hh-cursor{position:fixed;pointer-events:none;z-index:9998;width:44px;height:44px;border:1.5px solid rgba(0,255,204,.7);border-radius:50%;transform:translate(-50%,-50%) scale(0);transition:transform .25s cubic-bezier(.4,0,.2,1),opacity .25s ease;opacity:0;}
+    .hh-cursor.active{transform:translate(-50%,-50%) scale(1);opacity:1;}
+    .hh-cursor-inner{position:absolute;top:50%;left:50%;width:5px;height:5px;background:var(--cyan);border-radius:50%;transform:translate(-50%,-50%);}
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
     .reveal.visible{opacity:1;transform:none;}
 
@@ -360,7 +380,12 @@
     </div>
   </div>
   <div class="hero-orbit">
-    <iframe src="hook-hero-orbit.html" scrolling="no" allowtransparency="true"></iframe>
+    <div class="hh-face-wrap">
+      <img class="hh-face-base" src="public/Hook Gio.png" alt="Tamaz Tordia" draggable="false" />
+      <img class="hh-face-hover" src="public/Hook Hero.png" alt="Hook Hero" draggable="false" />
+      <span class="hh-hero-label">⚡ Hook Hero</span>
+      <div class="hh-face-hint"><span class="hh-hint-dot"></span>Hover</div>
+    </div>
   </div>
   <div class="hero-scroll">Scroll<div class="scroll-line"></div></div>
 </section>
@@ -762,12 +787,17 @@ document.addEventListener('mousemove',e=>{
 });
 document.addEventListener('mouseleave',()=>{ring.style.opacity='0';});
 document.addEventListener('mouseenter',()=>{if(cursorVisible)ring.style.opacity='1';});
-/* Hide main cursor when entering orbit iframe, restore on exit */
-const orbitIframe = document.querySelector('.hero-orbit iframe');
-if(orbitIframe){
-  orbitIframe.addEventListener('mouseenter',()=>{ring.style.opacity='0';});
-  orbitIframe.addEventListener('mouseleave',()=>{if(cursorVisible)ring.style.opacity='1';});
-}
+/* Face hover effect */
+(function(){
+  const wrap=document.querySelector('.hh-face-wrap');
+  const cur=document.getElementById('hhCursor');
+  if(!wrap||!cur)return;
+  document.addEventListener('mousemove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+  wrap.addEventListener('mouseenter',function(){cur.classList.add('active');ring.style.opacity='0';});
+  wrap.addEventListener('mouseleave',function(){cur.classList.remove('active');if(cursorVisible)ring.style.opacity='1';});
+  const hoverImg=wrap.querySelector('.hh-face-hover');
+  if(hoverImg&&hoverImg.src){const p=new Image();p.src=hoverImg.src;}
+})();
 document.querySelectorAll('a,button,.feature-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{ring.style.width='52px';ring.style.height='52px';});
   el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
@@ -830,5 +860,6 @@ if(ctaForm){
   });
 }
 </script>
+<div class="hh-cursor" id="hhCursor"><div class="hh-cursor-inner"></div></div>
 </body>
 </html>
