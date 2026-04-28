@@ -88,25 +88,6 @@
       main{padding:7rem 4% 3rem;}
     }
 
-    /* ── FACE HOVER EFFECT ───────────────────────────────────── */
-    .hh-face-wrap{position:relative;width:100%;aspect-ratio:4/5;cursor:none;overflow:hidden;border-radius:16px 16px 0 0;}
-    .hh-face-base,.hh-face-hover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1);will-change:opacity,transform;}
-    .hh-face-base{opacity:1;transform:scale(1);}
-    .hh-face-hover{opacity:0;transform:scale(1.05);}
-    .hh-face-wrap:hover .hh-face-base{opacity:0;transform:scale(1.05);}
-    .hh-face-wrap:hover .hh-face-hover{opacity:1;transform:scale(1);}
-    .hh-face-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,#000d1a 0%,transparent 100%);pointer-events:none;z-index:2;}
-    .hh-face-wrap::before{content:'';position:absolute;inset:-1px;border-radius:16px 16px 0 0;border:1px solid transparent;transition:border-color .4s ease,box-shadow .4s ease;pointer-events:none;z-index:3;}
-    .hh-face-wrap:hover::before{border-color:rgba(0,255,204,.35);box-shadow:0 0 30px rgba(0,255,204,.12),inset 0 0 30px rgba(0,255,204,.04);}
-    .hh-face-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,255,204,.6);font-family:inherit;white-space:nowrap;transition:opacity .3s ease;pointer-events:none;}
-    .hh-face-wrap:hover .hh-face-hint{opacity:0;}
-    .hh-hint-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:hh-pulse 1.6s ease-in-out infinite;}
-    @keyframes hh-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
-    .hh-hero-label{position:absolute;top:14px;left:14px;z-index:4;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);background:rgba(0,13,26,.75);padding:5px 10px;border:1px solid rgba(0,255,204,.3);border-radius:2px;opacity:0;transform:translateY(-6px);transition:opacity .3s ease .2s,transform .3s ease .2s;pointer-events:none;}
-    .hh-face-wrap:hover .hh-hero-label{opacity:1;transform:translateY(0);}
-    .hh-cursor{position:fixed;pointer-events:none;z-index:9998;width:44px;height:44px;border:1.5px solid rgba(0,255,204,.7);border-radius:50%;transform:translate(-50%,-50%) scale(0);transition:transform .25s cubic-bezier(.4,0,.2,1),opacity .25s ease;opacity:0;}
-    .hh-cursor.active{transform:translate(-50%,-50%) scale(1);opacity:1;}
-    .hh-cursor-inner{position:absolute;top:50%;left:50%;width:5px;height:5px;background:var(--cyan);border-radius:50%;transform:translate(-50%,-50%);}
   </style>
 </head>
 <body>
@@ -147,12 +128,7 @@
 
   <div class="team-grid">
     <div class="team-card">
-      <div class="hh-face-wrap">
-        <img class="hh-face-base" src="public/Hook Gio.png" alt="Tamaz Tordia" draggable="false" />
-        <img class="hh-face-hover" src="public/Hook Hero.png" alt="Hook Hero" draggable="false" />
-        <span class="hh-hero-label">⚡ Hook Hero</span>
-        <div class="hh-face-hint"><span class="hh-hint-dot"></span>Hover</div>
-      </div>
+      <img class="team-card-img" src="public/tamaz.jpg" alt="Tamaz Tordia" />
       <div class="team-card-body">
         <div class="team-card-role">Geschäftsführer</div>
         <div class="team-card-name">Tamaz Tordia</div>
@@ -182,8 +158,6 @@
   </div>
 </footer>
 
-<div class="hh-cursor" id="hhCursor"><div class="hh-cursor-inner"></div></div>
-
 <script>
 const ring=document.getElementById('cursorRing');
 let v=false;
@@ -193,17 +167,6 @@ document.addEventListener('mouseenter',()=>{if(v)ring.style.opacity='1';});
 const backTop=document.getElementById('back-top');
 window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400);},{passive:true});
 window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';},{passive:true});
-/* Face hover effect */
-(function(){
-  const wrap=document.querySelector('.hh-face-wrap');
-  const cur=document.getElementById('hhCursor');
-  if(!wrap||!cur)return;
-  document.addEventListener('mousemove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
-  wrap.addEventListener('mouseenter',function(){cur.classList.add('active');ring.style.opacity='0';});
-  wrap.addEventListener('mouseleave',function(){cur.classList.remove('active');ring.style.opacity='1';});
-  const hoverImg=wrap.querySelector('.hh-face-hover');
-  if(hoverImg&&hoverImg.src){const p=new Image();p.src=hoverImg.src;}
-})();
 /* Mobile menu */
 (function(){
   const btn=document.getElementById('navHamburger');
