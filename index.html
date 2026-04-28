@@ -183,26 +183,19 @@
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
     /* ── FACE INTRO SCENE ────────────────────────────────────── */
-    /* Face intro — transparent PNG, anchored at bottom of viewport */
-    .hf-scene{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:center;pointer-events:none;overflow:hidden;}
-    /* Stack is sized by the base image naturally */
-    .hf-stack{position:relative;display:inline-block;pointer-events:auto;cursor:crosshair;width:100%;}
-    /* Base image: full-width, auto-height → at 16:9 this fills ~100vh on 1920px screens */
+    /* Face intro — head at center, body extending below fold */
+    .hf-scene{position:absolute;inset:0;overflow:hidden;z-index:2;display:flex;align-items:flex-end;justify-content:center;pointer-events:none;}
+    /* Bottom fade so the figure blends into the page */
+    .hf-scene::after{content:'';position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to top,#000820 0%,transparent 100%);pointer-events:none;z-index:6;}
+    /* 64vw width → at 16:9 the head lands ~center of viewport */
+    .hf-stack{position:relative;display:inline-block;width:64vw;flex-shrink:0;pointer-events:auto;cursor:crosshair;}
     .hf-base{display:block;width:100%;height:auto;user-select:none;pointer-events:none;}
-    /* Strips: same dimensions as base, overlay exactly */
-    .hf-strip{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;opacity:0;transition:opacity .32s cubic-bezier(.65,.05,0,1),transform .5s cubic-bezier(.65,.05,0,1);pointer-events:none;user-select:none;}
-    /* Helmet/head area */
-    .hf-s1{clip-path:inset(0 0 58% 0);transform:translateX(-28px);transition-delay:0s;}
-    /* Chest / logo area */
-    .hf-s2{clip-path:inset(42% 0 30% 0);transform:translateX(28px);transition-delay:.08s;}
-    /* Shoulder / upper-arm area */
-    .hf-s3{clip-path:inset(22% 0 50% 0);transform:translateX(-20px);transition-delay:.15s;}
-    .hf-stack:hover .hf-strip{opacity:1;transform:translateX(0);}
-    /* Cyan edge glow on hover */
-    .hf-stack::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,200,255,.08) 0%,transparent 60%);opacity:0;transition:opacity .5s ease;pointer-events:none;z-index:5;}
-    .hf-stack:hover::after{opacity:1;}
-    @media(max-width:768px){.hf-stack{width:180%;margin-left:-40%;}}
-    @media(max-width:480px){.hf-stack{width:250%;margin-left:-75%;}}
+    /* Hero overlay: revealed by mouse spotlight via JS mask */
+    .hf-hero{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;opacity:0;transition:opacity .35s ease;user-select:none;pointer-events:none;
+      -webkit-mask-image:radial-gradient(circle 0px at 50% 50%,black 0%,transparent 0%);
+      mask-image:radial-gradient(circle 0px at 50% 50%,black 0%,transparent 0%);}
+    @media(max-width:900px){.hf-stack{width:92vw;}}
+    @media(max-width:600px){.hf-stack{width:160vw;margin-left:-30vw;}}
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
     .reveal.visible{opacity:1;transform:none;}
 
@@ -367,11 +360,9 @@
   <canvas id="galaxy-canvas" style="display:none"></canvas>
   <canvas id="hf-canvas"></canvas>
   <div class="hf-scene">
-    <div class="hf-stack">
+    <div class="hf-stack" id="hfStack">
       <img class="hf-base" src="public/Hook Gio.png" alt="Tamaz Tordia" draggable="false" />
-      <img class="hf-strip hf-s1" src="public/Hook Hero.png" alt="" draggable="false" />
-      <img class="hf-strip hf-s2" src="public/Hook Hero.png" alt="" draggable="false" />
-      <img class="hf-strip hf-s3" src="public/Hook Hero.png" alt="" draggable="false" />
+      <img class="hf-hero" src="public/Hook Hero.png" alt="" draggable="false" />
     </div>
   </div>
   <a id="scroll-hint" href="#hero" onclick="event.preventDefault();document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
@@ -750,45 +741,70 @@
   loop();
 })();
 
-/* ── ANIMATED BLUE LINES (intro background) ─────────────────── */
+/* ── FLOATING BUBBLES (intro background) ────────────────────── */
 (function(){
   const c=document.getElementById('hf-canvas');
   if(!c)return;
   const ctx=c.getContext('2d');
-  let w,h,t=0,raf;
-  const N=14;
-  function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
+  let w,h,raf=null;
+  const N=35;
+  const bs=[];
+  function mk(){return{x:Math.random()*w,y:h+Math.random()*60,r:3+Math.random()*20,vx:(Math.random()-.5)*.45,vy:-(0.18+Math.random()*.5),op:0.04+Math.random()*.1,hue:195+Math.random()*45};}
+  function init(){bs.length=0;for(let i=0;i<N;i++){const b=mk();b.y=Math.random()*h;bs.push(b);}}
   function draw(){
     ctx.clearRect(0,0,w,h);
-    t+=0.0012;
-    for(let i=0;i<N;i++){
-      const yBase=h*0.05+h*0.9/N*i;
-      const amp=18+i*7;
-      const freq=0.0018+i*0.00025;
-      const phase=i*1.4+t;
-      const alpha=i%3===0?0.07:i%3===1?0.05:0.035;
-      ctx.beginPath();
-      for(let x=0;x<=w;x+=4){
-        const y=yBase
-          +Math.sin(x*freq+phase)*amp
-          +Math.sin(x*freq*2.1+phase*0.6)*amp*0.35
-          +Math.sin(x*freq*0.5+phase*1.3)*amp*0.2;
-        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-      }
-      ctx.strokeStyle=`rgba(0,${80+i*8},255,${alpha})`;
-      ctx.lineWidth=1;
-      ctx.stroke();
-    }
+    bs.forEach((b,i)=>{
+      b.x+=b.vx;b.y+=b.vy;
+      if(b.y+b.r<0){bs[i]=mk();return;}
+      // ring
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+      ctx.strokeStyle=`hsla(${b.hue},80%,65%,${b.op*2})`;ctx.lineWidth=1;ctx.stroke();
+      // inner glow
+      const g=ctx.createRadialGradient(b.x-b.r*.3,b.y-b.r*.3,b.r*.05,b.x,b.y,b.r);
+      g.addColorStop(0,`hsla(${b.hue},90%,80%,${b.op})`);
+      g.addColorStop(.5,`hsla(${b.hue},80%,65%,${b.op*.35})`);
+      g.addColorStop(1,`hsla(${b.hue},80%,65%,0)`);
+      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    });
     raf=requestAnimationFrame(draw);
   }
-  // Pause when not visible
+  function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;init();}
   const io=new IntersectionObserver(e=>{
-    if(e[0].isIntersecting){resize();draw();}
-    else{cancelAnimationFrame(raf);}
-  },{threshold:0.01});
-  io.observe(c);
-  resize();
+    if(e[0].isIntersecting){resize();if(!raf)draw();}
+    else{cancelAnimationFrame(raf);raf=null;}
+  },{threshold:.01});
+  io.observe(c);resize();
   window.addEventListener('resize',resize,{passive:true});
+})();
+
+/* ── HERO SPOTLIGHT REVEAL (follows cursor exactly) ─────────── */
+(function(){
+  const stack=document.getElementById('hfStack');
+  const hero=document.querySelector('.hf-hero');
+  if(!stack||!hero)return;
+  const R=120; // spotlight radius in px
+  let cx=50,cy=50,tx=50,ty=50,active=false,ticking=false;
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function setMask(x,y){
+    const rect=stack.getBoundingClientRect();
+    const px=(x/rect.width)*100,py=(y/rect.height)*100;
+    const m=`radial-gradient(circle ${R}px at ${px}% ${py}%,black 0%,black 40%,rgba(0,0,0,.5) 65%,transparent 85%)`;
+    hero.style.webkitMaskImage=m;hero.style.maskImage=m;
+  }
+  function tick(){
+    cx=lerp(cx,tx,.2);cy=lerp(cy,ty,.2);
+    setMask(cx,cy);
+    if(Math.abs(cx-tx)>.3||Math.abs(cy-ty)>.3)requestAnimationFrame(tick);
+    else ticking=false;
+  }
+  stack.addEventListener('mousemove',e=>{
+    const r=stack.getBoundingClientRect();
+    tx=e.clientX-r.left;ty=e.clientY-r.top;
+    if(!active){active=true;cx=tx;cy=ty;hero.style.opacity='1';}
+    if(!ticking){ticking=true;requestAnimationFrame(tick);}
+  });
+  stack.addEventListener('mouseleave',()=>{active=false;hero.style.opacity='0';});
+  new Image().src='public/Hook Hero.png';
 })();
 
 /* ── HERO ORBIT EXPANSION ───────────────────────────────────── */
