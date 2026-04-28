@@ -57,10 +57,10 @@
     .mobile-menu .mob-cta{margin-top:1.5rem;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#000d1a !important;border-radius:8px;justify-content:center;font-size:1.1rem;border-bottom:none !important;padding:1rem 1.5rem;}
 
     /* ── GALAXY INTRO ────────────────────────────────────────── */
-    #galaxy-intro{position:relative;height:100vh;overflow:hidden;background:#000;}
-    #galaxy-canvas{position:absolute;inset:0;width:100%;height:100%;}
-    #galaxy-logo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;}
-    #galaxy-logo::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#000 55%,rgba(0,0,0,.95) 75%,transparent 100%);z-index:-1;}
+    #galaxy-intro{position:relative;height:100vh;overflow:hidden;background:linear-gradient(175deg,#000d2e 0%,#001040 40%,#000820 70%,#000d1a 100%);}
+    #galaxy-canvas{display:none;}
+    #hf-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+    #galaxy-logo{display:none;}
     #galaxy-logo img{width:190px;height:190px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(0,255,204,.8)) drop-shadow(0 0 40px rgba(0,102,255,.6)) drop-shadow(0 0 70px rgba(0,200,255,.35));animation:capeWave 3.8s ease-in-out infinite;}
     @keyframes capeWave{
       0%  {transform:rotate(0deg) skewX(0deg) scaleX(1);}
@@ -183,20 +183,23 @@
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
     /* ── FACE INTRO SCENE ────────────────────────────────────── */
-    .hf-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;}
-    .hf-stack{position:relative;height:88vh;display:inline-flex;align-items:flex-start;}
-    .hf-base{height:88vh;width:auto;display:block;position:relative;z-index:1;pointer-events:none;user-select:none;}
-    .hf-strip{position:absolute;top:0;left:0;height:100%;width:100%;object-fit:contain;object-position:top left;opacity:0;transition:opacity .28s ease,transform .38s cubic-bezier(.4,0,.2,1);pointer-events:none;user-select:none;}
-    /* Three horizontal bands: head area, chest/mid, lower */
-    .hf-s1{clip-path:inset(3% 0 62% 0);transform:translateX(-20px);transition-delay:0s;}
-    .hf-s2{clip-path:inset(40% 0 36% 0);transform:translateX(20px);transition-delay:.07s;}
-    .hf-s3{clip-path:inset(66% 0 4% 0);transform:translateX(-14px);transition-delay:.14s;}
+    /* Face sits at the bottom edge — head visible, feet at page bottom */
+    .hf-scene{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;z-index:2;pointer-events:none;}
+    /* Ambient glow rising from below the figure */
+    .hf-scene::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:70%;height:65%;background:radial-gradient(ellipse at 50% 100%,rgba(0,80,255,.18) 0%,rgba(0,40,180,.06) 50%,transparent 75%);pointer-events:none;z-index:0;}
+    .hf-stack{position:relative;height:90vh;display:inline-flex;align-items:flex-start;pointer-events:auto;}
+    .hf-base{height:90vh;width:auto;display:block;position:relative;z-index:1;pointer-events:none;user-select:none;}
+    /* Three horizontal bands of the hero that slide in on hover */
+    .hf-strip{position:absolute;top:0;left:0;height:100%;width:auto;max-width:none;opacity:0;transition:opacity .3s cubic-bezier(.65,.05,0,1),transform .5s cubic-bezier(.65,.05,0,1);pointer-events:none;user-select:none;}
+    .hf-s1{clip-path:inset(2% 0 64% 0);transform:translateX(-24px);transition-delay:0s;}     /* head / top area */
+    .hf-s2{clip-path:inset(38% 0 37% 0);transform:translateX(24px);transition-delay:.08s;}   /* chest / mid */
+    .hf-s3{clip-path:inset(65% 0 3% 0);transform:translateX(-16px);transition-delay:.16s;}   /* lower body */
     .hf-stack:hover .hf-strip{opacity:1;transform:translateX(0);}
-    /* Subtle cyan pulse on the stack when hovered */
-    .hf-stack::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,255,204,.06) 0%,transparent 70%);opacity:0;transition:opacity .4s ease;pointer-events:none;z-index:5;}
+    /* Soft cyan edge-glow on hover */
+    .hf-stack::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,255,204,.05) 0%,transparent 65%);opacity:0;transition:opacity .5s ease;pointer-events:none;z-index:5;}
     .hf-stack:hover::after{opacity:1;}
-    @media(max-width:768px){.hf-stack,.hf-base{height:72vh;}}
-    @media(max-width:480px){.hf-stack,.hf-base{height:62vh;}}
+    @media(max-width:768px){.hf-stack,.hf-base{height:78vh;}}
+    @media(max-width:480px){.hf-stack,.hf-base{height:65vh;}}
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
     .reveal.visible{opacity:1;transform:none;}
 
@@ -359,6 +362,7 @@
 
 <div id="galaxy-intro">
   <canvas id="galaxy-canvas" style="display:none"></canvas>
+  <canvas id="hf-canvas"></canvas>
   <div class="hf-scene">
     <div class="hf-stack">
       <img class="hf-base" src="public/Hook Gio.png" alt="Tamaz Tordia" draggable="false" />
@@ -741,6 +745,47 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
   loop();
+})();
+
+/* ── ANIMATED BLUE LINES (intro background) ─────────────────── */
+(function(){
+  const c=document.getElementById('hf-canvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let w,h,t=0,raf;
+  const N=14;
+  function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    t+=0.0012;
+    for(let i=0;i<N;i++){
+      const yBase=h*0.05+h*0.9/N*i;
+      const amp=18+i*7;
+      const freq=0.0018+i*0.00025;
+      const phase=i*1.4+t;
+      const alpha=i%3===0?0.07:i%3===1?0.05:0.035;
+      ctx.beginPath();
+      for(let x=0;x<=w;x+=4){
+        const y=yBase
+          +Math.sin(x*freq+phase)*amp
+          +Math.sin(x*freq*2.1+phase*0.6)*amp*0.35
+          +Math.sin(x*freq*0.5+phase*1.3)*amp*0.2;
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=`rgba(0,${80+i*8},255,${alpha})`;
+      ctx.lineWidth=1;
+      ctx.stroke();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  // Pause when not visible
+  const io=new IntersectionObserver(e=>{
+    if(e[0].isIntersecting){resize();draw();}
+    else{cancelAnimationFrame(raf);}
+  },{threshold:0.01});
+  io.observe(c);
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
 })();
 
 /* ── HERO ORBIT EXPANSION ───────────────────────────────────── */
