@@ -76,6 +76,14 @@
 
     /* ── HERO ────────────────────────────────────────────────── */
     #hero{height:100vh;position:relative;overflow:hidden;}
+    .hero-tagline{position:absolute;left:6vw;top:8vh;z-index:10;line-height:1.2;letter-spacing:.04em;pointer-events:none;}
+    .hero-tagline span{display:block;font-family:'Barlow',sans-serif;font-weight:700;font-size:clamp(28px,5vw,56px);text-shadow:0 2px 24px rgba(0,0,0,.45);}
+    .hero-tagline .tl-1{color:#ffffff;}
+    .hero-tagline .tl-2{color:#378ADD;}
+    @media(max-width:768px){
+      .hero-tagline{left:5vw;top:5vh;}
+      .hero-tagline span{font-size:clamp(20px,6vw,32px);}
+    }
     .hero-text{position:absolute;left:5%;top:50%;transform:translateY(-50%);width:44%;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;}
     .hero-text .hero-sub{margin:1.8rem 0;max-width:480px;}
     .hero-text .hero-actions{justify-content:flex-start;}
@@ -372,6 +380,10 @@
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="particles" id="particles"></div>
+  <div class="hero-tagline">
+    <span class="tl-1">Built by heroes.</span>
+    <span class="tl-2">Felt by millions.</span>
+  </div>
   <div class="hero-text">
     <h1 class="hero-title">Hooks, die<span class="accent">Helden</span>erschaffen.</h1>
     <p class="hero-sub">Hook Hero gibt dir die Superkraft, dein Publikum vom ersten Wort an zu fesseln – mit bewährten Formeln, die wirklich funktionieren.</p>
