@@ -76,13 +76,66 @@
 
     /* ── HERO ────────────────────────────────────────────────── */
     #hero{height:100vh;position:relative;overflow:hidden;}
-    .hero-tagline{position:absolute;left:50%;transform:translateX(-50%);top:22%;z-index:10;line-height:1.2;letter-spacing:.04em;pointer-events:none;text-align:center;white-space:nowrap;}
-    .hero-tagline span{display:block;font-family:'Barlow',sans-serif;font-weight:700;font-size:clamp(28px,5vw,56px);text-shadow:0 2px 24px rgba(0,0,0,.45);}
-    .hero-tagline .tl-1{color:#ffffff;}
-    .hero-tagline .tl-2{color:#378ADD;}
+    /* ── STAIRCASE TAGLINE ────────────────────────────── */
+    .tl-left,.tl-right{
+      position:absolute;top:0;bottom:0;z-index:10;width:32%;
+      display:flex;flex-direction:column;justify-content:space-evenly;
+      padding:12% 0;pointer-events:none;
+    }
+    .tl-left{left:0;align-items:flex-start;padding-left:3vw;}
+    .tl-right{right:0;align-items:flex-end;padding-right:3vw;}
+
+    .tl-step{
+      display:block;font-family:'Bebas Neue',sans-serif;font-weight:400;
+      font-size:clamp(52px,7vw,108px);letter-spacing:.12em;line-height:1;
+    }
+    /* Left staircase: each word steps right toward center */
+    .tl-left .tl-step:nth-child(1){margin-left:0;   animation:stairL .7s .05s ease both;}
+    .tl-left .tl-step:nth-child(2){margin-left:3vw; animation:stairL .7s .2s  ease both;}
+    .tl-left .tl-step:nth-child(3){margin-left:6vw; animation:stairL .7s .35s ease both;}
+    /* Right staircase: each word steps left toward center */
+    .tl-right .tl-step:nth-child(1){margin-right:0;   animation:stairR .7s .05s ease both;}
+    .tl-right .tl-step:nth-child(2){margin-right:3vw; animation:stairR .7s .2s  ease both;}
+    .tl-right .tl-step:nth-child(3){margin-right:6vw; animation:stairR .7s .35s ease both;}
+
+    /* Colors */
+    .tl-main{
+      color:#e8f4ff;
+      text-shadow:
+        0 0 20px rgba(200,235,255,.9),
+        0 0 60px rgba(0,200,255,.55),
+        0 0 120px rgba(0,150,255,.3),
+        0 3px 40px rgba(0,0,0,.95);
+    }
+    .tl-by{
+      font-size:clamp(32px,4vw,62px)!important;
+      color:rgba(180,220,255,.75);
+      text-shadow:
+        0 0 16px rgba(100,200,255,.8),
+        0 0 50px rgba(0,180,255,.4),
+        0 2px 24px rgba(0,0,0,.9);
+    }
+    .tl-accent{
+      background:linear-gradient(90deg,#00FFCC,#00aaff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:
+        drop-shadow(0 0 12px rgba(0,255,204,.9))
+        drop-shadow(0 0 30px rgba(0,255,204,.6))
+        drop-shadow(0 0 60px rgba(0,200,255,.35));
+    }
+    @keyframes stairL{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+    @keyframes stairR{from{opacity:0;transform:translateX(24px)} to{opacity:1;transform:none}}
+
     @media(max-width:768px){
-      .hero-tagline{top:18%;}
-      .hero-tagline span{font-size:clamp(20px,6vw,32px);}
+      .tl-left,.tl-right{width:40%;padding:8% 0;}
+      .tl-left{padding-left:4vw;}
+      .tl-right{padding-right:4vw;}
+      .tl-step{font-size:clamp(36px,8vw,68px);}
+      .tl-by{font-size:clamp(24px,5vw,44px)!important;}
+      .tl-left .tl-step:nth-child(2){margin-left:2vw;}
+      .tl-left .tl-step:nth-child(3){margin-left:4vw;}
+      .tl-right .tl-step:nth-child(2){margin-right:2vw;}
+      .tl-right .tl-step:nth-child(3){margin-right:4vw;}
     }
     .hero-text{position:absolute;left:5%;top:50%;transform:translateY(-50%);width:44%;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;}
     .hero-text .hero-sub{margin:1.8rem 0;max-width:480px;}
@@ -196,14 +249,14 @@
     /* Bottom fade so the figure blends into the page */
     .hf-scene::after{content:'';position:absolute;bottom:0;left:0;right:0;height:35%;background:linear-gradient(to top,#000820 0%,transparent 100%);pointer-events:none;z-index:6;}
     /* 64vw width → at 16:9 the head lands ~center of viewport */
-    .hf-stack{position:relative;display:inline-block;width:64vw;flex-shrink:0;pointer-events:auto;cursor:crosshair;}
-    .hf-base{display:block;width:100%;height:auto;user-select:none;pointer-events:none;}
+    .hf-stack{position:relative;display:inline-block;height:95vh;width:auto;flex-shrink:0;pointer-events:auto;cursor:crosshair;}
+    .hf-base{display:block;height:100%;width:auto;user-select:none;pointer-events:none;}
     /* Hero overlay: revealed by mouse spotlight via JS mask */
     .hf-hero{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:fill;opacity:0;transition:opacity .35s ease;user-select:none;pointer-events:none;
       -webkit-mask-image:radial-gradient(circle 0px at 50% 50%,black 0%,transparent 0%);
       mask-image:radial-gradient(circle 0px at 50% 50%,black 0%,transparent 0%);}
-    @media(max-width:900px){.hf-stack{width:92vw;}}
-    @media(max-width:600px){.hf-stack{width:160vw;margin-left:-30vw;}}
+    @media(max-width:900px){.hf-stack{height:92vh;}}
+    @media(max-width:600px){.hf-stack{height:90vh;}}
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s;}
     .reveal.visible{opacity:1;transform:none;}
 
@@ -324,6 +377,7 @@
   </style>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tone@14/build/Tone.js"></script>
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
@@ -367,9 +421,15 @@
 <div id="galaxy-intro">
   <canvas id="galaxy-canvas" style="display:none"></canvas>
   <canvas id="hf-canvas"></canvas>
-  <div class="hero-tagline">
-    <span class="tl-1">Built by heroes.</span>
-    <span class="tl-2">Felt by millions.</span>
+  <div class="tl-left">
+    <span class="tl-step tl-main">BUILT</span>
+    <span class="tl-step tl-by">BY</span>
+    <span class="tl-step tl-accent">HEROES.</span>
+  </div>
+  <div class="tl-right">
+    <span class="tl-step tl-main">FELT</span>
+    <span class="tl-step tl-by">BY</span>
+    <span class="tl-step tl-accent">MILLIONS.</span>
   </div>
   <div class="hf-scene">
     <div class="hf-stack" id="hfStack">
@@ -753,69 +813,166 @@
   loop();
 })();
 
-/* ── FLOATING BUBBLES (intro background) ────────────────────── */
+/* ── ANIMATED SHADER BACKGROUND (intro) ─────────────────────── */
 (function(){
-  const c=document.getElementById('hf-canvas');
-  if(!c)return;
-  const ctx=c.getContext('2d');
-  let w,h,raf=null;
-  const N=35;
-  const bs=[];
-  function mk(){return{x:Math.random()*w,y:h+Math.random()*60,r:3+Math.random()*20,vx:(Math.random()-.5)*.45,vy:-(0.18+Math.random()*.5),op:0.04+Math.random()*.1,hue:195+Math.random()*45};}
-  function init(){bs.length=0;for(let i=0;i<N;i++){const b=mk();b.y=Math.random()*h;bs.push(b);}}
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    bs.forEach((b,i)=>{
-      b.x+=b.vx;b.y+=b.vy;
-      if(b.y+b.r<0){bs[i]=mk();return;}
-      // ring
-      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-      ctx.strokeStyle=`hsla(${b.hue},80%,65%,${b.op*2})`;ctx.lineWidth=1;ctx.stroke();
-      // inner glow
-      const g=ctx.createRadialGradient(b.x-b.r*.3,b.y-b.r*.3,b.r*.05,b.x,b.y,b.r);
-      g.addColorStop(0,`hsla(${b.hue},90%,80%,${b.op})`);
-      g.addColorStop(.5,`hsla(${b.hue},80%,65%,${b.op*.35})`);
-      g.addColorStop(1,`hsla(${b.hue},80%,65%,0)`);
-      ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
-    });
+  const canvas=document.getElementById('hf-canvas');
+  if(!canvas)return;
+  const gl=canvas.getContext('webgl2');
+  if(!gl){console.warn('WebGL2 not supported');return;}
+
+  const VERT=`#version 300 es
+precision highp float;
+in vec4 position;
+void main(){gl_Position=position;}`;
+
+  const FRAG=`#version 300 es
+/*
+ * Nebula shader by Matthias Hurrle (@atzedent)
+ */
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
+float noise(in vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}
+float fbm(vec2 p){float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}return t;}
+float clouds(vec2 p){float d=1.,t=.0;for(float i=.0;i<3.;i++){float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);t=mix(t,d,a);d=a;p*=2./(i+1.);}return t;}
+void main(void){
+  vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
+  vec3 col=vec3(0);
+  float bg=clouds(vec2(st.x+T*.5,-st.y));
+  uv*=1.-.3*(sin(T*.2)*.5+.5);
+  for(float i=1.;i<12.;i++){
+    uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);
+    vec2 p=uv;
+    float d=length(p);
+    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);
+    float b=noise(i+p+bg*1.731);
+    col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
+    col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
+  }
+  O=vec4(col,1);
+}`;
+
+  function compile(type,src){
+    const s=gl.createShader(type);
+    gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.error(gl.getShaderInfoLog(s));return null;}
+    return s;
+  }
+
+  const vs=compile(gl.VERTEX_SHADER,VERT);
+  const fs=compile(gl.FRAGMENT_SHADER,FRAG);
+  if(!vs||!fs)return;
+
+  const prog=gl.createProgram();
+  gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){console.error(gl.getProgramInfoLog(prog));return;}
+
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,1,-1,-1,1,1,1,-1]),gl.STATIC_DRAW);
+  const pos=gl.getAttribLocation(prog,'position');
+  gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+
+  const uRes=gl.getUniformLocation(prog,'resolution');
+  const uTime=gl.getUniformLocation(prog,'time');
+
+  let raf=null,startTime=null;
+
+  function resize(){
+    const dpr=Math.max(1,0.5*window.devicePixelRatio);
+    canvas.width=canvas.offsetWidth*dpr;
+    canvas.height=canvas.offsetHeight*dpr;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+
+  function draw(now){
+    if(!startTime)startTime=now;
+    gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(prog);
+    gl.uniform2f(uRes,canvas.width,canvas.height);
+    gl.uniform1f(uTime,(now-startTime)*1e-3);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
     raf=requestAnimationFrame(draw);
   }
-  function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;init();}
+
   const io=new IntersectionObserver(e=>{
-    if(e[0].isIntersecting){resize();if(!raf)draw();}
+    if(e[0].isIntersecting){resize();if(!raf)raf=requestAnimationFrame(draw);}
     else{cancelAnimationFrame(raf);raf=null;}
-  },{threshold:.01});
-  io.observe(c);resize();
+  },{threshold:0.01});
+
+  resize();
+  io.observe(canvas);
   window.addEventListener('resize',resize,{passive:true});
 })();
 
-/* ── HERO SPOTLIGHT REVEAL (follows cursor exactly) ─────────── */
+/* ── HERO WAVE REVEAL (auto-animate + mouse override) ───────── */
 (function(){
   const stack=document.getElementById('hfStack');
   const hero=document.querySelector('.hf-hero');
   if(!stack||!hero)return;
-  const R=120; // spotlight radius in px
-  let cx=50,cy=50,tx=50,ty=50,active=false,ticking=false;
-  function lerp(a,b,t){return a+(b-a)*t;}
-  function setMask(x,y){
-    const rect=stack.getBoundingClientRect();
-    const px=(x/rect.width)*100,py=(y/rect.height)*100;
-    const m=`radial-gradient(circle ${R}px at ${px}% ${py}%,black 0%,black 40%,rgba(0,0,0,.5) 65%,transparent 85%)`;
-    hero.style.webkitMaskImage=m;hero.style.maskImage=m;
+
+  // Always show the hero layer; mask controls what's visible
+  hero.style.opacity='1';
+  hero.style.transition='none';
+
+  // Three elliptical "water blobs" with independent phases
+  // Each oscillates horizontally across the figure at slightly different speeds
+  const W=[
+    {phX:0,   fX:0.62, aX:43, phY:0,   fY:0.88, aY:17, rw:'23%', rh:'34%'},
+    {phX:2.0, fX:0.52, aX:40, phY:1.4, fY:1.05, aY:13, rw:'20%', rh:'28%'},
+    {phX:4.3, fX:0.72, aX:37, phY:0.8, fY:0.80, aY:19, rw:'17%', rh:'24%'},
+  ];
+  const CY0=[44,57,64]; // base vertical centers (%) for each blob
+
+  function buildAutoMask(t){
+    return W.map((w,i)=>{
+      const cx=(50+w.aX*Math.sin(w.fX*t+w.phX)).toFixed(1);
+      const cy=(CY0[i]+w.aY*Math.sin(w.fY*t+w.phY)).toFixed(1);
+      return `radial-gradient(ellipse ${w.rw} ${w.rh} at ${cx}% ${cy}%,black 0%,black 38%,rgba(0,0,0,.4) 66%,transparent 94%)`;
+    }).join(',');
   }
-  function tick(){
-    cx=lerp(cx,tx,.2);cy=lerp(cy,ty,.2);
-    setMask(cx,cy);
-    if(Math.abs(cx-tx)>.3||Math.abs(cy-ty)>.3)requestAnimationFrame(tick);
-    else ticking=false;
+
+  function buildMouseMask(xp,yp){
+    return `radial-gradient(ellipse 24% 32% at ${xp.toFixed(1)}% ${yp.toFixed(1)}%,black 0%,black 40%,rgba(0,0,0,.5) 65%,transparent 88%)`;
   }
+
+  function setMask(m,n){
+    hero.style.webkitMaskImage=m; hero.style.maskImage=m;
+    hero.style.webkitMaskComposite=n; hero.style.maskComposite=n;
+  }
+
+  let autoT=0,mouseMode=false,mouseTimer=null,prev=null;
+
+  function tick(now){
+    if(prev===null)prev=now;
+    const dt=Math.min((now-prev)/1000,.05);
+    prev=now;
+    if(!mouseMode){autoT+=dt;setMask(buildAutoMask(autoT),'source-over,source-over,source-over');}
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
   stack.addEventListener('mousemove',e=>{
+    mouseMode=true;
+    clearTimeout(mouseTimer);
     const r=stack.getBoundingClientRect();
-    tx=e.clientX-r.left;ty=e.clientY-r.top;
-    if(!active){active=true;cx=tx;cy=ty;hero.style.opacity='1';}
-    if(!ticking){ticking=true;requestAnimationFrame(tick);}
+    const xp=((e.clientX-r.left)/r.width)*100;
+    const yp=((e.clientY-r.top)/r.height)*100;
+    setMask(buildMouseMask(xp,yp),'source-over');
+    mouseTimer=setTimeout(()=>{mouseMode=false;},2500);
   });
-  stack.addEventListener('mouseleave',()=>{active=false;hero.style.opacity='0';});
+
+  stack.addEventListener('mouseleave',()=>{
+    clearTimeout(mouseTimer);
+    mouseMode=false;
+  });
+
   new Image().src='public/Hook Hero.png';
 })();
 
@@ -930,6 +1087,93 @@ if(ctaForm){
     submitBtn.disabled=false;
   });
 }
+
+/* ── FUTURISTIC BACKGROUND MUSIC (Tone.js) ───────────────────── */
+(function(){
+  let started=false,muted=false;
+  const SVG_ON =`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
+  const SVG_OFF=`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+
+  async function startMusic(){
+    if(started)return; started=true;
+    try{ await Tone.start(); }catch(e){ started=false; return; }
+
+    Tone.Transport.bpm.value=76;
+
+    // Effekte
+    const masterVol=new Tone.Volume(-5).toDestination();
+    const reverb=new Tone.Freeverb({roomSize:.88,dampening:3200}).connect(masterVol);
+    reverb.wet.value=.48;
+    const delay=new Tone.PingPongDelay({delayTime:'8n.',feedback:.22}).connect(reverb);
+    delay.wet.value=.28;
+
+    // Sub-Bass-Drone A1
+    const bass=new Tone.Synth({
+      oscillator:{type:'sine'},
+      envelope:{attack:3,decay:0,sustain:1,release:4},
+      volume:-7
+    }).connect(reverb);
+    bass.triggerAttack('A1');
+
+    // Atmosphärischer Pad-Akkord Am
+    const pad=new Tone.PolySynth(Tone.Synth).connect(reverb);
+    pad.set({oscillator:{type:'triangle8'},envelope:{attack:2,decay:1,sustain:.85,release:4}});
+    pad.volume.value=-17;
+    pad.triggerAttack(['A2','C3','E3','G3']);
+
+    // Arpeggio – A-Moll-Pentatonik
+    const arp=new Tone.MonoSynth({
+      oscillator:{type:'sawtooth4'},
+      envelope:{attack:.005,decay:.28,sustain:.08,release:.35},
+      filterEnvelope:{attack:.005,decay:.12,sustain:.3,release:.3,baseFrequency:140,octaves:3.5,exponent:2},
+      volume:-21
+    }).connect(delay);
+
+    new Tone.Sequence((time,note)=>{
+      arp.triggerAttackRelease(note,'8n',time);
+    },['A3','C4','E4','G4','A4','G4','E4','C4','A3','G3','E3','C3','A2','C3','E3','G3'],'8n').start(0);
+
+    // Sparse Lead-Melodie
+    const lead=new Tone.Synth({
+      oscillator:{type:'sine'},
+      envelope:{attack:.3,decay:.5,sustain:.65,release:2},
+      volume:-26
+    }).connect(reverb);
+    const leadPart=new Tone.Part((time,v)=>{
+      lead.triggerAttackRelease(v.note,v.dur,time);
+    },[
+      {time:'0:0:0',note:'A5',dur:'2n'},{time:'0:2:0',note:'E5',dur:'4n'},
+      {time:'1:0:0',note:'G5',dur:'2n.'},{time:'1:3:0',note:'A5',dur:'8n'},
+      {time:'2:0:0',note:'C6',dur:'2n'},{time:'2:2:2',note:'A5',dur:'4n'},
+      {time:'3:1:0',note:'E5',dur:'2n'},{time:'3:3:2',note:'G5',dur:'8n'},
+    ]);
+    leadPart.loop=true; leadPart.loopEnd='4m'; leadPart.start(0);
+
+    Tone.Transport.start();
+    document.getElementById('music-btn').style.opacity='1';
+  }
+
+  function toggleMute(){
+    muted=!muted;
+    Tone.Destination.mute=muted;
+    const b=document.getElementById('music-btn');
+    b.innerHTML=muted?SVG_OFF:SVG_ON;
+    b.style.borderColor=muted?'rgba(255,80,80,.5)':'rgba(0,255,204,.3)';
+  }
+
+  const btn=document.createElement('button');
+  btn.id='music-btn'; btn.title='Musik ein/aus'; btn.innerHTML=SVG_ON;
+  btn.style.cssText='position:fixed;bottom:5.6rem;right:2rem;z-index:300;width:44px;height:44px;border-radius:50%;background:rgba(0,5,15,.8);border:1.5px solid rgba(0,255,204,.3);color:#e8f4ff;cursor:pointer;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .6s,border-color .2s,transform .2s,box-shadow .2s;';
+  btn.addEventListener('click',e=>{if(!started)startMusic();else toggleMute();e.stopPropagation();});
+  btn.addEventListener('mouseenter',()=>{btn.style.borderColor='rgba(0,255,204,.85)';btn.style.transform='scale(1.1)';btn.style.boxShadow='0 0 16px rgba(0,255,204,.3)';});
+  btn.addEventListener('mouseleave',()=>{btn.style.borderColor=muted?'rgba(255,80,80,.5)':'rgba(0,255,204,.3)';btn.style.transform='scale(1)';btn.style.boxShadow='none';});
+  document.body.appendChild(btn);
+
+  setTimeout(()=>{btn.style.opacity='.75';},700);
+  ['click','touchstart'].forEach(ev=>{
+    document.addEventListener(ev,startMusic,{once:true,passive:true});
+  });
+})();
 </script>
 </body>
 </html>
