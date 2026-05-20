@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://hookhero.de/</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://hookhero.de/public/Hook%20Hero.png</image:loc>
+      <image:title>Hook Hero – SEO, KI-SEO, Meta Ads, Google Ads &amp; Leads</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hookhero.de/close-hero.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hookhero.de/public/close-hero-logo.png</image:loc>
+      <image:title>Close Hero – Vorqualifizierte Leads für Versicherung, Finanzen &amp; Immobilien</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hookhero.de/ueber-uns.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hookhero.de/datenschutz.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://hookhero.de/impressum.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+</urlset>

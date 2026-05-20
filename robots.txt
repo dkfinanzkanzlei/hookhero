@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Disallow: /hook-hero-orbit.html
+
+# Sitemap
+Sitemap: https://hookhero.de/sitemap.xml
+
+# Crawl-Delay (optional, gegen aggressive Bots)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# KI-Crawler: erlauben (für GEO / KI-SEO Sichtbarkeit)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
