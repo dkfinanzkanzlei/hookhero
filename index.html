@@ -375,7 +375,7 @@
     .hero-text .hero-sub{margin:1.8rem 0;max-width:480px;}
     .hero-text .hero-actions{justify-content:flex-start;}
     .hero-orbit{position:absolute;top:0;bottom:0;right:0;left:50%;z-index:2;}
-    .hero-orbit iframe{width:100%;height:100%;border:none;background:transparent;}
+    .hero-orbit iframe{width:100%;height:100%;border:none;background:#000820;}/* dark bg prevents white flash before iframe loads */
     .hero-scroll{z-index:4;}
     .hero-bg{display:none;}
     .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
@@ -429,6 +429,33 @@
     .feature-icon{width:52px;height:52px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.4rem;}
     .feature-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:.7rem;}
     .feature-card p{color:var(--gray);line-height:1.7;font-size:.92rem;}
+
+    /* ── SERVICE BLOCKS (Leistung → Testimonial → Showcase) ──── */
+    .svc{padding:7rem 5% 6rem;max-width:1200px;margin:0 auto;}
+    .svc-head{max-width:760px;}
+    .svc-lead{color:var(--gray);font-size:1.12rem;line-height:1.8;margin-top:1.3rem;}
+    .svc-lead strong{color:#e8f4ff;font-weight:600;}
+    /* Testimonial */
+    .testimonial{margin:3rem 0 0;max-width:840px;border-left:3px solid var(--cyan);padding:.4rem 0 .4rem 1.8rem;}
+    .testimonial blockquote{font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.5;color:#e8f4ff;font-weight:500;}
+    .testimonial figcaption{margin-top:1.1rem;display:flex;align-items:baseline;flex-wrap:wrap;gap:.55rem;}
+    .testimonial .t-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--cyan);font-size:1.02rem;}
+    .testimonial .t-role{color:var(--gray);font-size:.9rem;}
+    .testimonial .t-role::before{content:'·';margin-right:.55rem;color:var(--gray);}
+    .placeholder-note{display:inline-block;margin-left:.6rem;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ffb800;border:1px solid rgba(255,184,0,.4);border-radius:4px;padding:.1rem .45rem;vertical-align:middle;}
+    /* Marquee showcase */
+    .marquee{position:relative;overflow:hidden;margin-top:2.8rem;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
+    .marquee-track{display:flex;gap:1.5rem;width:max-content;animation:marquee 45s linear infinite;}
+    .marquee:hover .marquee-track{animation-play-state:paused;}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(calc(-50% - .75rem))}}
+    .shot{flex:0 0 auto;width:clamp(280px,32vw,420px);aspect-ratio:16/10;border-radius:14px;overflow:hidden;border:1px solid rgba(0,102,255,.28);background:#001428;position:relative;display:block;text-decoration:none;transition:border-color .25s,transform .25s,box-shadow .25s;}
+    .shot:hover{border-color:var(--cyan);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,255,204,.12);}
+    .shot img,.shot video{width:100%;height:100%;object-fit:cover;object-position:top;display:block;background:#001428;}
+    .shot-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--gray);font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:1.05rem;background:linear-gradient(135deg,#001428,#00243f);}
+    .shot-label{position:absolute;left:0;right:0;bottom:0;padding:.9rem 1rem .7rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.85rem;background:linear-gradient(0deg,rgba(0,6,16,.92),transparent);color:#e8f4ff;}
+    @media(prefers-reduced-motion:reduce){.marquee-track{animation:none;}.marquee{overflow-x:auto;}}
 
     /* ── HOW IT WORKS ────────────────────────────────────────── */
     #how{padding:8rem 5%;background:#001428;}
@@ -568,6 +595,10 @@
       /* Features */
       #features{padding:4rem 5%;}
       .features-grid{grid-template-columns:1fr;}
+      .svc{padding:4rem 5% 3.5rem;}
+      .testimonial{padding-left:1.2rem;margin-top:2.2rem;}
+      .marquee{margin-top:2rem;}
+      .shot{width:78vw;}
       .feature-card{padding:2rem 1.5rem;}
 
       /* Close banner */
@@ -671,25 +702,39 @@
       <img class="hf-hero" src="public/Hook Hero.png" alt="Hook Hero – Held mit Umhang" width="1200" height="1500" fetchpriority="high" decoding="async" draggable="false" />
     </div>
   </div>
-  <a id="scroll-hint" href="#hero" onclick="event.preventDefault();document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
+  <a id="scroll-hint" href="#svc-websites" onclick="event.preventDefault();document.getElementById('svc-websites').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
 </div>
 
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="particles" id="particles"></div>
-  <div class="hero-text">
-    <h1 class="hero-title">Hooks, die<span class="accent">Helden</span>erschaffen.</h1>
-    <p class="hero-sub">Hook Hero gibt dir die Superkraft, dein Publikum vom ersten Wort an zu fesseln – mit bewährten Formeln, die wirklich funktionieren.</p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="#cta">Kostenlos starten</a>
-      <a class="btn-ghost" href="#how"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>So funktioniert's</a>
+<!-- ══ LEISTUNG 01 · WEBSITES (Flagship-Vorlage: Erklärung → Testimonial → Showcase) ══ -->
+<section class="svc" id="svc-websites">
+  <div class="svc-head reveal">
+    <span class="section-tag">Leistung · Websites</span>
+    <h2 class="section-title">Websites, die <span class="dim">verkaufen</span> –<br/>nicht nur gut aussehen.</h2>
+    <p class="svc-lead"><strong>[Dein Erklärtext.]</strong> Beschreibe hier kurz, was du bei Websites lieferst – z.&nbsp;B. schnelle, mobil-optimierte Seiten, die Besucher in echte Anfragen verwandeln. Design, Technik und Conversion aus einer Hand. <span class="placeholder-note">Platzhalter</span></p>
+  </div>
+
+  <figure class="testimonial reveal">
+    <blockquote>„Hier steht eine echte Kundenstimme – ein konkreter Satz darüber, was die neue Website gebracht hat (mehr Anfragen, professioneller Auftritt, …)." <span class="placeholder-note">Platzhalter</span></blockquote>
+    <figcaption>
+      <span class="t-name">Vorname Nachname</span>
+      <span class="t-role">Firma / Rolle</span>
+    </figcaption>
+  </figure>
+
+  <div class="marquee" aria-label="Website-Showcase – Beispielprojekte">
+    <div class="marquee-track">
+      <!-- Echte Referenz-Websites als Loop-Videos. href="#" durch die jeweilige Live-URL ersetzen, dann onclick entfernen. -->
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-ecomoptimize.mp4" poster="public/ref-ecomoptimize.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">EcomOptimize · Amazon-Betreuung →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-dkfinanz.mp4" poster="public/ref-dkfinanz.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">DK FinanzKanzlei · Finanzberatung →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-foerdermittel.mp4" poster="public/ref-foerdermittel.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">Fördermittel-Beratung →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-satherm.mp4" poster="public/ref-satherm.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">SA-Therm · Sanitärtechnik →</span></a>
+      <!-- Kopie für nahtlose Endlos-Schleife (identisch halten) -->
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-ecomoptimize.mp4" poster="public/ref-ecomoptimize.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">EcomOptimize · Amazon-Betreuung →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-dkfinanz.mp4" poster="public/ref-dkfinanz.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">DK FinanzKanzlei · Finanzberatung →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-foerdermittel.mp4" poster="public/ref-foerdermittel.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">Fördermittel-Beratung →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-satherm.mp4" poster="public/ref-satherm.jpg" autoplay muted loop playsinline preload="auto"></video><span class="shot-label">SA-Therm · Sanitärtechnik →</span></a>
     </div>
   </div>
-  <div class="hero-orbit">
-    <iframe src="hook-hero-orbit.html" scrolling="no" allowtransparency="true" loading="lazy" title="Hook Hero – Services Orbit"></iframe>
-  </div>
-  <div class="hero-scroll">Scroll<div class="scroll-line"></div></div>
 </section>
 
 <section id="numbers">
@@ -1213,31 +1258,7 @@ void main(void){
 /* ── HERO ORBIT EXPANSION ───────────────────────────────────── */
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.matchMedia().add('(min-width:901px)', () => {
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: '+=110%',
-      scrub: 1.8,
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
-    }
-  })
-  .to('.hero-text', {
-    opacity: 0,
-    x: -50,
-    duration: 0.45,
-    ease: 'power2.inOut'
-  })
-  .to('.hero-orbit', {
-    left: '0%',
-    duration: 0.55,
-    ease: 'power2.inOut'
-  }, 0)
-  .to('.hero-scroll', { opacity: 0, duration: 0.2 }, 0);
-});
+/* Orbit-Hero entfernt – kein ScrollTrigger-Pin mehr nötig. */
 
 /* ── BACK TO TOP ─────────────────────────────────────────────── */
 const backTop=document.getElementById('back-top');
@@ -1265,7 +1286,7 @@ document.querySelectorAll('a,button,.feature-card').forEach(el=>{
   el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';});
 });
 const pC=document.getElementById('particles');
-for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}
+if(pC){for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}}
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.15});
 document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
 const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});

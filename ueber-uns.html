@@ -118,7 +118,7 @@
     h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,6rem);line-height:.95;margin-bottom:1.5rem;color:var(--white);}
     .page-sub{color:var(--gray);font-size:1.05rem;line-height:1.75;max-width:560px;margin-bottom:5rem;}
     /* TEAM GRID: 3 cols desktop, 2 tablet, 1 mobile */
-    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+    .team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;align-items:start;}
     .team-card{background:rgba(0,51,102,.25);border:1px solid rgba(0,102,255,.2);border-radius:16px;overflow:hidden;transition:transform .25s,box-shadow .25s;}
     .team-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,255,204,.1);}
     .team-card-img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top;}
@@ -126,6 +126,26 @@
     .team-card-role{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem;}
     .team-card-name{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--white);}
     .placeholder-card{background:rgba(0,51,102,.12);border:2px dashed rgba(0,102,255,.2);border-radius:16px;aspect-ratio:.85;display:flex;align-items:center;justify-content:center;color:var(--gray);font-size:.9rem;letter-spacing:.05em;}
+    /* ── STORY / VALUES / CTA ────────────────────────────────── */
+    .section-label{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;display:block;}
+    .about-block{margin:6rem 0;max-width:760px;}
+    .about-block h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;color:var(--white);margin-bottom:1.4rem;}
+    .about-block p{color:var(--gray);font-size:1.08rem;line-height:1.85;margin-bottom:1.1rem;}
+    .about-block p .hl{color:var(--white);font-weight:600;}
+    .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;max-width:none;}
+    .value-card{background:rgba(0,51,102,.25);border:1px solid rgba(0,102,255,.2);border-radius:16px;padding:2rem;transition:transform .25s,border-color .25s;}
+    .value-card:hover{transform:translateY(-6px);border-color:rgba(0,255,204,.4);}
+    .value-icon{font-size:1.9rem;margin-bottom:1rem;line-height:1;}
+    .value-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:900;color:var(--white);margin-bottom:.6rem;}
+    .value-card p{color:var(--gray);line-height:1.7;font-size:.95rem;}
+    .team-heading{margin-top:6rem;margin-bottom:2.5rem;}
+    .team-heading h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;color:var(--white);}
+    .about-cta{max-width:1000px;margin:7rem auto 0;padding:0 5%;position:relative;z-index:1;}
+    .about-cta-inner{background:linear-gradient(135deg,rgba(0,102,255,.16),rgba(0,255,204,.06));border:1px solid rgba(0,255,204,.25);border-radius:22px;padding:4rem 2.5rem;text-align:center;}
+    .about-cta-inner h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);color:var(--white);margin-bottom:1rem;line-height:1.02;}
+    .about-cta-inner p{color:var(--gray);font-size:1.08rem;line-height:1.7;margin:0 auto 2.2rem;max-width:520px;}
+    .btn-primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#000d1a;border:none;padding:1rem 2.6rem;border-radius:6px;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s;}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,255,204,.35);}
     /* FOOTER */
     footer{border-top:1px solid rgba(0,102,255,.15);padding:2.5rem 5%;display:flex;align-items:center;justify-content:space-between;color:var(--gray);font-size:.83rem;flex-wrap:wrap;gap:1rem;background:#000d1a;position:relative;z-index:1;}
     footer a{color:var(--gray);text-decoration:none;transition:color .2s;}
@@ -138,10 +158,12 @@
 
     /* ── RESPONSIVE ──────────────────────────────────────────── */
     @media(max-width:900px){
-      .team-grid{grid-template-columns:repeat(2,1fr);}
+      .team-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .values-grid{grid-template-columns:repeat(2,1fr);}
       .placeholder-card{aspect-ratio:unset;min-height:160px;}
       main{padding:9rem 5% 5rem;}
       .page-sub{margin-bottom:3rem;}
+      .about-block{margin:4.5rem 0;}
     }
     @media(max-width:768px){
       .nav-hamburger{display:flex;}
@@ -153,6 +175,8 @@
       h1{font-size:clamp(2.8rem,11vw,4.5rem);}
       .page-sub{font-size:.98rem;margin-bottom:2.5rem;}
       .team-grid{grid-template-columns:1fr;}
+      .values-grid{grid-template-columns:1fr;}
+      .about-cta-inner{padding:3rem 1.5rem;}
       .team-card-img{aspect-ratio:4/3;}
       footer{flex-direction:column;align-items:flex-start;padding:2rem 5%;gap:.75rem;}
       .footer-links{gap:1.2rem;}
@@ -200,6 +224,40 @@
   <h1>Über uns.</h1>
   <p class="page-sub">Wir sind Hook Hero — ein Team mit einer Mission: Content-Ersteller und Unternehmen mit den richtigen Werkzeugen auszustatten, um mehr zu erreichen.</p>
 
+  <div class="about-block">
+    <span class="section-label">Unsere Mission</span>
+    <h2>Die besten Angebote scheitern nicht am Produkt.</h2>
+    <p>Sie scheitern daran, dass sie nie die <span class="hl">Aufmerksamkeit bekommen, die sie verdienen</span>. Genau diese Lücke schließen wir.</p>
+    <p>Mit datengetriebenen Hooks, durchdachter Content-Strategie und ehrlicher Betreuung sorgen wir dafür, dass dein Business online sichtbar wird – und zwar bei den Menschen, die wirklich zu Kunden werden. Kein Rätselraten, keine leeren Reichweiten-Zahlen. Nur Ergebnisse, die sich messen lassen.</p>
+  </div>
+
+  <div class="about-block" style="max-width:none;">
+    <span class="section-label">Wofür wir stehen</span>
+    <h2>Drei Prinzipien, keine Kompromisse.</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <h3>Ergebnisse statt Ausreden</h3>
+        <p>Wir messen unsere Arbeit an deinen Zahlen – nicht an schönen Präsentationen. Was nicht funktioniert, ändern wir.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3>Ehrlichkeit zuerst</h3>
+        <p>Kein Agentur-Sprech, keine leeren Versprechen. Wir sagen dir offen, was wirklich funktioniert – und was nicht.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <h3>Tempo &amp; Umsetzung</h3>
+        <p>Ideen sind billig. Wir setzen um – schnell, konsequent und mit vollem Einsatz für dein Wachstum.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="team-heading">
+    <span class="section-label">Das Gesicht dahinter</span>
+    <h2>Die Menschen, die liefern.</h2>
+  </div>
+
   <div class="team-grid">
     <div class="team-card">
       <img class="team-card-img" src="public/tamaz.jpg" alt="Tamaz Tordia – Geschäftsführer Hook Hero" width="600" height="600" loading="lazy" decoding="async" />
@@ -218,6 +276,14 @@
     <div class="placeholder-card">Kommt bald</div>
   </div>
 </main>
+
+<div class="about-cta">
+  <div class="about-cta-inner">
+    <h2>Lernen wir uns kennen.</h2>
+    <p>Ob Content, Reichweite oder Leads – erzähl uns von deinem Ziel. Das Erstgespräch ist kostenlos und völlig unverbindlich.</p>
+    <a class="btn-primary" href="index.html#cta">Kostenloses Erstgespräch →</a>
+  </div>
+</div>
 
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Nach oben">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
