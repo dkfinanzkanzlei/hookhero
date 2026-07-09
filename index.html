@@ -861,8 +861,8 @@
     <span class="social-handle">@dk_finanzkanzlei</span>
   </div>
   <div class="numbers-inner">
-    <div class="number-item"><div class="number-val" data-count="5500000">0</div><div class="number-label">Mehr Aufrufe</div></div>
-    <div class="number-item"><div class="number-val" data-count="1416">0</div><div class="number-label">Mehr Follower</div></div>
+    <div class="number-item"><div class="number-val" data-count="16800000" data-prefix="+">0</div><div class="number-label">Mehr Aufrufe</div></div>
+    <div class="number-item"><div class="number-val" data-count="8700" data-prefix="+">0</div><div class="number-label">Mehr Follower</div></div>
   </div>
 </section>
 
@@ -879,6 +879,8 @@
       <p class="case-sub">Finanz- &amp; Versicherungskanzlei</p>
       <div class="case-badge">Monatsumsatz verdoppelt: 60.000&nbsp;€ → 120.000&nbsp;€</div>
       <ul>
+        <li>Neue Webseite + SEO-Optimierung umgesetzt</li>
+        <li>Google-Eintrag + Listing eingerichtet</li>
         <li>7.000&nbsp;€ Förderung für Online-Präsenz gesichert</li>
         <li>Prozessautomatisierungen vom Staat finanzieren lassen</li>
         <li>Vom Staat bezahltes Marketing → 10 neue Kunden monatlich = 40.000&nbsp;€ Umsatz&nbsp;/&nbsp;Monat</li>
@@ -902,9 +904,10 @@
       <p class="case-sub">Unternehmensberatung</p>
       <div class="case-badge">Skaliert von 10.000&nbsp;€ → 100.000&nbsp;€</div>
       <ul>
-        <li>Gründerzuschuss gesichert</li>
-        <li>Vertriebsautomatisierung aufgebaut</li>
-        <li>Skalierungsprozess von 10.000&nbsp;€ auf 100.000&nbsp;€</li>
+        <li>Neue Webseite + SEO-Optimierung umgesetzt</li>
+        <li>Google-Eintrag + Listing eingerichtet</li>
+        <li>Neukunden über Google-Eintrag + Webseite = 20.000&nbsp;€ Umsatz&nbsp;/&nbsp;Monat</li>
+        <li>Prozess- &amp; Verwaltungsautomatisierung → Fixkosten um 10&nbsp;% gesenkt</li>
       </ul>
     </article>
   </div>
@@ -944,7 +947,7 @@
       <h2>Du verkaufst Versicherungen<br/>oder Immobilien?</h2>
       <p>Close Hero liefert dir <span style="text-decoration:underline;text-decoration-color:#FFB800;text-underline-offset:4px;text-decoration-thickness:2px;">qualifizierte Leads</span> – alles, was du brauchst.<br/><span style="font-size:.82rem;opacity:.7;">Ratenzahlung per PayPal möglich.</span></p>
     </div>
-    <a class="btn-gold" href="close-hero.html" style="display:inline-flex;align-items:center;gap:.7rem;padding:.25rem 1.4rem .25rem .3rem;"><img src="public/close-hero-logo.png" alt="Close Hero Logo" width="36" height="36" loading="lazy" decoding="async" style="width:36px;height:36px;object-fit:contain;border-radius:7px;flex-shrink:0;"> Zu Close Hero →</a>
+    <a class="btn-gold" href="close-hero.html" style="display:inline-flex;align-items:center;gap:.7rem;padding:.25rem 1.4rem .25rem .3rem;"><img src="public/logo.png" alt="Close Hero Logo" width="36" height="36" loading="lazy" decoding="async" style="width:36px;height:36px;object-fit:contain;flex-shrink:0;filter:hue-rotate(185deg) saturate(1.6) brightness(1.05) drop-shadow(0 0 10px rgba(255,69,0,.5)) drop-shadow(0 0 24px rgba(255,184,0,.3));"> Zu Close Hero →</a>
   </div>
 </section>
 
@@ -1532,7 +1535,7 @@ const pC=document.getElementById('particles');
 if(pC){for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s;`;pC.appendChild(p);}}
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.15});
 document.querySelectorAll('.reveal,.how-step').forEach(el=>obs.observe(el));
-const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
+const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'',pre=el.dataset.prefix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=pre+Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=pre+t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
 window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(0,0,0,1)':'rgba(0,0,0,.95)';},{passive:true});
 /* Close mobile menu on resize to desktop */
