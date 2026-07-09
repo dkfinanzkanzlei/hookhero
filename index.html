@@ -402,7 +402,7 @@
     /* ── NUMBERS ─────────────────────────────────────────────── */
     #numbers{padding:7rem 5%;max-width:1100px;margin:0 auto;text-align:center;}
     .numbers-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);line-height:1.05;margin-bottom:1.2rem;color:#e8f4ff;}
-    .numbers-sub{color:var(--gray);font-size:1.18rem;line-height:1.75;margin-bottom:2rem;max-width:640px;margin-left:auto;margin-right:auto;font-weight:500;}
+    .numbers-sub{color:#c7dbee;font-size:1.18rem;line-height:1.75;margin-bottom:2rem;max-width:640px;margin-left:auto;margin-right:auto;font-weight:500;}
     .numbers-social{display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:3.5rem;flex-wrap:wrap;}
     .social-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.1rem;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:transform .2s,box-shadow .2s;min-height:44px;}
     .social-btn:hover{transform:translateY(-2px);}
@@ -422,7 +422,7 @@
     #features{padding:8rem 5%;max-width:1200px;margin:0 auto;}
     .section-tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;}
     .section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.1;max-width:700px;}
-    .section-title .dim{color:var(--gray);}
+    .section-title .dim{color:var(--cyan);text-shadow:0 0 24px rgba(0,255,204,.35);}
     .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5px;margin-top:4rem;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.07);border-radius:12px;overflow:hidden;}
     .feature-card{background:var(--black2);padding:2.5rem;transition:background .3s;}
     .feature-card:hover{background:#111d2e;}
@@ -433,16 +433,50 @@
     /* ── SERVICE BLOCKS (Leistung → Testimonial → Showcase) ──── */
     .svc{padding:7rem 5% 6rem;max-width:1200px;margin:0 auto;}
     .svc-head{max-width:760px;}
-    .svc-lead{color:var(--gray);font-size:1.12rem;line-height:1.8;margin-top:1.3rem;}
-    .svc-lead strong{color:#e8f4ff;font-weight:600;}
-    /* Testimonial */
-    .testimonial{margin:3rem 0 0;max-width:840px;border-left:3px solid var(--cyan);padding:.4rem 0 .4rem 1.8rem;}
-    .testimonial blockquote{font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.5;color:#e8f4ff;font-weight:500;}
-    .testimonial figcaption{margin-top:1.1rem;display:flex;align-items:baseline;flex-wrap:wrap;gap:.55rem;}
-    .testimonial .t-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--cyan);font-size:1.02rem;}
-    .testimonial .t-role{color:var(--gray);font-size:.9rem;}
-    .testimonial .t-role::before{content:'·';margin-right:.55rem;color:var(--gray);}
+    .svc-lead{color:#c7dbee;font-size:1.12rem;line-height:1.8;margin-top:1.3rem;}
+    .svc-lead strong{color:#fff;font-weight:700;}
     .placeholder-note{display:inline-block;margin-left:.6rem;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ffb800;border:1px solid rgba(255,184,0,.4);border-radius:4px;padding:.1rem .45rem;vertical-align:middle;}
+
+    /* ── MANIFEST (Warum Hook Hero – 3 Argumente) ─────────────── */
+    .manifest{padding:8rem 5% 5rem;max-width:1000px;margin:0 auto;text-align:center;}
+    .manifest h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,6.5vw,5.5rem);line-height:1.04;color:#e8f4ff;text-wrap:balance;}
+    .manifest h2 .accent{color:var(--cyan);display:block;text-shadow:0 0 30px rgba(0,255,204,.35);}
+    .manifest-sub{color:#c7dbee;font-size:1.15rem;line-height:1.75;max-width:640px;margin:1.8rem auto 0;}
+    .manifest-sub strong{color:#fff;}
+    .manifest-args{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-top:3rem;}
+    .marg{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.07em;text-transform:uppercase;color:#e8f4ff;display:flex;align-items:center;gap:.6rem;}
+    .marg::before{content:'';width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan);flex-shrink:0;}
+
+    /* ── VIDEO SHOWCASE (9:16 Hochformat) ─────────────────────── */
+    .video-row{display:grid;grid-template-columns:repeat(4,minmax(0,250px));gap:1.4rem;margin-top:3rem;}
+    .vslot iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;}
+    .vslot[role="button"]{cursor:pointer;justify-content:space-between;padding:1.5rem 0;}
+    .vslot-brand{height:68px;min-width:68px;max-width:78%;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:.55rem .8rem;flex-shrink:0;}
+    .vslot-brand img{max-width:100%;max-height:100%;object-fit:contain;}
+    .vslot-desc{color:#c7dbee;font-size:.92rem;line-height:1.55;padding:0 1.2rem;text-align:center;margin:0;}
+    .vslot-desc strong{color:var(--cyan);}
+    .vslot{aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid rgba(0,102,255,.28);background:linear-gradient(165deg,#001428,#00243f);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;transition:border-color .25s,transform .25s;}
+    .vslot:hover{border-color:var(--cyan);transform:translateY(-5px);}
+    .vslot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+    .vslot-icon{width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(0,255,204,.4);display:flex;align-items:center;justify-content:center;color:var(--cyan);}
+    .vslot-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;color:var(--gray);padding:0 1rem;text-align:center;}
+    .stat-callout{margin-top:2.6rem;display:inline-flex;align-items:center;gap:1.4rem;border:1px solid rgba(0,255,204,.25);background:rgba(0,255,204,.05);border-radius:12px;padding:1.2rem 1.8rem;}
+    .stat-callout .sc-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4vw,3.2rem);color:var(--cyan);line-height:1;white-space:nowrap;}
+    .stat-callout .sc-label{color:#a8c4dd;font-size:.95rem;max-width:280px;line-height:1.5;text-align:left;}
+
+    /* ── KUNDEN-CASES (Logo + Ergebnis-Badge + Checkliste) ────── */
+    .cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem;margin-top:3.5rem;}
+    .case{background:var(--black2);border:1px solid rgba(0,102,255,.2);border-radius:14px;padding:1.5rem 1.5rem 2rem;display:flex;flex-direction:column;gap:1.1rem;transition:border-color .25s,transform .25s;}
+    .case:hover{border-color:rgba(0,255,204,.5);transform:translateY(-4px);}
+    .case-logo{width:100%;height:100px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;padding:1rem;}
+    .case-logo img{max-width:100%;max-height:100%;object-fit:contain;}
+    .case h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;text-transform:uppercase;letter-spacing:.04em;color:#e8f4ff;}
+    .case-sub{color:var(--gray);font-size:.92rem;margin-top:-.8rem;}
+    .case-badge{border:1px solid rgba(0,255,204,.45);background:rgba(0,255,204,.06);border-radius:10px;padding:.85rem 1.1rem;font-weight:700;color:#e8f4ff;line-height:1.45;font-size:.98rem;}
+    .case ul{list-style:none;margin:0;padding:0;}
+    .case li{display:flex;gap:.7rem;padding:.75rem 0;border-bottom:1px solid rgba(0,102,255,.14);color:#a8c4dd;line-height:1.55;font-size:.95rem;}
+    .case li:last-child{border-bottom:none;padding-bottom:0;}
+    .case li::before{content:'✓';color:var(--cyan);font-weight:800;flex-shrink:0;}
     /* Marquee showcase */
     .marquee{position:relative;overflow:hidden;margin-top:2.8rem;
       -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
@@ -457,15 +491,34 @@
     .shot-label{position:absolute;left:0;right:0;bottom:0;padding:.9rem 1rem .7rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.85rem;background:linear-gradient(0deg,rgba(0,6,16,.92),transparent);color:#e8f4ff;}
     @media(prefers-reduced-motion:reduce){.marquee-track{animation:none;}.marquee{overflow-x:auto;}}
 
-    /* ── HOW IT WORKS ────────────────────────────────────────── */
+    /* ── HOW IT WORKS (3-Spalten-Fahrplan) ────────────────────── */
     #how{padding:8rem 5%;background:#001428;}
-    .how-inner{max-width:1000px;margin:0 auto;}
-    .how-step{display:grid;grid-template-columns:80px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid rgba(0,102,255,.12);opacity:0;transform:translateX(-30px);transition:opacity .6s,transform .6s;}
-    .how-step.visible{opacity:1;transform:none;}
-    .how-step:last-child{border-bottom:none;}
-    .step-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--cyan);line-height:1;}
-    .step-content h3{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.6rem;color:#e8f4ff;}
-    .step-content p{color:var(--gray);line-height:1.7;}
+    .how-inner{max-width:1100px;margin:0 auto;text-align:center;}
+    .how-inner .section-title{max-width:none;}
+    .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-top:4rem;}
+    .how-col .hicon{width:96px;height:96px;border-radius:50%;background:rgba(0,255,204,.06);border:1px solid rgba(0,255,204,.22);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;color:var(--cyan);}
+    .how-col h3{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:700;color:#e8f4ff;margin-bottom:.8rem;}
+    .how-col p{color:#c7dbee;line-height:1.7;max-width:340px;margin:0 auto;}
+    .how-cta{margin-top:3.5rem;}
+
+    /* ── BAFA-BERATUNG (Foto + 4 förderfähige Angebote) ───────── */
+    .bafa-head{display:grid;grid-template-columns:290px 1fr;gap:3rem;align-items:center;}
+    .bafa-photo img{width:100%;height:auto;border-radius:16px;border:1px solid rgba(0,255,204,.25);display:block;box-shadow:0 18px 50px rgba(0,0,0,.45);}
+    .bafa-badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(0,255,204,.4);background:rgba(0,255,204,.06);border-radius:999px;padding:.42rem 1.1rem;color:var(--cyan);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.1rem;}
+    .bafa-badge::before{content:'';width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan);}
+    .bafa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:3.5rem;align-items:start;}
+    .bafa-card{background:var(--black2);border:1px solid rgba(0,102,255,.2);border-radius:14px;overflow:hidden;transition:border-color .25s;}
+    .bafa-card[open],.bafa-card:hover{border-color:rgba(0,255,204,.45);}
+    .bafa-card summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.35rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;letter-spacing:.04em;color:#e8f4ff;}
+    .bafa-card summary::-webkit-details-marker{display:none;}
+    .bafa-card summary::after{content:'+';font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--cyan);line-height:1;transition:transform .25s;flex-shrink:0;}
+    .bafa-card[open] summary::after{transform:rotate(45deg);}
+    .bc-body{padding:0 1.6rem 1.6rem;}
+    .bc-sub{color:#c7dbee;line-height:1.6;margin-bottom:.9rem;font-weight:600;}
+    .bafa-card ul{list-style:none;margin:0;padding:0;}
+    .bafa-card li{display:flex;gap:.7rem;padding:.55rem 0;color:#a8c4dd;line-height:1.55;font-size:.95rem;border-bottom:1px solid rgba(0,102,255,.12);}
+    .bafa-card li:last-child{border-bottom:none;}
+    .bafa-card li::before{content:'✓';color:var(--cyan);font-weight:800;flex-shrink:0;}
 
     /* ── CLOSE BANNER ────────────────────────────────────────── */
     #closebanner{padding:5rem 5%;background:linear-gradient(135deg,#0d0800 0%,#1a0a00 50%,#0d0800 100%);border-top:1px solid rgba(255,69,0,.15);border-bottom:1px solid rgba(255,69,0,.15);}
@@ -480,7 +533,7 @@
     .cta-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
     .cta-left h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);line-height:1.05;margin-bottom:1.2rem;color:#e8f4ff;}
     .cta-left h2 span{color:var(--cyan);}
-    .cta-left p{color:var(--gray);font-size:1rem;line-height:1.75;}
+    .cta-left p{color:#c7dbee;font-size:1rem;line-height:1.75;}
     .cta-form{display:flex;flex-direction:column;gap:1rem;}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
     .form-group{display:flex;flex-direction:column;gap:.4rem;}
@@ -535,11 +588,10 @@
       .hero-orbit{position:relative;top:auto;bottom:auto;left:auto;right:auto;width:100%;height:360px;}
       /* Numbers: 2 columns */
       .numbers-inner{display:grid;grid-template-columns:repeat(2,1fr);border-radius:12px;}
-      .number-item{border-right:1px solid rgba(0,102,255,.15);border-bottom:1px solid rgba(0,102,255,.15);}
-      .number-item:nth-child(2){border-right:none;}
-      .number-item:last-child{border-right:none;border-bottom:none;grid-column:1/-1;}
+      .number-item{border-right:1px solid rgba(0,102,255,.15);}
+      .number-item:last-child{border-right:none;}
       /* How: tighter grid */
-      .how-step{grid-template-columns:60px 1fr;gap:1.5rem;}
+      .how-grid{gap:1.8rem;}
     }
 
     /* ── 768px: Phones / Tablets ─────────────────────────────── */
@@ -588,15 +640,24 @@
 
       /* How it works */
       #how{padding:4rem 5%;}
-      .how-step{grid-template-columns:50px 1fr;gap:1rem;padding:2rem 0;}
-      .step-num{font-size:2.8rem;}
-      .step-content h3{font-size:1.25rem;}
+      .how-grid{grid-template-columns:1fr;gap:2.5rem;margin-top:2.5rem;}
+      .how-col .hicon{width:80px;height:80px;}
 
       /* Features */
       #features{padding:4rem 5%;}
       .features-grid{grid-template-columns:1fr;}
       .svc{padding:4rem 5% 3.5rem;}
-      .testimonial{padding-left:1.2rem;margin-top:2.2rem;}
+      .manifest{padding:5rem 5% 3rem;}
+      .manifest-args{gap:1rem 1.8rem;}
+      .marg{font-size:.92rem;}
+      .video-row{grid-template-columns:repeat(2,1fr);gap:.7rem;}
+      .vslot-icon{width:40px;height:40px;}
+      .vslot-name{font-size:.7rem;padding:0 .4rem;}
+      .stat-callout{flex-direction:column;align-items:flex-start;gap:.6rem;padding:1.1rem 1.3rem;}
+      .cases-grid{grid-template-columns:1fr;}
+      .bafa-head{grid-template-columns:1fr;gap:2rem;}
+      .bafa-photo{max-width:320px;}
+      .bafa-grid{grid-template-columns:1fr;margin-top:2.5rem;}
       .marquee{margin-top:2rem;}
       .shot{width:78vw;}
       .feature-card{padding:2rem 1.5rem;}
@@ -702,24 +763,29 @@
       <img class="hf-hero" src="public/Hook Hero.png" alt="Hook Hero – Held mit Umhang" width="1200" height="1500" fetchpriority="high" decoding="async" draggable="false" />
     </div>
   </div>
-  <a id="scroll-hint" href="#svc-websites" onclick="event.preventDefault();document.getElementById('svc-websites').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
+  <a id="scroll-hint" href="#manifest" onclick="event.preventDefault();document.getElementById('manifest').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
 </div>
 
-<!-- ══ LEISTUNG 01 · WEBSITES (Flagship-Vorlage: Erklärung → Testimonial → Showcase) ══ -->
+<!-- ══ MANIFEST · Die 3 Argumente ══ -->
+<section class="manifest" id="manifest">
+  <div class="reveal">
+    <h2>Jede Agentur erzählt dir,<br/>was sie alles kann.<span class="accent">Wir zeigen es dir einfach.</span></h2>
+    <p class="manifest-sub">Keine Buzzwords, keine leeren Versprechen. Auf dieser Seite siehst du <strong>echte Webseiten, echte Videos und echte Zahlen</strong> – von Unternehmen, die mit uns von 10.000&nbsp;€ auf 100.000&nbsp;€ Monatsumsatz skaliert sind. Scroll weiter und urteile selbst.</p>
+    <div class="manifest-args">
+      <span class="marg">100&nbsp;% echte Arbeit</span>
+      <span class="marg">Website · Video · KI · Strategie</span>
+      <span class="marg">10k&nbsp;→&nbsp;100k&nbsp;€ skaliert</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEISTUNG 01 · WEBSITES (Erklärung → Showcase) ══ -->
 <section class="svc" id="svc-websites">
   <div class="svc-head reveal">
     <span class="section-tag">Leistung · Websites</span>
     <h2 class="section-title">Websites, die <span class="dim">verkaufen</span> –<br/>nicht nur gut aussehen.</h2>
-    <p class="svc-lead"><strong>[Dein Erklärtext.]</strong> Beschreibe hier kurz, was du bei Websites lieferst – z.&nbsp;B. schnelle, mobil-optimierte Seiten, die Besucher in echte Anfragen verwandeln. Design, Technik und Conversion aus einer Hand. <span class="placeholder-note">Platzhalter</span></p>
+    <p class="svc-lead">Deine Website ist dein bester Verkäufer – wenn sie richtig gebaut ist. Wir liefern <strong>schnelle, mobil-optimierte Seiten</strong>, die Besucher in echte Anfragen verwandeln. Design, Technik und Conversion aus einer Hand. Vier davon laufen gerade unter diesem Text durch – alle live, alle von uns.</p>
   </div>
-
-  <figure class="testimonial reveal">
-    <blockquote>„Hier steht eine echte Kundenstimme – ein konkreter Satz darüber, was die neue Website gebracht hat (mehr Anfragen, professioneller Auftritt, …)." <span class="placeholder-note">Platzhalter</span></blockquote>
-    <figcaption>
-      <span class="t-name">Vorname Nachname</span>
-      <span class="t-role">Firma / Rolle</span>
-    </figcaption>
-  </figure>
 
   <div class="marquee" aria-label="Website-Showcase – Beispielprojekte">
     <div class="marquee-track">
@@ -737,9 +803,52 @@
   </div>
 </section>
 
+<!-- ══ LEISTUNG 02 · VIDEOS & KI-VIDEOS ══ -->
+<section class="svc" id="svc-videos">
+  <div class="svc-head reveal">
+    <span class="section-tag">Leistung · Video &amp; KI-Video</span>
+    <h2 class="section-title">Videos, die hängen bleiben.<br/><span class="dim">KI-Videos, die verkaufen.</span></h2>
+    <p class="svc-lead">Hook, Schnitt, Untertitel, Sound – wir produzieren Content, der in den <strong>ersten zwei Sekunden</strong> packt. Und mit <strong>KI-Image-Videos</strong> machen wir aus deinem Unternehmen oder Produkt Meta-Ads, die dich weniger kosten und mehr bringen.</p>
+  </div>
+  <div class="video-row reveal">
+    <div class="vslot" data-embed="https://www.youtube-nocookie.com/embed/4velQF7cjMk?autoplay=1&amp;rel=0" data-title="Die betriebliche Altersvorsorge BAV – Produktvideo für BVA-Service" role="button" tabindex="0" aria-label="Produktvideo abspielen: Die betriebliche Altersvorsorge – BVA-Service">
+      <div class="vslot-brand"><img src="public/logo-bva.png" alt="BVA-Service Logo" loading="lazy" decoding="async" /></div>
+      <div class="vslot-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <p class="vslot-desc">Produktvideo für BVA-Service – half dem Unternehmen, <strong>doppelt so viel</strong> vom Produkt zu verkaufen.</p>
+    </div>
+    <!-- Beispiel-Clips im 9:16-Format hier einsetzen: <video src="..." poster="..." autoplay muted loop playsinline></video> -->
+    <div class="vslot" data-embed="https://www.instagram.com/reel/DaV5XBTi2se/embed/" data-title="Social-Media-Reel für DK Finanzkanzlei" role="button" tabindex="0" aria-label="Videocut abspielen: Social-Media-Reel für DK Finanzkanzlei">
+      <div class="vslot-brand"><img src="public/logo-dk.png" alt="DK Finanzkanzlei Logo" loading="lazy" decoding="async" /></div>
+      <div class="vslot-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <p class="vslot-desc">Videocut für DK Finanzkanzlei – Social-Media-Reel aus unserer Content-Produktion.</p>
+    </div>
+    <div class="vslot">
+      <div class="vslot-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <span class="vslot-name">KI-Image-Video · Meta Ad <span class="placeholder-note">Clip folgt</span></span>
+    </div>
+    <div class="vslot">
+      <div class="vslot-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <span class="vslot-name">Kunden-Video · Testimonial <span class="placeholder-note">Clip folgt</span></span>
+    </div>
+  </div>
+  <div class="stat-callout reveal">
+    <span class="sc-val">2,37×</span>
+    <span class="sc-label">günstigere Leads mit KI-Image-Videos in Meta Ads – gemessen an unseren eigenen Kampagnen.</span>
+  </div>
+</section>
+
+<!-- ══ LEISTUNG 03 · CONTENT-STRATEGIE ══ -->
+<section class="svc" id="svc-strategie">
+  <div class="svc-head reveal">
+    <span class="section-tag">Leistung · Content-Strategie</span>
+    <h2 class="section-title">Content ohne Strategie<br/><span class="dim">ist nur Lärm.</span></h2>
+    <p class="svc-lead">Wir posten nicht einfach drauflos. Jedes Video und jeder Post zahlt auf ein Ziel ein: <strong>Follower, die zu Kunden werden.</strong> Formate, Frequenz, Hooks – geplant wie eine Kampagne, umgesetzt wie eine Redaktion. Website, Video und Strategie greifen ineinander. Was dabei rauskommt, siehst du direkt hier drunter.</p>
+  </div>
+</section>
+
 <section id="numbers">
-  <h2 class="numbers-headline">Messbare Ergebnisse statt<br/>leere Versprechen.</h2>
-  <p class="numbers-sub">Bei einer <span style="color:#e8f4ff;font-weight:700;">Finanzagentur</span> konnten wir in den ersten 30 Tagen folgende Zahlen erreichen:</p>
+  <h2 class="numbers-headline">Von 10.000&nbsp;€ auf 100.000&nbsp;€<br/>Monatsumsatz.</h2>
+  <p class="numbers-sub">Das passiert, wenn Website, Content und Ads zusammenspielen. Zum Beispiel bei einer <span style="color:#e8f4ff;font-weight:700;">Finanzagentur</span> – allein in den ersten 30 Tagen:</p>
   <div class="numbers-social">
     <a class="social-btn tiktok" href="https://www.tiktok.com/@dk_finanzkanzlei" target="_blank" rel="noopener">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
@@ -754,7 +863,50 @@
   <div class="numbers-inner">
     <div class="number-item"><div class="number-val" data-count="5500000">0</div><div class="number-label">Mehr Aufrufe</div></div>
     <div class="number-item"><div class="number-val" data-count="1416">0</div><div class="number-label">Mehr Follower</div></div>
-    <div class="number-item"><div class="number-val" data-count="130">0</div><div class="number-label">Neue Kunden</div></div>
+  </div>
+</section>
+
+<!-- ══ KUNDEN · 3 Unternehmen, Logos, Werk & Stimme ══ -->
+<section class="svc" id="cases">
+  <div class="svc-head reveal">
+    <span class="section-tag">Kunden</span>
+    <h2 class="section-title">Drei Unternehmen.<br/><span class="dim">Drei Erfolgsgeschichten.</span></h2>
+  </div>
+  <div class="cases-grid">
+    <article class="case reveal">
+      <div class="case-logo"><img src="public/logo-dk.png" alt="DK Finanzkanzlei Logo" loading="lazy" decoding="async" /></div>
+      <h3>DK Finanzkanzlei</h3>
+      <p class="case-sub">Finanz- &amp; Versicherungskanzlei</p>
+      <div class="case-badge">Monatsumsatz verdoppelt: 60.000&nbsp;€ → 120.000&nbsp;€</div>
+      <ul>
+        <li>7.000&nbsp;€ Förderung für Online-Präsenz gesichert</li>
+        <li>Prozessautomatisierungen vom Staat finanzieren lassen</li>
+        <li>Vom Staat bezahltes Marketing → 10 neue Kunden monatlich = 40.000&nbsp;€ Umsatz&nbsp;/&nbsp;Monat</li>
+      </ul>
+    </article>
+    <article class="case reveal">
+      <div class="case-logo"><img src="public/logo-satherm.png" alt="SA-Therm Logo" loading="lazy" decoding="async" /></div>
+      <h3>SA-Therm</h3>
+      <p class="case-sub">Sanitär &amp; Heizung</p>
+      <div class="case-badge">Umsatz verdreifacht: 30.000&nbsp;€ → 90.000&nbsp;€</div>
+      <ul>
+        <li>Neue Webseite + SEO-Optimierung umgesetzt</li>
+        <li>Google-Eintrag + Listing eingerichtet</li>
+        <li>+60.000&nbsp;€ Umsatz monatlich durch die neue Online-Präsenz</li>
+        <li>Beratung zur Online-Präsenz vom Staat finanziert</li>
+      </ul>
+    </article>
+    <article class="case reveal">
+      <div class="case-logo"><img src="public/logo-bva.png" alt="BVA-Service Logo" loading="lazy" decoding="async" /></div>
+      <h3>BVA-Service</h3>
+      <p class="case-sub">Unternehmensberatung</p>
+      <div class="case-badge">Skaliert von 10.000&nbsp;€ → 100.000&nbsp;€</div>
+      <ul>
+        <li>Gründerzuschuss gesichert</li>
+        <li>Vertriebsautomatisierung aufgebaut</li>
+        <li>Skalierungsprozess von 10.000&nbsp;€ auf 100.000&nbsp;€</li>
+      </ul>
+    </article>
   </div>
 </section>
 
@@ -765,11 +917,24 @@
       <span class="section-tag">Prozess</span>
       <h2 class="section-title">In 3 Schritten zu<br/>mehr <span style="text-decoration:underline;text-decoration-color:#2563EB;text-underline-offset:6px;text-decoration-thickness:3px;color:inherit;">Kunden</span>.</h2>
     </div>
-    <div style="margin-top:4rem;">
-      <div class="how-step"><div class="step-num">01</div><div class="step-content"><h3>Kostenloses Strategiegespräch</h3><p>Buche jetzt dein unverbindliches Gespräch mit einem unserer Marketingstrategen – wir analysieren dein Business und zeigen dir sofort, wo Potenzial steckt.</p></div></div>
-      <div class="how-step"><div class="step-num">02</div><div class="step-content"><h3>Deine individuelle Content-Strategie</h3><p>Gemeinsam entwickeln wir eine maßgeschneiderte Strategie, die auf deine Ziele einzahlt – klar, messbar und bereit zur Umsetzung.</p></div></div>
-      <div class="how-step"><div class="step-num">03</div><div class="step-content"><h3>Umsetzen, wachsen, feiern 🥂</h3><p>Wir liefern, du wächst – und dann wird gefeiert.</p></div></div>
+    <div class="how-grid">
+      <div class="how-col reveal">
+        <div class="hicon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Das Strategiegespräch</h3>
+        <p>Buche dein kostenloses, unverbindliches Gespräch – wir analysieren dein Business und zeigen dir sofort, wo Potenzial steckt.</p>
+      </div>
+      <div class="how-col reveal">
+        <div class="hicon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <h3>Deine Content-Strategie</h3>
+        <p>Gemeinsam entwickeln wir eine maßgeschneiderte Strategie, die auf deine Ziele einzahlt – klar, messbar und bereit zur Umsetzung.</p>
+      </div>
+      <div class="how-col reveal">
+        <div class="hicon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+        <h3>Umsetzen, wachsen, feiern 🥂</h3>
+        <p>Wir liefern, du wächst – und dann wird gefeiert.</p>
+      </div>
     </div>
+    <div class="how-cta reveal"><a class="btn-primary" href="#cta">Jetzt durchstarten →</a></div>
   </div>
 </section>
 
@@ -780,6 +945,81 @@
       <p>Close Hero liefert dir <span style="text-decoration:underline;text-decoration-color:#FFB800;text-underline-offset:4px;text-decoration-thickness:2px;">qualifizierte Leads</span> – alles, was du brauchst.<br/><span style="font-size:.82rem;opacity:.7;">Ratenzahlung per PayPal möglich.</span></p>
     </div>
     <a class="btn-gold" href="close-hero.html" style="display:inline-flex;align-items:center;gap:.7rem;padding:.25rem 1.4rem .25rem .3rem;"><img src="public/close-hero-logo.png" alt="Close Hero Logo" width="36" height="36" loading="lazy" decoding="async" style="width:36px;height:36px;object-fit:contain;border-radius:7px;flex-shrink:0;"> Zu Close Hero →</a>
+  </div>
+</section>
+
+<!-- ══ BAFA · Förderfähige Beratung ══ -->
+<section class="svc" id="bafa">
+  <div class="bafa-head reveal">
+    <div class="bafa-photo"><img src="public/tamaz-berater.jpg" alt="Tamaz Tordia – BAFA-akkreditierter und zertifizierter Berater" width="800" height="800" loading="lazy" decoding="async" /></div>
+    <div>
+      <span class="bafa-badge">BAFA-akkreditiert &amp; zertifiziert</span>
+      <h2 class="section-title">Beratung, die der Staat <span class="dim">mitbezahlt.</span></h2>
+      <p class="svc-lead">Ich bin <strong>Tamaz Tordia</strong> – BAFA-akkreditierter und zertifizierter Berater. Das heißt für dich: Diese vier Beratungsleistungen sind <strong>förderfähig</strong> – der Staat übernimmt <strong>bis zu 80&nbsp;% der Kosten</strong>. Genau so sind Ergebnisse wie „vom Staat bezahltes Marketing" bei unseren Kunden oben entstanden.</p>
+    </div>
+  </div>
+  <div class="bafa-grid reveal">
+    <details class="bafa-card">
+      <summary>Neukundengewinnung</summary>
+      <div class="bc-body">
+        <p class="bc-sub">Beratung zur Implementierung einer Maßnahme zur Kundengewinnung über Social-Media-Werbung.</p>
+        <ul>
+          <li>Analyse der aktuellen Marketing- und Vertriebsstruktur</li>
+          <li>Entwicklung einer Strategie zur Kundengewinnung über Social Media</li>
+          <li>Auswahl geeigneter Plattformen (z.&nbsp;B. Meta, LinkedIn, Instagram)</li>
+          <li>Definition von Zielgruppen, Botschaften und KPIs</li>
+          <li>Beratung zur Strukturierung von Werbe- und Tracking-Systemen</li>
+          <li>Konzeptionelle Ableitung einer Vorgehensweise zur Kampagnensteuerung</li>
+          <li>Dokumentation und Handlungsempfehlungen gemäß BAFA-Vorgaben</li>
+        </ul>
+      </div>
+    </details>
+    <details class="bafa-card">
+      <summary>Mitarbeitergewinnung</summary>
+      <div class="bc-body">
+        <p class="bc-sub">Beratung zur Implementierung einer Maßnahme zur Mitarbeitergewinnung über Social-Media-Werbung.</p>
+        <ul>
+          <li>Analyse der aktuellen Recruiting- und Arbeitgebermarkenstruktur</li>
+          <li>Definition von Zielgruppen (Wunschkandidaten, Regionen, Berufsgruppen)</li>
+          <li>Entwicklung einer Social-Media-Strategie zur Bewerbergewinnung</li>
+          <li>Auswahl geeigneter Plattformen (z.&nbsp;B. Meta, Instagram, LinkedIn)</li>
+          <li>Erarbeitung von Botschaften und Employer Value Proposition</li>
+          <li>Beratung zur Einrichtung von Werbekonten und Bewerbungsstrecken</li>
+          <li>Konzeptionelle Ableitung einer Vorgehensweise zur Kampagnensteuerung</li>
+          <li>Dokumentation und Handlungsempfehlungen gemäß BAFA-Vorgaben</li>
+        </ul>
+      </div>
+    </details>
+    <details class="bafa-card">
+      <summary>KI &amp; Prozessoptimierung</summary>
+      <div class="bc-body">
+        <p class="bc-sub">Beratung zur Implementierung von KI &amp; Prozessoptimierung – z.&nbsp;B. Leadmanagement, Bewerbermanagement, Kundenservice oder Marketing-Automatisierung.</p>
+        <ul>
+          <li>Analyse des bestehenden Prozesses und Identifikation von Optimierungspotenzialen</li>
+          <li>Definition von Zielen und Effizienzkennzahlen (Zeit, Kosten, Qualität)</li>
+          <li>Entwicklung eines KI-gestützten Optimierungskonzepts</li>
+          <li>Auswahl geeigneter Tools und Automatisierungslösungen</li>
+          <li>Beratung zur Implementierung und Integration in bestehende Systeme</li>
+          <li>Konzeptionelle Ableitung einer Vorgehensweise zur Prozesssteuerung</li>
+          <li>Dokumentation und Handlungsempfehlungen gemäß BAFA-Vorgaben</li>
+        </ul>
+      </div>
+    </details>
+    <details class="bafa-card">
+      <summary>Webauftritt &amp; Branding</summary>
+      <div class="bc-body">
+        <p class="bc-sub">Beratung zur Optimierung des Webauftritts und zur Stärkung des Markenauftritts.</p>
+        <ul>
+          <li>Analyse des bestehenden Webauftritts (Struktur, Inhalte, Nutzerführung, Design)</li>
+          <li>Bewertung der Markenpositionierung und Außendarstellung</li>
+          <li>Entwicklung eines Ansatzes zur Optimierung von Website, Markenbotschaft und visueller Identität</li>
+          <li>Definition von Zielgruppen, Kommunikationszielen und Kernbotschaften</li>
+          <li>Beratung zur Verbesserung der Nutzererfahrung (UX) und Conversion-Optimierung</li>
+          <li>Konzeptionelle Ableitung einer Vorgehensweise zur technischen und inhaltlichen Planung</li>
+          <li>Dokumentation und Handlungsempfehlungen gemäß BAFA-Vorgaben</li>
+        </ul>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -818,6 +1058,9 @@
           <option value="">Bitte wählen...</option>
           <option>Social Media Marketing</option>
           <option>Webseite</option>
+          <option>Video &amp; KI-Videos</option>
+          <option>Content-Strategie</option>
+          <option>BAFA-geförderte Beratung</option>
           <option>Lead-Generierung</option>
           <option>Sonstiges</option>
         </select>
@@ -1295,20 +1538,21 @@ window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.b
 /* Close mobile menu on resize to desktop */
 window.addEventListener('resize',()=>{if(window.innerWidth>768&&typeof closeMobileMenu==='function')closeMobileMenu();});
 
-/* VIDEO SCRUB */
-(function(){
-  const wrapper=document.getElementById('intro-wrapper');
-  const video=document.getElementById('heroVideo');
-  let ended=false;
-  video.addEventListener('ended',()=>{video.pause();ended=true;});
-  window.addEventListener('scroll',()=>{
-    if(!ended||!video.duration)return;
-    const scrolled=Math.max(0,window.scrollY-(wrapper.offsetTop||0));
-    const scrollable=wrapper.offsetHeight-window.innerHeight;
-    const p=Math.min(1,scrolled/scrollable);
-    video.currentTime=video.duration*(1-p);
-  },{passive:true});
-})();
+/* VIDEO-SLOTS – Embed (YouTube/Instagram) erst bei Klick laden (Lite-Embed).
+   Vergrößern übernimmt der Fullscreen-Button des jeweiligen Players. */
+document.querySelectorAll('.vslot[data-embed]').forEach(v=>{
+  function play(){
+    const f=document.createElement('iframe');
+    f.src=v.dataset.embed;
+    f.title=v.dataset.title||'Video';
+    f.allow='autoplay; encrypted-media; picture-in-picture';
+    f.allowFullscreen=true;
+    v.replaceChildren(f);
+    v.style.cursor='default';
+  }
+  v.addEventListener('click',play,{once:true});
+  v.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}},{once:true});
+});
 
 /* CONTACT FORM */
 const ctaForm=document.querySelector('.cta-form');
@@ -1425,8 +1669,17 @@ if(ctaForm){
   document.body.appendChild(btn);
 
   setTimeout(()=>{btn.style.opacity='.75';},700);
+  /* Musik startet beim ersten Klick – außer der Klick gilt einem Video.
+     capture:true, damit der Check läuft, bevor der Video-Handler das DOM umbaut. */
+  function autoStart(e){
+    if(e.target.closest&&e.target.closest('.vslot,.shot,video,iframe')){
+      document.addEventListener(e.type,autoStart,{once:true,passive:true,capture:true});
+      return;
+    }
+    startMusic();
+  }
   ['click','touchstart'].forEach(ev=>{
-    document.addEventListener(ev,startMusic,{once:true,passive:true});
+    document.addEventListener(ev,autoStart,{once:true,passive:true,capture:true});
   });
 })();
 </script>
