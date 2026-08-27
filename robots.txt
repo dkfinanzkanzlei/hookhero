@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /hook-hero-orbit.html
+Disallow: /guideline
+Disallow: /guideline.html
 
 # Sitemap
 Sitemap: https://hookhero.de/sitemap.xml
