@@ -703,7 +703,6 @@
   </style>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/tone@14/build/Tone.js"></script>
 </head>
 <body>
 <div class="cursor" id="cursor"></div>
@@ -825,8 +824,9 @@
       <p class="vslot-desc">Videocut für DK Finanzkanzlei – Social-Media-Reel aus unserer Content-Produktion.</p>
     </div>
     <div class="vslot">
-      <div class="vslot-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-      <span class="vslot-name">KI-Image-Video · Meta Ad <span class="placeholder-note">Clip folgt</span></span>
+      <video src="public/ki-dk-investment.mp4" autoplay muted loop playsinline preload="metadata" aria-label="KI-Image-Video für DK Finanzkanzlei – Meta Ad"></video>
+      <div class="vslot-brand"><img src="public/logo-dk.png" alt="DK Finanzkanzlei Logo" loading="lazy" decoding="async" /></div>
+      <p class="vslot-desc">KI-Image-Video für DK Finanzkanzlei – Meta Ad, komplett KI-generiert.</p>
     </div>
     <div class="vslot">
       <div class="vslot-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
@@ -1592,101 +1592,6 @@ if(ctaForm){
   });
 }
 
-/* ── FUTURISTIC BACKGROUND MUSIC (Tone.js) ───────────────────── */
-(function(){
-  let started=false,muted=false;
-  const SVG_ON =`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`;
-  const SVG_OFF=`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-
-  async function startMusic(){
-    if(started)return; started=true;
-    try{ await Tone.start(); }catch(e){ started=false; return; }
-
-    Tone.Transport.bpm.value=76;
-
-    // Effekte
-    const masterVol=new Tone.Volume(-5).toDestination();
-    const reverb=new Tone.Freeverb({roomSize:.88,dampening:3200}).connect(masterVol);
-    reverb.wet.value=.48;
-    const delay=new Tone.PingPongDelay({delayTime:'8n.',feedback:.22}).connect(reverb);
-    delay.wet.value=.28;
-
-    // Sub-Bass-Drone A1
-    const bass=new Tone.Synth({
-      oscillator:{type:'sine'},
-      envelope:{attack:3,decay:0,sustain:1,release:4},
-      volume:-7
-    }).connect(reverb);
-    bass.triggerAttack('A1');
-
-    // Atmosphärischer Pad-Akkord Am
-    const pad=new Tone.PolySynth(Tone.Synth).connect(reverb);
-    pad.set({oscillator:{type:'triangle8'},envelope:{attack:2,decay:1,sustain:.85,release:4}});
-    pad.volume.value=-17;
-    pad.triggerAttack(['A2','C3','E3','G3']);
-
-    // Arpeggio – A-Moll-Pentatonik
-    const arp=new Tone.MonoSynth({
-      oscillator:{type:'sawtooth4'},
-      envelope:{attack:.005,decay:.28,sustain:.08,release:.35},
-      filterEnvelope:{attack:.005,decay:.12,sustain:.3,release:.3,baseFrequency:140,octaves:3.5,exponent:2},
-      volume:-21
-    }).connect(delay);
-
-    new Tone.Sequence((time,note)=>{
-      arp.triggerAttackRelease(note,'8n',time);
-    },['A3','C4','E4','G4','A4','G4','E4','C4','A3','G3','E3','C3','A2','C3','E3','G3'],'8n').start(0);
-
-    // Sparse Lead-Melodie
-    const lead=new Tone.Synth({
-      oscillator:{type:'sine'},
-      envelope:{attack:.3,decay:.5,sustain:.65,release:2},
-      volume:-26
-    }).connect(reverb);
-    const leadPart=new Tone.Part((time,v)=>{
-      lead.triggerAttackRelease(v.note,v.dur,time);
-    },[
-      {time:'0:0:0',note:'A5',dur:'2n'},{time:'0:2:0',note:'E5',dur:'4n'},
-      {time:'1:0:0',note:'G5',dur:'2n.'},{time:'1:3:0',note:'A5',dur:'8n'},
-      {time:'2:0:0',note:'C6',dur:'2n'},{time:'2:2:2',note:'A5',dur:'4n'},
-      {time:'3:1:0',note:'E5',dur:'2n'},{time:'3:3:2',note:'G5',dur:'8n'},
-    ]);
-    leadPart.loop=true; leadPart.loopEnd='4m'; leadPart.start(0);
-
-    Tone.Transport.start();
-    document.getElementById('music-btn').style.opacity='1';
-  }
-
-  function toggleMute(){
-    muted=!muted;
-    Tone.Destination.mute=muted;
-    const b=document.getElementById('music-btn');
-    b.innerHTML=muted?SVG_OFF:SVG_ON;
-    b.style.borderColor=muted?'rgba(255,80,80,.5)':'rgba(0,255,204,.3)';
-  }
-
-  const btn=document.createElement('button');
-  btn.id='music-btn'; btn.title='Musik ein/aus'; btn.innerHTML=SVG_ON;
-  btn.style.cssText='position:fixed;bottom:5.6rem;right:2rem;z-index:300;width:44px;height:44px;border-radius:50%;background:rgba(0,5,15,.8);border:1.5px solid rgba(0,255,204,.3);color:#e8f4ff;cursor:pointer;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .6s,border-color .2s,transform .2s,box-shadow .2s;';
-  btn.addEventListener('click',e=>{if(!started)startMusic();else toggleMute();e.stopPropagation();});
-  btn.addEventListener('mouseenter',()=>{btn.style.borderColor='rgba(0,255,204,.85)';btn.style.transform='scale(1.1)';btn.style.boxShadow='0 0 16px rgba(0,255,204,.3)';});
-  btn.addEventListener('mouseleave',()=>{btn.style.borderColor=muted?'rgba(255,80,80,.5)':'rgba(0,255,204,.3)';btn.style.transform='scale(1)';btn.style.boxShadow='none';});
-  document.body.appendChild(btn);
-
-  setTimeout(()=>{btn.style.opacity='.75';},700);
-  /* Musik startet beim ersten Klick – außer der Klick gilt einem Video.
-     capture:true, damit der Check läuft, bevor der Video-Handler das DOM umbaut. */
-  function autoStart(e){
-    if(e.target.closest&&e.target.closest('.vslot,.shot,video,iframe')){
-      document.addEventListener(e.type,autoStart,{once:true,passive:true,capture:true});
-      return;
-    }
-    startMusic();
-  }
-  ['click','touchstart'].forEach(ev=>{
-    document.addEventListener(ev,autoStart,{once:true,passive:true,capture:true});
-  });
-})();
 </script>
 </body>
 </html>
