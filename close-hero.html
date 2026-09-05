@@ -232,7 +232,7 @@
             "name": "Kann ich mehrere Leads auf einmal kaufen?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Aktuell ist der Kauf einzelner Pakete möglich. Für Pakete oder Mengenrabatte kontaktiere uns unter info@hookhero.de – wir erstellen ein individuelles Angebot."
+              "text": "Ja – jeden Lead-Typ gibt es als 10er- oder 100er-Paket, das 100er-Paket mit Mengenrabatt. Für größere Mengen oder andere Lead-Typen kontaktiere uns unter info@hookhero.de – wir erstellen ein individuelles Angebot."
             }
           }
         ]
@@ -260,7 +260,6 @@
       color: var(--text);
       font-family: 'Barlow', sans-serif;
       min-height: 100svh;
-      padding-bottom: 5rem;
       background-image:
         radial-gradient(ellipse at 50% 0%, rgba(255,69,0,.15) 0%, transparent 55%),
         radial-gradient(ellipse at 85% 60%, rgba(255,184,0,.07) 0%, transparent 45%),
@@ -321,49 +320,37 @@
     a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(255,184,0,.35); transition: color .2s, border-color .2s; }
     a:hover { color: var(--orange); border-color: var(--orange); }
 
-    /* ─── NAV ─── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: .55rem 5%;
-      background: rgba(10,5,0,.9);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+    /* ─── NAV (schwebende Glas-Leiste, Close-Hero-Variante) ─── */
+    nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 28px));z-index:200;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem .55rem .5rem 1rem;border-radius:999px;background:rgba(14,7,0,.55);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05);transition:background .35s,border-color .35s;}
+    nav::before{content:'';position:absolute;top:-1px;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,184,0,.6),transparent);pointer-events:none;}
+    nav.scrolled{background:rgba(10,5,0,.86);border-color:rgba(255,184,0,.16);}
+    .nav-brand{display:flex;align-items:center;gap:.65rem;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text);}
+    .nav-brand:hover{border:none;color:var(--gold);}
+    .logo-orange{filter:hue-rotate(185deg) saturate(1.6) brightness(1.05) drop-shadow(0 0 10px rgba(255,69,0,.5)) drop-shadow(0 0 24px rgba(255,184,0,.3));}
+    .nav-left{display:flex;align-items:center;gap:1rem;}
+    .brand-switch{display:inline-flex;padding:3px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);}
+    .brand-switch a{display:flex;align-items:center;gap:.45rem;padding:.42rem .9rem;border-radius:999px;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,245,238,.62);transition:background .2s,color .2s,box-shadow .2s;white-space:nowrap;}
+    .brand-switch a::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;flex-shrink:0;}
+    .brand-switch a:hover{border:none;color:#fff;background:rgba(255,255,255,.07);}
+    .brand-switch a.to-hook{color:#00FFCC;}
+    .brand-switch a.to-hook:hover{background:rgba(0,255,204,.12);color:#7dffe6;}
+    .brand-switch a.on{background:rgba(255,100,0,.16);color:#FFC94D;box-shadow:inset 0 0 0 1px rgba(255,140,0,.45);}
+    .brand-switch small{font-weight:600;font-size:.62rem;letter-spacing:.08em;opacity:.7;}
+    .nav-links{display:flex;align-items:center;gap:.1rem;}
+    .nav-links a{border:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,245,238,.75);padding:.5rem .85rem;border-radius:999px;transition:color .2s,background .2s;}
+    .nav-links a:hover{color:#fff;background:rgba(255,255,255,.07);border:none;}
+    .nav-links .nav-cta{display:inline-flex;align-items:center;gap:.5rem;margin-left:.4rem;background:linear-gradient(135deg,var(--orange),var(--gold));color:var(--bg);padding:.62rem 1.2rem .62rem 1.3rem;font-weight:900;font-size:.85rem;transition:transform .2s,box-shadow .25s;}
+    .nav-links .nav-cta:hover{color:var(--bg);background:linear-gradient(135deg,var(--orange),var(--gold));transform:translateY(-1px);box-shadow:0 8px 26px rgba(255,120,0,.4);}
+    body{padding-top:0;}
+    .hero{padding-top:8.5rem;}
+    @media(max-width:1100px){.nav-brand span{display:none;}.brand-switch small{display:none;}}
+    @media(max-width:768px){
+      nav{top:10px;width:calc(100% - 20px);padding:.4rem .45rem .4rem .8rem;}
+      .nav-links a:not(.nav-cta){display:none;}
+      .brand-switch a.on{display:none;}
+      .nav-brand span{display:inline;font-size:1.05rem;}
+      .hero{padding-top:7rem;}
     }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: .65rem;
-      border: none;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 1.15rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-    .nav-brand:hover { border: none; color: var(--gold); }
-    .logo-orange {
-      filter: hue-rotate(185deg) saturate(1.6) brightness(1.05)
-              drop-shadow(0 0 10px rgba(255,69,0,.5)) drop-shadow(0 0 24px rgba(255,184,0,.3));
-    }
-    .nav-links { display: flex; align-items: center; gap: 1.4rem; }
-    .nav-links a {
-      border: none;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: .88rem;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .nav-links a:hover { color: var(--gold); border: none; }
-    .nav-links .nav-back { color: var(--gold); border: 1px solid rgba(255,184,0,.35); border-radius: 4px; padding: .32rem .8rem; }
-    .nav-links .nav-back:hover { color: var(--orange); border-color: var(--orange); }
 
     /* ─── HERO ─── */
     .hero {
@@ -748,20 +735,22 @@
 
     /* ─── FOOTER ─── */
     footer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      padding: .85rem 5%;
+      margin-top: 3rem;
+      padding: 1.6rem 5%;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1.5rem;
       font-size: .8rem;
       flex-wrap: wrap;
-      background: rgba(10,5,0,.88);
-      backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255,255,255,.06);
-      z-index: 100;
     }
+    /* Anker unter der Sticky-Nav sauber anspringen */
+    #leads, #ablauf, #faq { scroll-margin-top: 80px; }
+    /* Lead-Karten: leichter Lift */
+    .lead-row:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(0,0,0,.35); }
+    .lead-row { transition: border-color .25s, background .25s, transform .25s, box-shadow .25s; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } html { scroll-behavior: auto; } }
     footer a { color: var(--dim); border: none; }
     footer a:hover { color: var(--gold); border: none; }
 
@@ -776,16 +765,21 @@
 </head>
 <body>
 
-  <nav>
-    <a class="nav-brand" href="index.html">
-      <img class="logo-orange" src="public/logo.png" alt="Hook Hero Logo" width="44" height="44" fetchpriority="high" decoding="async" style="width:44px;height:44px;" />
-      Close Hero
-    </a>
+  <nav id="mainNav" aria-label="Hauptnavigation">
+    <div class="nav-left">
+      <a class="nav-brand" href="close-hero.html">
+        <img class="logo-orange" src="public/logo.png" alt="Close Hero Logo" width="40" height="40" fetchpriority="high" decoding="async" style="width:40px;height:40px;" />
+        <span>Close Hero</span>
+      </a>
+      <div class="brand-switch" aria-label="Marke wechseln">
+        <a href="index.html" class="to-hook">Hook Hero</a>
+        <a href="close-hero.html" class="on" aria-current="page">Close Hero <small>· Leads</small></a>
+      </div>
+    </div>
     <div class="nav-links">
-      <a href="#leads">Leads</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#faq">FAQ</a>
-      <a class="nav-back" href="index.html">← Hook Hero</a>
+      <a class="nav-cta" href="#leads">Leads sichern <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </nav>
 
@@ -1132,9 +1126,9 @@
       <details>
         <summary>Kann ich mehrere Leads auf einmal kaufen?</summary>
         <p class="faq-answer">
-          Aktuell ist der Kauf einzelner Leads möglich. Für <strong>Pakete oder Mengenrabatte</strong>
-          kontaktiere uns direkt unter <a href="mailto:info@hookhero.de">info@hookhero.de</a> –
-          wir erstellen dir ein individuelles Angebot.
+          Ja – jeden Lead-Typ gibt es als <strong>10er- oder 100er-Paket</strong>, das 100er-Paket mit
+          Mengenrabatt. Du brauchst mehr, eine andere Region oder einen anderen Lead-Typ? Schreib uns an
+          <a href="mailto:info@hookhero.de">info@hookhero.de</a> – wir erstellen dir ein individuelles Angebot.
         </p>
       </details>
 
@@ -1152,7 +1146,7 @@
         Jeder Tag ohne qualifizierte Leads ist ein Tag mit unnötigem Aufwand.
         Wähle deinen Lead-Typ, bezahle sicher per PayPal – und leg los.
       </p>
-      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="btn-cta">
+      <a href="#leads" class="btn-cta">
         Jetzt hochwertige Leads sichern
       </a>
     </div>
@@ -1171,10 +1165,16 @@
        FOOTER
   ══════════════════════════════════════════ -->
   <footer>
+    <span style="color:var(--dim);">© 2026 Close Hero by Hook Hero · Aachen</span>
+    <a href="index.html">Hook Hero</a>
+    <a href="ueber-uns.html">Über uns</a>
     <a href="datenschutz.html">Datenschutz</a>
     <a href="impressum.html">Impressum</a>
-    <a href="index.html">Hook Hero</a>
   </footer>
 
+  <script>
+    const nav=document.getElementById('mainNav');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+  </script>
 </body>
 </html>
