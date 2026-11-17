@@ -57,7 +57,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://formspree.io" />
   <link rel="preload" as="image" href="public/hook-gio.webp" type="image/webp" fetchpriority="high" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
   <!-- ── JSON-LD: ORGANIZATION + WEBSITE + SERVICES + BREADCRUMB ─ -->
   <script type="application/ld+json">
@@ -540,7 +540,7 @@
     footer a{color:var(--gray);text-decoration:none;transition:color .2s;}
     footer a:hover{color:var(--cyan);}
     .footer-links{display:flex;gap:2rem;flex-wrap:wrap;}
-    .footer-meta a{color:#a8c4dd;}
+    .footer-meta a{color:#a8c4dd;text-decoration:underline;}
     #back-top{position:fixed;bottom:2rem;right:2rem;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(0,255,204,.5),0 0 40px rgba(0,102,255,.3);transition:transform .2s,box-shadow .2s,opacity .3s;opacity:0;pointer-events:none;z-index:200;}
     #back-top.visible{opacity:1;pointer-events:auto;}
     #back-top:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(0,255,204,.7),0 0 60px rgba(0,102,255,.4);}
@@ -662,7 +662,7 @@
 <nav id="mainNav" aria-label="Hauptnavigation">
   <div class="nav-left">
     <a class="nav-logo" href="index.html">
-      <img src="public/logo.png" alt="Hook Hero Logo" width="40" height="40" fetchpriority="high" decoding="async" />
+      <img src="public/logo-96.webp" alt="Hook Hero Logo" width="40" height="40" fetchpriority="high" decoding="async" />
       <span>Hook Hero</span>
     </a>
     <div class="brand-switch" aria-label="Marke wechseln">
@@ -710,7 +710,7 @@
   <div class="hf-scene">
     <div class="hf-stack" id="hfStack">
       <img class="hf-base" src="public/hook-gio.webp" alt="Tamaz Tordia – Gründer Hook Hero" width="1200" height="1500" fetchpriority="high" decoding="async" draggable="false" />
-      <img class="hf-hero" src="public/hook-hero.webp" alt="Hook Hero – Held mit Umhang" width="1200" height="1500" fetchpriority="high" decoding="async" draggable="false" />
+      <img class="hf-hero" src="public/hook-hero.webp" alt="Hook Hero – Held mit Umhang" width="1200" height="1500" fetchpriority="low" decoding="async" draggable="false" />
     </div>
   </div>
   <a id="scroll-hint" href="#manifest" onclick="event.preventDefault();document.getElementById('manifest').scrollIntoView({behavior:'smooth'})">Scroll<div class="scroll-line"></div></a>
@@ -740,17 +740,17 @@
   <div class="marquee" aria-label="Website-Showcase – Beispielprojekte">
     <div class="marquee-track">
       <!-- Echte Referenz-Websites als Loop-Videos. href="#" durch die jeweilige Live-URL ersetzen, dann onclick entfernen. -->
-      <a class="shot" href="#" onclick="return false"><video src="public/ref-ecomoptimize.mp4" poster="public/ref-ecomoptimize.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">EcomOptimize · Amazon-Betreuung →</span></a>
-      <a class="shot" href="#" onclick="return false"><video src="public/ref-dkfinanz.mp4" poster="public/ref-dkfinanz.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">DK FinanzKanzlei · Finanzberatung →</span></a>
-      <a class="shot" href="#" onclick="return false"><video src="public/ref-foerdermittel.mp4" poster="public/ref-foerdermittel.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">Fördermittel-Beratung →</span></a>
-      <a class="shot" href="#" onclick="return false"><video src="public/ref-satherm.mp4" poster="public/ref-satherm.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">SA-Therm · Sanitärtechnik →</span></a>
-      <a class="shot" href="#" onclick="return false"><video src="public/ref-mfe.mp4" poster="public/ref-mfe.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">MFE Makler · Versicherungsmakler →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-ecomoptimize.mp4" poster="public/ref-ecomoptimize.webp" muted loop playsinline preload="none"></video><span class="shot-label">EcomOptimize · Amazon-Betreuung →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-dkfinanz.mp4" poster="public/ref-dkfinanz.webp" muted loop playsinline preload="none"></video><span class="shot-label">DK FinanzKanzlei · Finanzberatung →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-foerdermittel.mp4" poster="public/ref-foerdermittel.webp" muted loop playsinline preload="none"></video><span class="shot-label">Fördermittel-Beratung →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-satherm.mp4" poster="public/ref-satherm.webp" muted loop playsinline preload="none"></video><span class="shot-label">SA-Therm · Sanitärtechnik →</span></a>
+      <a class="shot" href="#" onclick="return false"><video src="public/ref-mfe.mp4" poster="public/ref-mfe.webp" muted loop playsinline preload="none"></video><span class="shot-label">MFE Makler · Versicherungsmakler →</span></a>
       <!-- Kopie für nahtlose Endlos-Schleife (identisch halten) -->
-      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-ecomoptimize.mp4" poster="public/ref-ecomoptimize.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">EcomOptimize · Amazon-Betreuung →</span></a>
-      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-dkfinanz.mp4" poster="public/ref-dkfinanz.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">DK FinanzKanzlei · Finanzberatung →</span></a>
-      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-foerdermittel.mp4" poster="public/ref-foerdermittel.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">Fördermittel-Beratung →</span></a>
-      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-satherm.mp4" poster="public/ref-satherm.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">SA-Therm · Sanitärtechnik →</span></a>
-      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-mfe.mp4" poster="public/ref-mfe.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="shot-label">MFE Makler · Versicherungsmakler →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-ecomoptimize.mp4" poster="public/ref-ecomoptimize.webp" muted loop playsinline preload="none"></video><span class="shot-label">EcomOptimize · Amazon-Betreuung →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-dkfinanz.mp4" poster="public/ref-dkfinanz.webp" muted loop playsinline preload="none"></video><span class="shot-label">DK FinanzKanzlei · Finanzberatung →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-foerdermittel.mp4" poster="public/ref-foerdermittel.webp" muted loop playsinline preload="none"></video><span class="shot-label">Fördermittel-Beratung →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-satherm.mp4" poster="public/ref-satherm.webp" muted loop playsinline preload="none"></video><span class="shot-label">SA-Therm · Sanitärtechnik →</span></a>
+      <a class="shot" href="#" onclick="return false" aria-hidden="true" tabindex="-1"><video src="public/ref-mfe.mp4" poster="public/ref-mfe.webp" muted loop playsinline preload="none"></video><span class="shot-label">MFE Makler · Versicherungsmakler →</span></a>
     </div>
   </div>
 </section>
@@ -764,18 +764,18 @@
   </div>
   <div class="reel reveal" aria-label="Video-Showcase">
     <div class="clip clip-169" data-embed="https://www.youtube-nocookie.com/embed/4velQF7cjMk?autoplay=1&amp;rel=0" data-title="Die betriebliche Altersvorsorge BAV – Produktvideo für BVA-Service" role="button" tabindex="0" aria-label="Produktvideo abspielen: Die betriebliche Altersvorsorge – BVA-Service">
-      <img class="clip-poster" src="public/poster-bva.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" />
+      <img class="clip-poster" src="public/poster-bva.webp" alt="" width="960" height="540" loading="lazy" decoding="async" />
       <span class="clip-tag">Produktvideo · 16:9</span>
       <span class="clip-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
       <span class="clip-cap">Produktvideo für BVA-Service – half dem Unternehmen, <b>doppelt so viel</b> vom Produkt zu verkaufen.</span>
     </div>
     <div class="clip clip-916">
-      <video src="public/reel-finanzstarter.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Instagram-Reel für Finanzstarter"></video>
+      <video src="public/reel-finanzstarter.mp4" muted loop playsinline preload="none" aria-label="Instagram-Reel für Finanzstarter"></video>
       <span class="clip-tag">Reel · 9:16</span>
       <span class="clip-cap">Insta-Reel für <b>Finanzstarter</b>.</span>
     </div>
     <div class="clip clip-11">
-      <video src="public/ki-dk-flammenwerfer.mp4" autoplay muted loop playsinline preload="metadata" aria-label="KI-Image-Video für DK Finanzkanzlei – Meta Ad"></video>
+      <video src="public/ki-dk-flammenwerfer.mp4" muted loop playsinline preload="none" aria-label="KI-Image-Video für DK Finanzkanzlei – Meta Ad"></video>
       <span class="clip-tag">100&nbsp;% KI-generiert · Meta Ad</span>
     </div>
   </div>
@@ -793,7 +793,7 @@
     <p class="svc-lead">Wir posten nicht einfach drauflos. Jedes Video und jeder Post zahlt auf ein Ziel ein: <strong>Follower, die zu Kunden werden.</strong> Formate, Frequenz, Hooks – geplant wie eine Kampagne, umgesetzt wie eine Redaktion. Website, Video und Strategie greifen ineinander. Was dabei rauskommt, siehst du direkt hier drunter.</p>
   </div>
   <div class="strat-media reveal">
-    <video src="public/hero.mp4" autoplay muted loop playsinline preload="none" aria-label="Hook Hero Showreel – Social Media, Google Ads, Website, Listing, Meta Ads, SEO"></video>
+    <video src="public/hero.mp4" muted loop playsinline preload="none" aria-label="Hook Hero Showreel – Social Media, Google Ads, Website, Listing, Meta Ads, SEO"></video>
   </div>
 </section>
 
@@ -898,7 +898,7 @@
       <h2>Du verkaufst Versicherungen<br/>oder Immobilien?</h2>
       <p>Close Hero liefert dir <span style="text-decoration:underline;text-decoration-color:#FFB800;text-underline-offset:4px;text-decoration-thickness:2px;">qualifizierte Leads</span> – alles, was du brauchst.<br/><span style="font-size:.82rem;opacity:.7;">Ratenzahlung per PayPal möglich.</span></p>
     </div>
-    <a class="btn-gold" href="close-hero.html" style="display:inline-flex;align-items:center;gap:.7rem;padding:.25rem 1.4rem .25rem .3rem;"><img src="public/logo.png" alt="Close Hero Logo" width="36" height="36" loading="lazy" decoding="async" style="width:36px;height:36px;object-fit:contain;flex-shrink:0;filter:hue-rotate(185deg) saturate(1.6) brightness(1.05) drop-shadow(0 0 10px rgba(255,69,0,.5)) drop-shadow(0 0 24px rgba(255,184,0,.3));"> Zu Close Hero →</a>
+    <a class="btn-gold" href="close-hero.html" style="display:inline-flex;align-items:center;gap:.7rem;padding:.25rem 1.4rem .25rem .3rem;"><img src="public/logo-96.webp" alt="Close Hero Logo" width="36" height="36" loading="lazy" decoding="async" style="width:36px;height:36px;object-fit:contain;flex-shrink:0;filter:hue-rotate(185deg) saturate(1.6) brightness(1.05) drop-shadow(0 0 10px rgba(255,69,0,.5)) drop-shadow(0 0 24px rgba(255,184,0,.3));"> Zu Close Hero →</a>
   </div>
 </section>
 
@@ -1070,8 +1070,16 @@
   });
 })();
 
+/* ponytail: schwere Hero-FX erst bei erster Interaktion starten – sonst blockieren sie LCP/TBT.
+   Bis dahin sieht man Verlauf + Foto (statisch). */
+function onFirstInteraction(fn){
+  const ev=['pointermove','pointerdown','touchstart','scroll','keydown','wheel'];
+  const go=()=>{ev.forEach(e=>removeEventListener(e,go));fn();};
+  ev.forEach(e=>addEventListener(e,go,{passive:true,once:true}));
+}
+
 /* ── ANIMATED SHADER BACKGROUND (intro) ─────────────────────── */
-(function(){
+onFirstInteraction(function(){
   const canvas=document.getElementById('hf-canvas');
   if(!canvas)return;
   const gl=canvas.getContext('webgl2');
@@ -1166,7 +1174,7 @@ void main(void){
   resize();
   io.observe(canvas);
   window.addEventListener('resize',resize,{passive:true});
-})();
+});
 
 /* ── HERO WAVE REVEAL (auto-animate + mouse override) ───────── */
 (function(){
@@ -1213,7 +1221,7 @@ void main(void){
     if(!mouseMode){autoT+=dt;setMask(buildAutoMask(autoT),'source-over,source-over,source-over');}
     requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
+  onFirstInteraction(()=>requestAnimationFrame(tick));
 
   stack.addEventListener('mousemove',e=>{
     mouseMode=true;
@@ -1251,7 +1259,7 @@ document.querySelectorAll('a,button,.clip[role="button"]').forEach(el=>{
 });
 /* Autoplay-Videos nur abspielen, wenn sichtbar (CPU/Akku, Mobile) */
 const vObs=new IntersectionObserver(es=>es.forEach(x=>{const v=x.target;if(x.isIntersecting){if(v.preload==='none')v.preload='auto';v.play().catch(()=>{});}else v.pause();}),{rootMargin:'200px 0px'});
-document.querySelectorAll('video[autoplay]').forEach(v=>vObs.observe(v));
+document.querySelectorAll('video[loop]').forEach(v=>vObs.observe(v));
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 const cObs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,t=+el.dataset.count,s=el.dataset.suffix||'',pre=el.dataset.prefix||'';let st=0;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=pre+Math.floor(ease*t).toLocaleString('de-DE')+s;if(p<1)requestAnimationFrame(step);else el.textContent=pre+t.toLocaleString('de-DE')+s;};requestAnimationFrame(step);cObs.unobserve(el);});},{threshold:.5});
